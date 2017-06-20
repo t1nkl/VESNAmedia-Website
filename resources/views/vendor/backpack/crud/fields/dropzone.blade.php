@@ -17,7 +17,7 @@
             @foreach($field['value'] as $key => $file_path)
                 <div class="dz-preview dz-image-preview dz-complete">
                     <input type="hidden" name="{{ $field['name'] }}[]" value="{{ $file_path }}" />
-                    <div class="dz-image-no-hover"><img style="width:144px" src="/uploads/{{ ($file_path) }}" /></div>
+                    <div class="dz-image-no-hover"><img style="width:145px" src="{{ ($file_path) }}" /></div>
                     <a class="dz-remove dz-remove-existing" href="javascript:undefined;">{{ trans('backpack::dropzone.remove_file') }}</a>
                 </div>
             @endforeach

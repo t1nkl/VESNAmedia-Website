@@ -37,7 +37,7 @@ return [
     'email'                => ':attribute должен быть допустимым e-mail адресом.',
     'exists'               => 'Выбранный :attribute недействителен.',
     'filled'               => ':attribute требуется.',
-    'image'                => ':attribute должен быть изображением.',
+    'image'                => ':attribute должно быть изображением.',
     'in'                   => 'Выбранный атрибут :attribute недействителен.',
     'integer'              => ':attribute должен быть целым числом.',
     'ip'                   => ':attribute должен быть допустимым IP-адресом.',

@@ -15,12 +15,19 @@ class CreateRecommendArticlesTable extends Migration
     {
         Schema::create('recommend_articles', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->integer('parent_id')->default(0)->nullable();
+            $table->integer('lft')->unsigned()->nullable();
+            $table->integer('rgt')->unsigned()->nullable();
+            $table->integer('depth')->unsigned()->nullable();
+            
             $table->string('title');
+            $table->integer('recommend_category_id')->unsigned()->default(0);
             $table->string('slug')->default('');
             $table->string('image')->nullable();
             $table->text('recommend_photos')->nullable();
             $table->longText('content')->nullable();
-            $table->enum('status', ['PUBLISHED', 'NOT PUBLISHED'])->default('PUBLISHED');
+            $table->enum('status', ['PUBLISHED', 'DRAFT'])->default('PUBLISHED');
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
 

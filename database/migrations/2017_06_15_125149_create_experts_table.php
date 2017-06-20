@@ -13,13 +13,20 @@ class CreateExpertsTable extends Migration
      */
     public function up()
     {
+        Schema::getConnection()->getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
         Schema::create('experts', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->integer('parent_id')->default(0)->nullable();
+            $table->integer('lft')->unsigned()->nullable();
+            $table->integer('rgt')->unsigned()->nullable();
+            $table->integer('depth')->unsigned()->nullable();
+            
             $table->string('title');
             $table->string('slug')->default('');
             $table->string('image')->nullable();
             $table->text('description')->nullable();
-            $table->enum('status', ['PUBLISHED', 'NOT PUBLISHED'])->default('PUBLISHED');
+            $table->enum('status', ['PUBLISHED', 'DRAFT'])->default('PUBLISHED');
 
             $table->string('url')->nullable();
             $table->string('facebook')->nullable();

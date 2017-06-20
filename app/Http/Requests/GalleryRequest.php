@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
+use App\Models\Gallery;
 
 class GalleryRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
 {
@@ -24,9 +24,10 @@ class GalleryRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
      */
     public function rules()
     {
-        return [
-            // 'name' => 'required|min:5|max:255'
+        $validate = [
+            'title' => 'required|min:2|max:191',
         ];
+        return $validate;
     }
 
     /**
@@ -49,7 +50,7 @@ class GalleryRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     public function messages()
     {
         return [
-            //
+            'title.required' => 'Поле название требуется.',
         ];
     }
 }

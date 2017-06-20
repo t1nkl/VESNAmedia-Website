@@ -19,8 +19,8 @@ class SeoCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
         $this->crud->setModel('App\Models\Seo');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/seo');
-        $this->crud->setEntityNameStrings('seo', 'seos');
+        $this->crud->setRoute(config('backpack.base.route_prefix', 'admin') . '/seo');
+        $this->crud->setEntityNameStrings('SEO', 'SEO');
 
         /*
         |--------------------------------------------------------------------------
@@ -28,7 +28,43 @@ class SeoCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+        // ------ CRUD COLUMNS     
+        $this->crud->addColumns([
+            [
+                'name' => 'title',
+                'label' => 'Название'
+            ],
+        ]);
+
+        // ------ CRUD FIELDS
+        $this->crud->addFields([
+            [
+                'name' => 'title',
+                'label' => 'Название',
+                'type' => 'text',
+            ],
+            [
+                'label' => 'Название (title)',
+                'type' => 'text',
+                'name' => 'seo_title',
+                'count_down' => 80,
+                'attributes' => ['maxlength' => 80],
+            ],
+            [
+                'label' => 'Описание (description)',
+                'type' => 'textarea',
+                'name' => 'seo_description',
+                'count_down' => 155,
+                'attributes' => ['maxlength' => 155, 'rows' => 3],
+            ],
+            [
+                'label' => 'Ключевые слова (keywords)',
+                'type' => 'textarea',
+                'name' => 'seo_keywords',
+                'count_down' => 180,
+                'attributes' => ['maxlength' => 180, 'rows' => 3],
+            ],
+        ]);
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');

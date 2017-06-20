@@ -19,8 +19,8 @@ class LidCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
         $this->crud->setModel('App\Models\Lid');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/lid');
-        $this->crud->setEntityNameStrings('lid', 'lids');
+        $this->crud->setRoute(config('backpack.base.route_prefix', 'admin') . '/lids');
+        $this->crud->setEntityNameStrings('лид', 'лиды');
 
         /*
         |--------------------------------------------------------------------------
@@ -28,7 +28,15 @@ class LidCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+        // ------ CRUD COLUMNS     
+        $this->crud->addColumns([
+            ['name' => 'email', 'label' => 'Email'],
+            ['name' => 'created_at', 'label' => 'Дата'],
+        ]);
+
+        $this->crud->orderBy('created_at', 'desc');
+
+        $this->crud->denyAccess(['create', 'update']);
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');

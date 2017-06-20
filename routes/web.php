@@ -11,17 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-
-
-
 Route::get('login', function () {
     return redirect('/admin/login');
 });
@@ -31,9 +20,10 @@ Route::get('register', function () {
 
 
 
-Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth', 'role:admin,access_backend'], 'namespace' => 'Admin'], function () {
-    // Backpack\NewsCRUD
-    CRUD::resource('article', 'ArticleCrudController');
-    CRUD::resource('category', 'CategoryCrudController');
-    CRUD::resource('tag', 'TagCrudController');
-});
+Route::resource('/', 'HomeController');
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+// Auth::routes();
+// Route::get('/home', 'HomeController@index')->name('home');

@@ -19,8 +19,8 @@ class JournalCategoryCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
         $this->crud->setModel('App\Models\JournalCategory');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/journalcategory');
-        $this->crud->setEntityNameStrings('journalcategory', 'journal_categories');
+        $this->crud->setRoute(config('backpack.base.route_prefix', 'admin') . '/journal/category');
+        $this->crud->setEntityNameStrings('категорию', 'категории');
 
         /*
         |--------------------------------------------------------------------------
@@ -28,7 +28,25 @@ class JournalCategoryCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+        $this->crud->allowAccess('reorder');
+        $this->crud->enableReorder('title', 1);
+        $this->crud->orderBy('rgt');
+
+        // ------ CRUD COLUMNS     
+        $this->crud->addColumns([
+            ['name' => 'title', 'label' => 'Название'],
+        ]);
+
+        // ------ CRUD FIELDS
+        $this->crud->addFields([
+            ['name' => 'title', 'label' => 'Название', 'type' => 'text'],
+        ]);
+        // $this->crud->addColumn([
+        //                         'name' => 'slug',
+        //                         'label' => 'Slug',
+        //                     ], 'update');
+
+        $this->crud->enableAjaxTable();
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');

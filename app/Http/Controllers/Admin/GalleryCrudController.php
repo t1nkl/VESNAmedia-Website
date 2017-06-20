@@ -7,6 +7,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\GalleryRequest as StoreRequest;
 use App\Http\Requests\GalleryRequest as UpdateRequest;
+use App\Http\Requests\DropzoneRequest as DropzoneRequest;
 
 class GalleryCrudController extends CrudController
 {
@@ -19,8 +20,8 @@ class GalleryCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
         $this->crud->setModel('App\Models\Gallery');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/gallery');
-        $this->crud->setEntityNameStrings('gallery', 'galleries');
+        $this->crud->setRoute(config('backpack.base.route_prefix', 'admin') . '/gallery');
+        $this->crud->setEntityNameStrings('галерею', 'галереи');
 
         /*
         |--------------------------------------------------------------------------
@@ -28,7 +29,93 @@ class GalleryCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+        $this->crud->allowAccess('reorder');
+        $this->crud->enableReorder('title', 1);
+        $this->crud->orderBy('rgt');
+
+        // ------ CRUD COLUMNS     
+        $this->crud->addColumns([
+            ['name' => 'title', 'label' => 'Название'],
+            ['name' => 'created_at', 'label' => 'Дата создание'],
+            ]);
+
+        // ------ CRUD FIELDS
+        $this->crud->addFields([
+            [
+                'label' => 'Название',
+                'type' => 'text',
+                'name' => 'title',
+                'tab' => 'Контент'
+            ],
+            [
+                'label' => 'Изображение',
+                'type' => 'image',
+                'name' => 'image',
+                'upload' => true,
+                'crop' => false,
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-12 image',
+                ],
+                'tab' => 'Контент'
+            ],
+            [
+                'name' => 'gallery_photos',
+                'label' => 'Галерея изображений',
+                'type' => 'dropzone',
+                'prefix' => 'uploads',
+                'upload-url' => '/' . config('backpack.base.route_prefix', 'admin') . '/gallery-dropzone',
+                'tab' => 'Контент',
+            ]
+        ]);
+        $this->crud->addFields([
+            [
+                'name' => 'date',
+                'label' => 'Дата',
+                'type' => 'date',
+                'value' => date('Y-m-d'),
+                'tab' => 'Контент'
+            ]
+        ], 'create');
+        $this->crud->addFields([
+            [
+                'name' => 'date',
+                'label' => 'Дата',
+                'type' => 'date',
+                'tab' => 'Контент'
+            ]
+        ], 'update');
+        $this->crud->addFields([
+            [
+                'name' => 'seo_separator',
+                'type' => 'custom_html',
+                'value' => '<h3>SEO</h3><h4>если нету, будет использоватся автогенирация</h4><hr>',
+                'tab' => 'Seo'
+            ],
+            [
+                'label' => 'Название (title)',
+                'type' => 'text',
+                'name' => 'seo_title',
+                'count_down' => 80,
+                'attributes' => ['maxlength' => 80],
+                'tab' => 'Seo'
+            ],
+            [
+                'label' => 'Описание (description)',
+                'type' => 'textarea',
+                'name' => 'seo_description',
+                'count_down' => 155,
+                'attributes' => ['maxlength' => 155, 'rows' => 3],
+                'tab' => 'Seo'
+            ],
+            [
+                'label' => 'Ключевые слова (keywords)',
+                'type' => 'textarea',
+                'name' => 'seo_keywords',
+                'count_down' => 180,
+                'attributes' => ['maxlength' => 180, 'rows' => 3],
+                'tab' => 'Seo'
+            ],
+        ]);
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');
@@ -110,10 +197,38 @@ class GalleryCrudController extends CrudController
 
     public function update(UpdateRequest $request)
     {
+        if (empty ($request->get('gallery_photos'))) {
+            $this->crud->update(\Request::get($this->crud->model->getKeyName()), ['gallery_photos' => '[]']);
+        }
         // your additional operations before save here
         $redirect_location = parent::updateCrud();
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
     }
+
+    public function DropzoneUpload(DropzoneRequest $request)
+    {
+        $disk = "uploads";
+        $destination_path = "Gallery/".\Carbon\Carbon::now()->format('d-m-Y-h-m-i');
+        $file = $request->file('file');
+        try
+        {
+            $image = \Image::make($file)->resize(null, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $filename = md5($file->getClientOriginalName().time()).'.png';
+            \Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
+            return response()->json(['success' => true, 'filename' => '/'.$disk.'/'.$destination_path . '/' . $filename]);
+        }
+        catch (\Exception $e)
+        {
+            if (empty ($image)) {
+                return response('Not a valid image type', 404);
+            } else {
+                return response('Unknown error', 404);
+            }
+        }
+    }
+
 }

@@ -19,16 +19,68 @@ class JournalCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
         $this->crud->setModel('App\Models\Journal');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/journal');
-        $this->crud->setEntityNameStrings('journal', 'journals');
+        $this->crud->setRoute(config('backpack.base.route_prefix', 'admin') . '/journals');
+        $this->crud->setEntityNameStrings('журнал', 'журналы');
+
+        // ------ CRUD COLUMNS     
+        $this->crud->addColumns([
+            ['name' => 'title', 'label' => 'Название'],
+            ['name' => 'date', 'label' => 'Дата'],
+        ]);
+
+        // ------ CRUD FIELDS
+        $this->crud->addFields([
+            [
+                'label' => 'Название',
+                'type' => 'text',
+                'name' => 'title',
+            ],
+            [
+                'label' => 'Изображение',
+                'type' => 'image',
+                'name' => 'image',
+                'upload' => true,
+                'crop' => true,
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-12 image',
+                ],
+                'aspect_ratio' => 0.75,
+            ],
+            [
+                'label' => 'Журнал в формате PDF',
+                'type' => 'upload',
+                'name' => 'pdf',
+                'upload' => true,
+            ],
+            [
+                'label' => 'Ссылка (купить online)',
+                'name' => 'url',
+                'type' => 'url',
+            ]
+        ]);
+        $this->crud->addFields([
+            [
+                'name' => 'date',
+                'label' => 'Дата',
+                'type' => 'date',
+                'value' => date('Y-m-d'),
+            ]
+        ], 'create');
+        $this->crud->addFields([
+            [
+                'name' => 'date',
+                'label' => 'Дата',
+                'type' => 'date',
+            ]
+        ], 'update');
+
+        $this->crud->enableAjaxTable();
 
         /*
         |--------------------------------------------------------------------------
         | BASIC CRUD INFORMATION
         |--------------------------------------------------------------------------
         */
-
-        $this->crud->setFromDb();
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');

@@ -19,8 +19,8 @@ class PartnerCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
         $this->crud->setModel('App\Models\Partner');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/partner');
-        $this->crud->setEntityNameStrings('partner', 'partners');
+        $this->crud->setRoute(config('backpack.base.route_prefix', 'admin') . '/partners');
+        $this->crud->setEntityNameStrings('партнера', 'партнеры');
 
         /*
         |--------------------------------------------------------------------------
@@ -28,7 +28,47 @@ class PartnerCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+        $this->crud->allowAccess('reorder');
+        $this->crud->enableReorder('title', 1);
+        $this->crud->orderBy('rgt');
+
+        // ------ CRUD COLUMNS     
+        $this->crud->addColumns([
+            ['name' => 'title', 'label' => 'Название'],
+            ['name' => 'created_at', 'label' => 'Дата создание'],
+        ]);
+
+        // ------ CRUD FIELDS
+        $this->crud->addFields([
+            [
+                'label' => 'Название',
+                'type' => 'text',
+                'name' => 'title',
+            ],
+            [
+                'label' => 'Изображение',
+                'type' => 'image',
+                'name' => 'image',
+                'upload' => true,
+                'crop' => false,
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-12 image',
+                ],
+            ],
+            [
+                'label' => 'Описание',
+                'type' => 'textarea',
+                'name' => 'description',
+                'attributes' => ['rows' => 4],
+            ],
+            [
+                'label' => 'Ссылка',
+                'type' => 'url',
+                'name' => 'url',
+            ]
+        ]);
+
+        $this->crud->enableAjaxTable();
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');

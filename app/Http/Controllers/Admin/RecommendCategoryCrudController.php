@@ -19,8 +19,8 @@ class RecommendCategoryCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
         $this->crud->setModel('App\Models\RecommendCategory');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/recommendcategory');
-        $this->crud->setEntityNameStrings('recommendcategory', 'recommend_categories');
+        $this->crud->setRoute(config('backpack.base.route_prefix', 'admin') . '/recommend/category');
+        $this->crud->setEntityNameStrings('категорию', 'категории');
 
         /*
         |--------------------------------------------------------------------------
@@ -28,7 +28,21 @@ class RecommendCategoryCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+        $this->crud->allowAccess('reorder');
+        $this->crud->enableReorder('title', 1);
+        $this->crud->orderBy('rgt');
+
+        // ------ CRUD COLUMNS     
+        $this->crud->addColumns([
+            ['name' => 'title', 'label' => 'Название'],
+        ]);
+
+        // ------ CRUD FIELDS
+        $this->crud->addFields([
+            ['name' => 'title', 'label' => 'Название', 'type' => 'text'],
+        ]);
+
+        $this->crud->enableAjaxTable();
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');

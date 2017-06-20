@@ -19,8 +19,8 @@ class AboutCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
         $this->crud->setModel('App\Models\About');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/about');
-        $this->crud->setEntityNameStrings('about', 'abouts');
+        $this->crud->setRoute(config('backpack.base.route_prefix', 'admin') . '/about');
+        $this->crud->setEntityNameStrings('о нас', 'о нас');
 
         /*
         |--------------------------------------------------------------------------
@@ -28,7 +28,59 @@ class AboutCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+        // ------ CRUD COLUMNS     
+        $this->crud->addColumns([
+            ['name' => 'title', 'label' => 'Название'],
+        ]);
+
+        // ------ CRUD FIELDS
+        $this->crud->addFields([
+            [
+                'label' => 'Название',
+                'type' => 'text',
+                'name' => 'title',
+                'tab' => 'Контент'
+            ],
+            [
+                'label' => 'Контент',
+                'type' => 'tinymce',
+                'name' => 'content',
+                'tab' => 'Контент'
+            ],
+            [
+                'label' => 'Карта',
+                'type' => 'textarea',
+                'name' => 'map',
+                'attributes' => ['rows' => 4],
+                'tab' => 'Контент'
+            ]
+        ]);
+        $this->crud->addFields([
+            [
+                'label' => 'Название (title)',
+                'type' => 'text',
+                'name' => 'seo_title',
+                'count_down' => 80,
+                'attributes' => ['maxlength' => 80],
+                'tab' => 'Seo'
+            ],
+            [
+                'label' => 'Описание (description)',
+                'type' => 'textarea',
+                'name' => 'seo_description',
+                'count_down' => 155,
+                'attributes' => ['maxlength' => 155, 'rows' => 3],
+                'tab' => 'Seo'
+            ],
+            [
+                'label' => 'Ключевые слова (keywords)',
+                'type' => 'textarea',
+                'name' => 'seo_keywords',
+                'count_down' => 180,
+                'attributes' => ['maxlength' => 180, 'rows' => 3],
+                'tab' => 'Seo'
+            ],
+        ]);
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');

@@ -19,8 +19,8 @@ class ContactCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
         $this->crud->setModel('App\Models\Contact');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/contact');
-        $this->crud->setEntityNameStrings('contact', 'contacts');
+        $this->crud->setRoute(config('backpack.base.route_prefix', 'admin') . '/contact');
+        $this->crud->setEntityNameStrings('заявка', 'заявки');
 
         /*
         |--------------------------------------------------------------------------
@@ -28,7 +28,17 @@ class ContactCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+        // ------ CRUD COLUMNS     
+        $this->crud->addColumns([
+            ['name' => 'name', 'label' => 'Имя'],
+            ['name' => 'email', 'label' => 'Email'],
+            ['name' => 'phone', 'label' => 'Телефон'],
+            ['name' => 'created_at', 'label' => 'Дата'],
+        ]);
+
+        $this->crud->orderBy('created_at', 'desc');
+
+        $this->crud->denyAccess(['create', 'update']);
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');

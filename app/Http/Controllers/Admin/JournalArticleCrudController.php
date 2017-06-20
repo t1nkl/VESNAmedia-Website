@@ -19,8 +19,8 @@ class JournalArticleCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
         $this->crud->setModel('App\Models\JournalArticle');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/journalarticle');
-        $this->crud->setEntityNameStrings('journalarticle', 'journal_articles');
+        $this->crud->setRoute(config('backpack.base.route_prefix', 'admin') . '/journal/article');
+        $this->crud->setEntityNameStrings('статью', 'статьи');
 
         /*
         |--------------------------------------------------------------------------
@@ -28,7 +28,149 @@ class JournalArticleCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+        $this->crud->allowAccess('reorder');
+        $this->crud->enableReorder('title', 1);
+        $this->crud->orderBy('rgt');
+
+        // ------ CRUD COLUMNS     
+        $this->crud->addColumns([
+            ['name' => 'title', 'label' => 'Название'],
+        ]);
+
+        // ------ CRUD FIELDS
+        $this->crud->addFields([
+            [
+                'label' => 'Название',
+                'type' => 'text',
+                'name' => 'title',
+                'tab' => 'Контент'
+            ],
+            [
+                'label' => 'Категория',
+                'type' => 'select',
+                'name' => 'journal_category_id',
+                'entity' => 'category',
+                'attribute' => 'title',
+                'model' => "App\Models\JournalCategory",
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-6',
+                ],
+                'tab' => 'Контент'
+            ],
+            [
+                'label' => 'Автор (Эксперт)',
+                'type' => 'select2',
+                'name' => 'author_id',
+                'entity' => 'author',
+                'attribute' => 'title',
+                'model' => "App\Models\Expert",
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-6',
+                ],
+                'tab' => 'Контент'
+            ],
+            [
+                'label' => 'Изображение',
+                'type' => 'image',
+                'name' => 'image',
+                'upload' => true,
+                'crop' => false,
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-12 image',
+                ],
+                'tab' => 'Контент'
+            ],
+            [
+                'label' => 'Контент',
+                'type' => 'tinymce',
+                'name' => 'content',
+                'attributes' => ['rows' => 10],
+                'tab' => 'Контент'
+            ],
+            [
+                'name' => 'status',
+                'label' => 'Статус',
+                'type' => 'enum',
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-6',
+                ],
+                'tab' => 'Контент'
+            ]
+        ]);
+        $this->crud->addFields([
+            [
+                'name' => 'date',
+                'label' => 'Дата',
+                'type' => 'date',
+                'value' => date('Y-m-d'),
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-6',
+                ],
+                'tab' => 'Контент'
+            ]
+        ], 'create');
+        $this->crud->addFields([
+            [
+                'name' => 'date',
+                'label' => 'Дата',
+                'type' => 'date',
+                'tab' => 'Контент'
+            ]
+        ], 'update');
+        $this->crud->addFields([
+            [
+                'name' => 'event_date_range',
+                'start_name' => 'start_date',
+                'end_name' => 'end_date',
+                'label' => 'Время видимости статьи',
+                'type' => 'date_range',
+                'start_default' => '2017-01-01 00:00',
+                'end_default' => '2037-12-31 00:00',
+                'date_range_options' => [
+                    'timePicker' => true,
+                    'locale' => ['format' => 'DD-MM-YYYY HH:mm']
+                ],
+                'tab' => 'Контент',
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-8',
+                ],
+                'hint' => 'Выберите дату и время начала и конца видимости публикации',
+            ]
+        ]);
+        $this->crud->addFields([
+            [
+                'name' => 'seo_separator',
+                'type' => 'custom_html',
+                'value' => '<h3>SEO</h3><h4>если нету, будет использоватся автогенирация</h4><hr>',
+                'tab' => 'Seo'
+            ],
+            [
+                'label' => 'Название (title)',
+                'type' => 'text',
+                'name' => 'seo_title',
+                'count_down' => 80,
+                'attributes' => ['maxlength' => 80],
+                'tab' => 'Seo'
+            ],
+            [
+                'label' => 'Описание (description)',
+                'type' => 'textarea',
+                'name' => 'seo_description',
+                'count_down' => 155,
+                'attributes' => ['maxlength' => 155, 'rows' => 3],
+                'tab' => 'Seo'
+            ],
+            [
+                'label' => 'Ключевые слова (keywords)',
+                'type' => 'textarea',
+                'name' => 'seo_keywords',
+                'count_down' => 180,
+                'attributes' => ['maxlength' => 180, 'rows' => 3],
+                'tab' => 'Seo'
+            ],
+        ]);
+
+        $this->crud->enableAjaxTable();
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');

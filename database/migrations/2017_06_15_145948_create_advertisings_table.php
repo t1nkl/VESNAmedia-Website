@@ -15,10 +15,13 @@ class CreateAdvertisingsTable extends Migration
     {
         Schema::create('advertisings', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('admin_title')->nullable();
             $table->string('title')->nullable();
-            $table->string('image')->nullable();
+            $table->string('slug')->default('');
+            $table->string('desktopimage')->nullable();
+            $table->string('mobileimage')->nullable();
             $table->string('url')->nullable();
-            $table->enum('status', ['PUBLISHED', 'NOT PUBLISHED'])->default('PUBLISHED');
+            $table->enum('status', ['PUBLISHED', 'DRAFT'])->default('PUBLISHED');
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->timestamps();
