@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Identify;
+use App\Models\Journal;
 use Illuminate\Http\Request;
 
 class JournalController extends Controller

@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
+use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 
 class JournalCategory extends Model
 {
     use CrudTrait;
+    use Sluggable, SluggableScopeHelpers;
 
      /*
     |--------------------------------------------------------------------------

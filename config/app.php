@@ -241,6 +241,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Identify' => Unicodeveloper\Identify\Facades\IdentityFacade::class,
+        'Helpers'   => App\Libraries\Helpers::class,
 
     ],
 

@@ -1,13 +1,18 @@
 <header class="mp-header row">
 	<div class="col-md-5 header-brand">
-		<a href="{{url('/')}}"><img src="/img/logo.svg" class="img-fluid header-brand-img" alt=""></a>
+		<a href="{{ url('/') }}"><img src="/img/logo.svg" class="img-fluid header-brand-img" alt=""></a>
 	</div>
 	<div class="col-md-7 header-navigation">
 		<ul class="header-navigation-journal">
 			<li class="header-navigation-journal-item">
 				<a href="/journal" class="header-navigation-journal-link">Журнал</a>
 			</li>
+			@foreach(Helpers::getJournalCategories() as $journal_categories)
 			<li class="header-navigation-journal-item">
+				<a href="/journal#{{ $journal_categories->slug }}" class="header-navigation-journal-link">{{ $journal_categories->title }}</a>
+			</li>
+			@endforeach
+			<!-- <li class="header-navigation-journal-item">
 				<a href="/journal" class="header-navigation-journal-link">Косметология</a>
 			</li>
 			<li class="header-navigation-journal-item">
@@ -18,7 +23,7 @@
 			</li>
 			<li class="header-navigation-journal-item">
 				<a href="/journal" class="header-navigation-journal-link">События</a>
-			</li>
+			</li> -->
 		</ul>
 		<ul class="header-navigation-site">
 			<li class="header-navigation-site-item">
@@ -41,7 +46,12 @@
 			<li class="header-navigation-recommended-item">
 				<a href="/recommend" class="header-navigation-recommended-link">РЕКОМЕНДУЕМ</a>
 			</li>
+			@foreach(Helpers::getRecommendCategories() as $recommend_categories)
 			<li class="header-navigation-recommended-item">
+				<a href="/recommend#{{ $recommend_categories->slug }}" class="header-navigation-recommended-link">{{ $recommend_categories->title }}</a>
+			</li>
+			@endforeach
+			<!-- <li class="header-navigation-recommended-item">
 				<a href="/recommend" class="header-navigation-recommended-link">Рестораны</a>
 			</li>
 			<li class="header-navigation-recommended-item">
@@ -52,7 +62,7 @@
 			</li>
 			<li class="header-navigation-recommended-item">
 				<a href="/recommend" class="header-navigation-recommended-link">Барбершопы</a>
-			</li>
+			</li> -->
 		</ul>
 		<ul class="header-navigation-socmedia">
 			<li class="header-navigation-socmedia-item">
@@ -89,25 +99,25 @@
 			</div>
 			<ul class="col-md-12 header-mob-navigation-block">
 				<li class="header-mob-navigation-item">
-					<a class="header-mob-navigation-link" href="home.html">Главная</a>
+					<a class="header-mob-navigation-link" href="{{ url('/') }}">Главная</a>
 				</li>
 				<li class="header-mob-navigation-item">
-					<a class="header-mob-navigation-link" href="magazine.html">Журнал</a>
+					<a class="header-mob-navigation-link" href="/journal">Журнал</a>
 				</li>
 				<li class="header-mob-navigation-item">
-					<a class="header-mob-navigation-link" href="experts.html">Эксперты</a>
+					<a class="header-mob-navigation-link" href="/experts">Эксперты</a>
 				</li>
 				<li class="header-mob-navigation-item">
-					<a class="header-mob-navigation-link" href="gallery.html">Галерея</a>
+					<a class="header-mob-navigation-link" href="/gallery">Галерея</a>
 				</li>
 				<li class="header-mob-navigation-item">
-					<a class="header-mob-navigation-link" href="partners.html">Партнеры</a>
+					<a class="header-mob-navigation-link" href="/partners">Партнеры</a>
 				</li>
 				<li class="header-mob-navigation-item">
-					<a class="header-mob-navigation-link" href="contact.html">Контакты</a>
+					<a class="header-mob-navigation-link" href="/contacts">Контакты</a>
 				</li>
 				<li class="header-mob-navigation-item">
-					<a class="header-mob-navigation-link" href="recommended.html">Рекомендуем</a>
+					<a class="header-mob-navigation-link" href="/recommend">Рекомендуем</a>
 				</li>
 			</ul>
 			<ul class="col-md-12 header-mob-socmedia-block">
