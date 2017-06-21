@@ -102,7 +102,7 @@ class JournalArticleCrudController extends CrudController
                 'name' => 'date',
                 'label' => 'Дата',
                 'type' => 'date',
-                'value' => date('Y-m-d'),
+                'value' => \Carbon\Carbon::now()->format('Y-m-d'),
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-6',
                 ],
@@ -114,6 +114,9 @@ class JournalArticleCrudController extends CrudController
                 'name' => 'date',
                 'label' => 'Дата',
                 'type' => 'date',
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-6',
+                ],
                 'tab' => 'Контент'
             ]
         ], 'update');

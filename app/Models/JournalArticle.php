@@ -28,6 +28,7 @@ class JournalArticle extends Model
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
+        'date' => 'date',
     ];
 
     /**
@@ -71,6 +72,11 @@ class JournalArticle extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', 'PUBLISHED')->orderBy('rgt');
+    }
 
     /*
     |--------------------------------------------------------------------------

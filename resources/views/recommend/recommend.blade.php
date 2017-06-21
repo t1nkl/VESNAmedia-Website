@@ -17,10 +17,15 @@
 <main class="mp-main row">
     <ul class="col-md-12 recommended-list-category">
         <li class="recommended-list-category-item">
-            <a href="#" class="recommended-list-category-link">All</a>
+            <a href="#" class="recommended-list-category-link active-category">All</a>
         </li>
+        @foreach(Helpers::getRecommendCategories() as $recommend_categories)
         <li class="recommended-list-category-item">
-            <a href="#" class="recommended-list-category-link active-category">Рестораны</a>
+            <a href="#{{ $recommend_categories->slug }}" class="recommended-list-category-link">{{ $recommend_categories->title }}</a>
+        </li>
+        @endforeach
+        <!-- <li class="recommended-list-category-item">
+            <a href="#" class="recommended-list-category-link">Рестораны</a>
         </li>
         <li class="recommended-list-category-item">
             <a href="#" class="recommended-list-category-link">Салоны красоты</a>
@@ -30,7 +35,7 @@
         </li>
         <li class="recommended-list-category-item">
             <a href="#" class="recommended-list-category-link">Фитнес</a>
-        </li>
+        </li> -->
     </ul>
     <div class="col-md-12 page-grid-block">
         <div class="col-md-3 page-grid-item">

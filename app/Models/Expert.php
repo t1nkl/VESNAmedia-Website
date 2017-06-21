@@ -46,6 +46,11 @@ class Expert extends Model
     |--------------------------------------------------------------------------
     */
 
+    public static function getExperts()
+    {
+        return self::published()->get();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
@@ -62,6 +67,11 @@ class Expert extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', 'PUBLISHED')->orderBy('rgt');
+    }
 
     /*
     |--------------------------------------------------------------------------

@@ -35,7 +35,7 @@ class ExpertCrudController extends CrudController
         // ------ CRUD COLUMNS     
         $this->crud->addColumns([
             ['name' => 'title', 'label' => 'Название'],
-            ['name' => 'created_at', 'label' => 'Дата создание'],
+            ['name' => 'status', 'label' => 'Статус']
         ]);
 
         // ------ CRUD FIELDS

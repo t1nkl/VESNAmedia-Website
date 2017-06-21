@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expert;
 use Illuminate\Http\Request;
 
 class ExpertController extends Controller
@@ -23,7 +24,8 @@ class ExpertController extends Controller
      */
     public function index()
     {
-        return view('site.experts');
+        $experts = Expert::getExperts();
+        return view('site.experts', compact('experts'));
     }
 
     /**

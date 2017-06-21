@@ -16,9 +16,14 @@
 
 <ul class="col-md-12 recommended-list-category">
     <li class="recommended-list-category-item">
-        <a href="#" class="recommended-list-category-link">All</a>
+        <a href="#" class="recommended-list-category-link active-category">Все</a>
     </li>
+    @foreach(Helpers::getJournalCategories() as $journal_categories)
     <li class="recommended-list-category-item">
+        <a href="#{{ $journal_categories->slug }}" class="recommended-list-category-link">{{ $journal_categories->title }}</a>
+    </li>
+    @endforeach
+    <!-- <li class="recommended-list-category-item">
         <a href="#" class="recommended-list-category-link active-category">Рестораны</a>
     </li>
     <li class="recommended-list-category-item">
@@ -29,7 +34,7 @@
     </li>
     <li class="recommended-list-category-item">
         <a href="#" class="recommended-list-category-link">Фитнес</a>
-    </li>
+    </li> -->
 </ul>
 <article class="masonry-article" id="">
     <section class="">
