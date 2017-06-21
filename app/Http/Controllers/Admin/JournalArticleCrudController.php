@@ -35,6 +35,8 @@ class JournalArticleCrudController extends CrudController
         // ------ CRUD COLUMNS     
         $this->crud->addColumns([
             ['name' => 'title', 'label' => 'Название'],
+            ['label' => 'Категория', 'type' => 'select', 'name' => 'journal_category_id', 'entity' => 'category', 'attribute' => 'title', 'model' => "App\Models\JournalCategory"],
+            ['name' => 'status', 'label' => 'Статус']
         ]);
 
         // ------ CRUD FIELDS
@@ -120,26 +122,26 @@ class JournalArticleCrudController extends CrudController
                 'tab' => 'Контент'
             ]
         ], 'update');
-        $this->crud->addFields([
-            [
-                'name' => 'event_date_range',
-                'start_name' => 'start_date',
-                'end_name' => 'end_date',
-                'label' => 'Время видимости статьи',
-                'type' => 'date_range',
-                'start_default' => '2017-01-01 00:00',
-                'end_default' => '2037-12-31 00:00',
-                'date_range_options' => [
-                    'timePicker' => true,
-                    'locale' => ['format' => 'DD-MM-YYYY HH:mm']
-                ],
-                'tab' => 'Контент',
-                'wrapperAttributes' => [
-                    'class' => 'form-group col-md-8',
-                ],
-                'hint' => 'Выберите дату и время начала и конца видимости публикации',
-            ]
-        ]);
+        // $this->crud->addFields([
+        //     [
+        //         'name' => 'event_date_range',
+        //         'start_name' => 'start_date',
+        //         'end_name' => 'end_date',
+        //         'label' => 'Время видимости статьи',
+        //         'type' => 'date_range',
+        //         'start_default' => '2017-01-01 00:00',
+        //         'end_default' => '2037-12-31 00:00',
+        //         'date_range_options' => [
+        //             'timePicker' => true,
+        //             'locale' => ['format' => 'DD-MM-YYYY HH:mm']
+        //         ],
+        //         'tab' => 'Контент',
+        //         'wrapperAttributes' => [
+        //             'class' => 'form-group col-md-8',
+        //         ],
+        //         'hint' => 'Выберите дату и время начала и конца видимости публикации',
+        //     ]
+        // ]);
         $this->crud->addFields([
             [
                 'name' => 'seo_separator',

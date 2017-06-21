@@ -37,6 +37,88 @@
     </li> -->
 </ul>
 <article class="masonry-article" id="">
+
+
+    <section class="">
+        <a href="/journal/single">
+            <img src="/img/img-1.jpg" class="grid-img" alt="">
+            <div class="grid-title">
+                <span class="grid-category">Косметология</span>
+                <span class="grid-date">20 May 2017</span>
+                <h3 class="grid-heading">A fantastic title</h3>
+                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила,
+                    и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
+                </p>
+            </div>
+        </a>
+    </section>
+
+
+    <!-- <section class="">
+        <a href="/journal/single">
+            <img src="/img/img-3.jpg" class="grid-img" alt="">
+            <div class="grid-title">
+                <span class="grid-category">Косметология</span>
+                <span class="grid-date">20 May 2017</span>
+                <h3 class="grid-heading">A fantastic title</h3>
+                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила,
+                    и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
+                </p>
+            </div>
+        </a>
+    </section>
+    <section class="">
+        <a href="/journal/single">
+            <img src="/img/img-3.jpg" class="grid-img" alt="">
+            <div class="grid-title">
+                <span class="grid-category">Косметология</span>
+                <span class="grid-date">20 May 2017</span>
+                <h3 class="grid-heading">A fantastic title</h3>
+                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила,
+                    и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
+                </p>
+            </div>
+        </a>
+    </section>
+    <section class="">
+        <a href="/journal/single">
+            <img src="/img/img-1.jpg" class="grid-img" alt="">
+            <div class="grid-title">
+                <span class="grid-category">Косметология</span>
+                <span class="grid-date">20 May 2017</span>
+                <h3 class="grid-heading">A fantastic title</h3>
+                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила,
+                    и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
+                </p>
+            </div>
+        </a>
+    </section>
+    <section class="">
+        <a href="/journal/single">
+            <img src="/img/img-3.jpg" class="grid-img" alt="">
+            <div class="grid-title">
+                <span class="grid-category">Косметология</span>
+                <span class="grid-date">20 May 2017</span>
+                <h3 class="grid-heading">A fantastic title</h3>
+                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила,
+                    и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
+                </p>
+            </div>
+        </a>
+    </section>
+    <section class="">
+        <a href="/journal/single">
+            <img src="/img/img-1.jpg" class="grid-img" alt="">
+            <div class="grid-title">
+                <span class="grid-category">Косметология</span>
+                <span class="grid-date">20 May 2017</span>
+                <h3 class="grid-heading">A fantastic title</h3>
+                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила,
+                    и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
+                </p>
+            </div>
+        </a>
+    </section>
     <section class="">
         <a href="/journal/single">
             <img src="/img/img-1.jpg" class="grid-img" alt="">
@@ -117,84 +199,6 @@
     </section>
     <section class="">
         <a href="/journal/single">
-            <img src="/img/img-1.jpg" class="grid-img" alt="">
-            <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила,
-                    и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
-            </div>
-        </a>
-    </section>
-    <section class="">
-        <a href="/journal/single">
-            <img src="/img/img-3.jpg" class="grid-img" alt="">
-            <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила,
-                    и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
-            </div>
-        </a>
-    </section>
-    <section class="">
-        <a href="/journal/single">
-            <img src="/img/img-3.jpg" class="grid-img" alt="">
-            <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила,
-                    и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
-            </div>
-        </a>
-    </section>
-    <section class="">
-        <a href="/journal/single">
-            <img src="/img/img-1.jpg" class="grid-img" alt="">
-            <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила,
-                    и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
-            </div>
-        </a>
-    </section>
-    <section class="">
-        <a href="/journal/single">
-            <img src="/img/img-3.jpg" class="grid-img" alt="">
-            <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила,
-                    и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
-            </div>
-        </a>
-    </section>
-    <section class="">
-        <a href="/journal/single">
-            <img src="/img/img-1.jpg" class="grid-img" alt="">
-            <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила,
-                    и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
-            </div>
-        </a>
-    </section>
-    <section class="">
-        <a href="/journal/single">
             <img src="/img/img-3.jpg" class="grid-img" alt="">
             <div class="grid-title">
                 <span class="grid-category">Косметология</span>
@@ -270,7 +274,7 @@
                 </p>
             </div>
         </a>
-    </section>
+    </section> -->
 </article>
 <div class="col-md-12 pagination-block">
     <ul class="pagination-block-list">
