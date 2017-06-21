@@ -16,7 +16,9 @@
             </form>
         </div>
         <ul class="col-md-3 footer-navigation-journal">
-            <li class="footer-navigation-journal-item">Журнал</li>
+            <li class="footer-navigation-journal-item">
+                <a href="magazine.html">Журнал</a>
+            </li>
             <li class="footer-navigation-journal-item">
                 <a href="gallery-item.html" class="footer-navigation-journal-link">Косметология</a>
             </li>
@@ -48,7 +50,9 @@
             </ul>
         </ul>
         <ul class="col-md-2 footer-navigation-site">
-            <li class="footer-navigation-site-item">Сайт</li>
+            <li class="footer-navigation-site-item">
+                <a href="experts.html">Сайт</a>
+            </li>
             <li class="footer-navigation-site-item">
                 <a href="experts.html" class="footer-navigation-site-link">Эксперты</a>
             </li>
@@ -63,7 +67,9 @@
             </li>
         </ul>
         <ul class="col-md-2 footer-navigation-recommended">
-            <li class="footer-navigation-recommended-item">Рекомендуем</li>
+            <li class="footer-navigation-recommended-item">
+                <a href="recommended.html">Рекомендуем</a>
+            </li>
             <li class="footer-navigation-recommended-item">
                 <a href="single.html" class="footer-navigation-recommended-link">Рестораны</a>
             </li>

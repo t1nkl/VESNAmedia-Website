@@ -11,19 +11,41 @@
 |
 */
 
-Route::get('login', function () {
-    return redirect('/admin/login');
-});
-Route::get('register', function () {
-    return redirect('/admin/register');
-});
+// Route::get('login', function () {
+//     return redirect('/admin/login');
+// });
+// Route::get('register', function () {
+//     return redirect('/admin/register');
+// });
 
 
 
 Route::resource('/', 'HomeController');
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// Auth::routes();
-// Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::resource('/journal', 'JournalController');
+Route::get('/journal/single', 'JournalController@show');
+Route::get('/buy-journal', 'JournalController@buy_journal');
+
+
+
+Route::resource('/recommend', 'RecommendController');
+Route::get('/recommend/single', 'RecommendController@show');
+
+
+
+Route::resource('/experts', 'ExpertController');
+
+
+
+Route::resource('/gallery', 'GalleryController');
+Route::get('/gallery/single', 'GalleryController@show');
+
+
+
+Route::resource('/partners', 'PartnerController');
+
+
+
+Route::resource('/contacts', 'ContactController');
