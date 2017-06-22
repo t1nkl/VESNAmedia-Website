@@ -10,24 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('login', function () {
-//     return redirect('/admin/login');
-// });
-// Route::get('register', function () {
-//     return redirect('/admin/register');
-// });
-
-
-
 Route::resource('/', 'HomeController');
 
 
 
 Route::resource('/journal', 'JournalController');
-Route::get('/journal/single', 'JournalController@show');
-Route::get('/buy-journal', 'JournalController@buy_journal');
-
+Route::get('/buy-journal', 'JournalController@buyJournal');
+Route::get('/buy-journal/{slug}', 'JournalController@buyAnotherJournal');
+Route::post('/buy-journal', 'JournalController@buyJournalForm');
 
 
 Route::resource('/recommend', 'RecommendController');

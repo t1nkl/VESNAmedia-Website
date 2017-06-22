@@ -38,21 +38,19 @@
 </ul>
 <article class="masonry-article" id="">
 
-
+@foreach($journal_articles as $journal_article)
     <section class="">
-        <a href="/journal/single">
-            <img src="/img/img-1.jpg" class="grid-img" alt="">
+        <a href="/journal/{{ $journal_article->slug }}">
+            <img src="{{ $journal_article->image }}" class="grid-img" alt="">
             <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила,
-                    и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
+                <span class="grid-category">{{ $journal_article->category->title }}</span>
+                <span class="grid-date">{{ Date::parse($journal_article->date)->format('j F, Y') }}</span>
+                <h3 class="grid-heading">{{ $journal_article->title }}</h3>
+                <p class="grid-text">{!! str_limit($journal_article->content, $limit = 210, $end = '...') !!}</p>
             </div>
         </a>
     </section>
-
+@endforeach
 
     <!-- <section class="">
         <a href="/journal/single">

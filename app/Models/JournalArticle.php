@@ -51,6 +51,11 @@ class JournalArticle extends Model
     |--------------------------------------------------------------------------
     */
 
+    public static function getPublishedArticle()
+    {
+        return self::published()->get();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

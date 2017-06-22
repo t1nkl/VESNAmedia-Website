@@ -17,9 +17,14 @@
         </div>
         <ul class="col-md-3 footer-navigation-journal">
             <li class="footer-navigation-journal-item">
-                <a href="magazine.html">Журнал</a>
+                <a href="/journal">Журнал</a>
             </li>
+            @foreach(Helpers::getJournalCategories() as $journal_categories)
             <li class="footer-navigation-journal-item">
+                <a href="/journal#{{ $journal_categories->slug }}" class="footer-navigation-journal-link">{{ $journal_categories->title }}</a>
+            </li>
+            @endforeach
+            <!-- <li class="footer-navigation-journal-item">
                 <a href="gallery-item.html" class="footer-navigation-journal-link">Косметология</a>
             </li>
             <li class="footer-navigation-journal-item">
@@ -30,7 +35,7 @@
             </li>
             <li class="footer-navigation-journal-item">
                 <a href="contact.html" class="footer-navigation-journal-link">События</a>
-            </li>
+            </li> -->
             <ul class="footer-navigation-socmedia">
                 <li class="footer-navigation-socmedia-item">
                     <a href="#" class="footer-navigation-socmedia-link">
@@ -51,26 +56,31 @@
         </ul>
         <ul class="col-md-2 footer-navigation-site">
             <li class="footer-navigation-site-item">
-                <a href="experts.html">Сайт</a>
+                <a href="#">Сайт</a>
             </li>
             <li class="footer-navigation-site-item">
-                <a href="experts.html" class="footer-navigation-site-link">Эксперты</a>
+                <a href="/experts" class="footer-navigation-site-link">Эксперты</a>
             </li>
             <li class="footer-navigation-site-item">
-                <a href="gallery.html" class="footer-navigation-site-link">Галерея</a>
+                <a href="/gallery" class="footer-navigation-site-link">Галерея</a>
             </li>
             <li class="footer-navigation-site-item">
-                <a href="partners.html" class="footer-navigation-site-link">Партнеры</a>
+                <a href="/partners" class="footer-navigation-site-link">Партнеры</a>
             </li>
             <li class="footer-navigation-site-item">
-                <a href="contact.html" class="footer-navigation-site-link">Контакты</a>
+                <a href="/contacts" class="footer-navigation-site-link">Контакты</a>
             </li>
         </ul>
         <ul class="col-md-2 footer-navigation-recommended">
             <li class="footer-navigation-recommended-item">
-                <a href="recommended.html">Рекомендуем</a>
+                <a href="/recommend">Рекомендуем</a>
             </li>
+            @foreach(Helpers::getRecommendCategories() as $recommend_categories)
             <li class="footer-navigation-recommended-item">
+                <a href="/recommend#{{ $recommend_categories->slug }}" class="footer-navigation-recommended-link">{{ $recommend_categories->title }}</a>
+            </li>
+            @endforeach
+            <!-- <li class="footer-navigation-recommended-item">
                 <a href="single.html" class="footer-navigation-recommended-link">Рестораны</a>
             </li>
             <li class="footer-navigation-recommended-item">
@@ -81,32 +91,32 @@
             </li>
             <li class="footer-navigation-recommended-item">
                 <a href="recommended.html" class="footer-navigation-recommended-link">Барбершопы</a>
-            </li>
+            </li> -->
         </ul>
     </div>
     <!-- mobile navigation footer -->
     <div class="col-md-12 footer-navigation-mob row">
         <ul class="col-md-8 footer-mob-navigation-block">
             <li class="footer-mob-navigation-item">
-                <a class="footer-mob-navigation-link" href="home.html">Главная</a>
+                <a class="footer-mob-navigation-link" href="{{ url('/') }}">Главная</a>
             </li>
             <li class="footer-mob-navigation-item">
-                <a class="footer-mob-navigation-link" href="magazine.html">Журнал</a>
+                <a class="footer-mob-navigation-link" href="/journal">Журнал</a>
             </li>
             <li class="footer-mob-navigation-item">
-                <a class="footer-mob-navigation-link" href="experts.html">Эксперты</a>
+                <a class="footer-mob-navigation-link" href="/experts">Эксперты</a>
             </li>
             <li class="footer-mob-navigation-item">
-                <a class="footer-mob-navigation-link" href="gallery.html">Галерея</a>
+                <a class="footer-mob-navigation-link" href="/gallery">Галерея</a>
             </li>
             <li class="footer-mob-navigation-item">
-                <a class="footer-mob-navigation-link" href="partners.html">Партнеры</a>
+                <a class="footer-mob-navigation-link" href="/partners">Партнеры</a>
             </li>
             <li class="footer-mob-navigation-item">
-                <a class="footer-mob-navigation-link" href="contact.html">Контакты</a>
+                <a class="footer-mob-navigation-link" href="/contacts">Контакты</a>
             </li>
             <li class="footer-mob-navigation-item">
-                <a class="footer-mob-navigation-link" href="recommended.html">Рекомендуем</a>
+                <a class="footer-mob-navigation-link" href="/recommend">Рекомендуем</a>
             </li>
         </ul>
         <ul class="col-md-4 footer-mob-socmedia-block">
@@ -139,7 +149,7 @@
 </footer>
 <div class="row copyright-section">
     <div class="col-md-10 copyright-block">
-        <p class="copyright-text">Copyright © 2015 Vesna Media. Theme by MVP Themes, powered by Wordpress.</p>
+        <p class="copyright-text">Copyright © {{ date('Y') }} Vesna Media.</p>
     </div>
     <div class="col-md-2 back-to-top-block">
         <a href="#" class="back-to-top-link">

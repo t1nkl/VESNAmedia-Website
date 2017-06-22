@@ -35,7 +35,7 @@ class PartnerCrudController extends CrudController
         // ------ CRUD COLUMNS     
         $this->crud->addColumns([
             ['name' => 'title', 'label' => 'Название'],
-            ['name' => 'created_at', 'label' => 'Дата создание'],
+            // ['name' => 'created_at', 'label' => 'Дата создание'],
         ]);
 
         // ------ CRUD FIELDS
@@ -50,7 +50,8 @@ class PartnerCrudController extends CrudController
                 'type' => 'image',
                 'name' => 'image',
                 'upload' => true,
-                'crop' => false,
+                'crop' => true,
+                'aspect_ratio' => 1,
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-12 image',
                 ],
@@ -68,7 +69,7 @@ class PartnerCrudController extends CrudController
             ]
         ]);
 
-        $this->crud->enableAjaxTable();
+        // $this->crud->enableAjaxTable();
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');

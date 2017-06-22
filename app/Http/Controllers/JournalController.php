@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Identify;
+use Jenssegers\Date\Date;
+use App\Models\JournalArticle;
 use App\Models\Journal;
+use App\Models\JournalContact;
 use Illuminate\Http\Request;
 
 class JournalController extends Controller
@@ -25,7 +27,8 @@ class JournalController extends Controller
      */
     public function index()
     {
-        return view('journal.journal');
+        $journal_articles = JournalArticle::getPublishedArticle();
+        return view('journal.journal', compact('journal_articles'));
     }
 
     /**
@@ -57,7 +60,8 @@ class JournalController extends Controller
      */
     public function show($id)
     {
-        return view('journal.single-journal');
+        $journal_article = JournalArticle::where('slug', $id)->first();
+        return view('journal.single-journal', compact('journal_article'));
     }
 
     /**
@@ -94,9 +98,63 @@ class JournalController extends Controller
         //
     }
 
-    public function buy_journal()
+    public function buyJournal( Request $request )
     {
-        return view('journal.buy-journal');
+        $last_journal = Journal::latest()->first();
+        $journals = Journal::orderBy('created_at', 'desc')->where('id', '!=', $last_journal->id)->take(3)->paginate(3);
+        if($request->ajax()) {
+            return [
+                'journals' => view('journal.buy-journal-ajax')->with(compact('journals'))->render(),
+                'next_page' => $journals->nextPageUrl()
+            ];
+        }
+        return view('journal.buy-journal', compact('journals', 'last_journal'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function buyAnotherJournal( Request $request, $id )
+    {
+        $last_journal = Journal::where('slug', $id)->first();
+        if($last_journal) {
+            $journals = Journal::orderBy('created_at', 'desc')->where('id', '!=', $last_journal->id)->take(3)->paginate(3);
+            if($request->ajax()) {
+                return [
+                    'journals' => view('journal.buy-journal-ajax')->with(compact('journals'))->render(),
+                    'next_page' => $journals->nextPageUrl()
+                ];
+            }
+            return view('journal.buy-journal', compact('journals', 'last_journal'));
+        } else {
+            abort(404);
+        }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function buyJournalForm( Request $request )
+    {
+        $contact = new JournalContact;
+        $contact->name = trim(stripslashes(htmlspecialchars($request->input('name'))));
+        $contact->email = $request->input('email');
+        $contact->phone = $request->input('phone');
+        $contact->journal_id = $request->input('journal_id');
+
+        if ($contact->save()){
+            try {
+                return response()->json(200);
+            } catch (\Exception $e) {
+                return response()->json(['error' => true, 'msg' => 'test'], 400);
+            }
+        }
     }
 
 }

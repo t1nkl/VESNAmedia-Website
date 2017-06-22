@@ -17,9 +17,9 @@
 <main class="single-page row">
     <div class="col-md-3 single-author-info">
         <div class="single-author-illustration-block">
-            <img src="/img/ill-7.png" class="single-author-img" alt="">
+            <img src="{{ $journal_article->author->image }}" class="single-author-img" alt="">
         </div>
-        <h3 class="single-author-name">Светлана Лысенко</h3>
+        <h3 class="single-author-name">{{ $journal_article->author->title }}</h3>
         <div class="social-media-share-block">
             <span class="single-author-share-text">ПОДЕЛИТЬСЯ</span>
             <ul class="single-author-socmedia">
@@ -42,17 +42,18 @@
         </div>
     </div>
     <div class="col-md-9 single-article">
-        <h3 class="single-article-heading">Дмитрий Милютин: «Слушайте духи сердцем!»</h3>
-        <span class="single-article-category">Косметология</span>
-        <span class="single-article-publishdate">10 мая 2017</span>
-        <p class="single-article-text">Каждая леди не понаслышке знает, что значит аромат для женщины.
+        <h3 class="single-article-heading">{{ $journal_article->title }}</h3>
+        <span class="single-article-category">{{ $journal_article->category->title }}</span>
+        <span class="single-article-publishdate">{{ Date::parse($journal_article->date)->format('j F, Y') }}</span>
+        {!! $journal_article->content !!}
+        <!-- <p class="single-article-text">Каждая леди не понаслышке знает, что значит аромат для женщины.
             Выбрать парфюм, который вам идеально подходит и будет сопровождать вас на авансцене, покоряя
             сердца окружающих, — задача не из легких! Именно об этом мы пообщались в кулуарах с Дмитрием
             Милютиным — коллекционером селективной парфюмерии и владельцем парфюм-галереи Moluar.
             Говорили о тенденциях на рынке парфюмерии, о выборе ароматов и узнали, чем нужно руководствоваться
             современной женщине в мире парфюмерии.
-        </p>
-        <img src="/img/img-3.jpg" class="img-fluid single-article-content-illustration" alt="">
+        </p> -->
+        <!-- <img src="/img/img-3.jpg" class="img-fluid single-article-content-illustration" alt="">
         <p class="single-article-text">
             <span class="single-article-text-bold">Каждая леди не понаслышке знает, что значит аромат для женщины.</span>
             Каждая леди не понаслышке знает, что значит аромат для женщины.
@@ -61,8 +62,8 @@
             Милютиным — коллекционером селективной парфюмерии и владельцем парфюм-галереи Moluar.
             Говорили о тенденциях на рынке парфюмерии, о выборе ароматов и узнали, чем нужно руководствоваться
             современной женщине в мире парфюмерии.
-        </p>
-        <p class="single-article-text">
+        </p> -->
+        <!-- <p class="single-article-text">
             <span class="single-article-text-bold">Каждая леди не понаслышке знает, что значит аромат для женщины.</span>
             Каждая леди не понаслышке знает, что значит аромат для женщины.
             Выбрать парфюм, который вам идеально подходит и будет сопровождать вас на авансцене, покоряя
@@ -70,11 +71,11 @@
             Милютиным — коллекционером селективной парфюмерии и владельцем парфюм-галереи Moluar.
             Говорили о тенденциях на рынке парфюмерии, о выборе ароматов и узнали, чем нужно руководствоваться
             современной женщине в мире парфюмерии.
-        </p>
-        <div class="general-irrelevant-illustration">
+        </p> -->
+        <!-- <div class="general-irrelevant-illustration">
             <img src="/img/flat-img.jpg" class="img-fluid general-illustration" alt="">
-        </div>
-        <p class="single-article-text">
+        </div> -->
+        <!-- <p class="single-article-text">
             <span class="single-article-text-bold">Каждая леди не понаслышке знает, что значит аромат для женщины.</span>
             Выбрать парфюм, который вам идеально подходит и будет сопровождать вас на авансцене, покоряя
             сердца окружающих, — задача не из легких! Именно об этом мы пообщались в кулуарах с Дмитрием
@@ -139,7 +140,7 @@
                 сердца окружающих, — задача не из легких! 
             </p>
             <p class="article-number">4</p>
-        </div>
+        </div> -->
 
     </div>
     <div class="col-md-12 single-article-share-mobile">

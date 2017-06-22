@@ -84,7 +84,7 @@ class JournalArticleCrudController extends CrudController
             ],
             [
                 'label' => 'Контент',
-                'type' => 'tinymce',
+                'type' => 'ckeditor',
                 'name' => 'content',
                 'attributes' => ['rows' => 10],
                 'tab' => 'Контент'

@@ -26,6 +26,10 @@
     <script type="text/javascript" src="{{ asset('js/modernizr.custom.js') }}"></script>
 </head>
 <body class="">
+
+    <!-- /*===== preloader html =====*/ -->
+    @yield('preloader_html')
+
     <div class="buy-journal-block">
         <a href="/buy-journal" class="buy-journal-link">Купить журнал
             <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
@@ -41,6 +45,7 @@
 
     </div>
     <script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/tether.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>

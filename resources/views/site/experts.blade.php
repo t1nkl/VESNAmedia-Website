@@ -18,15 +18,15 @@
 @foreach($experts as $expert)
     <div class="chess-grid-block row">
         <div class="col-md-6 chess-grid-illustration">
-            <a href="single.html" class="chess-grid-content-link">
+            <a href="/experts/{{ $expert->slug }}" class="chess-grid-content-link">
                 <img src="{{ $expert->image }}" class="img-fluid chess-grid-image" alt="">
             </a>
         </div>
         <div class="col-md-6 chess-grid-description">
-            <a href="single.html" class="chess-grid-content-link">
+            <a href="/experts/{{ $expert->slug }}" class="chess-grid-content-link">
                 <h3 class="chess-grid-heading">{{ $expert->title }}</h3>
             </a>
-            <a href="single.html" class="chess-grid-content-link">
+            <a href="/experts/{{ $expert->slug }}" class="chess-grid-content-link">
                 <p class="chess-grid-text">{{ $expert->description }}</p>
             </a>
             <ul class="chess-grid-socmedia">
@@ -71,7 +71,7 @@
             @else
             @endif
             </ul>
-            <a href="posts-experts.html" class="chess-grid-link">Статьи <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+            <a href="/experts/{{ $expert->slug }}" class="chess-grid-link">Статьи <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
         </div>
     </div>
 @endforeach

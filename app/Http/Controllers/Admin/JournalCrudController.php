@@ -25,7 +25,7 @@ class JournalCrudController extends CrudController
         // ------ CRUD COLUMNS     
         $this->crud->addColumns([
             ['name' => 'title', 'label' => 'Название'],
-            ['name' => 'date', 'label' => 'Дата'],
+            // ['name' => 'date', 'label' => 'Дата'],
         ]);
 
         // ------ CRUD FIELDS
@@ -44,7 +44,7 @@ class JournalCrudController extends CrudController
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-12 image',
                 ],
-                'aspect_ratio' => 0.75,
+                'aspect_ratio' => 0.77,
             ],
             [
                 'label' => 'Журнал в формате PDF',
@@ -58,21 +58,21 @@ class JournalCrudController extends CrudController
                 'type' => 'url',
             ]
         ]);
-        $this->crud->addFields([
-            [
-                'name' => 'date',
-                'label' => 'Дата',
-                'type' => 'date',
-                'value' => date('Y-m-d'),
-            ]
-        ], 'create');
-        $this->crud->addFields([
-            [
-                'name' => 'date',
-                'label' => 'Дата',
-                'type' => 'date',
-            ]
-        ], 'update');
+        // $this->crud->addFields([
+        //     [
+        //         'name' => 'date',
+        //         'label' => 'Дата',
+        //         'type' => 'date',
+        //         'value' => date('Y-m-d'),
+        //     ]
+        // ], 'create');
+        // $this->crud->addFields([
+        //     [
+        //         'name' => 'date',
+        //         'label' => 'Дата',
+        //         'type' => 'date',
+        //     ]
+        // ], 'update');
 
         $this->crud->enableAjaxTable();
 

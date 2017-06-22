@@ -30,7 +30,7 @@ class JournalContactCrudController extends CrudController
 
         // ------ CRUD COLUMNS     
         $this->crud->addColumns([
-            ['name' => 'journal_name', 'label' => 'Название журнала'],
+            ['name' => 'journal_id', 'label' => 'Название журнала', 'type' => 'select', 'entity' => 'journal', 'attribute' => 'title', 'model' => "App\Models\Journal"],
             ['name' => 'name', 'label' => 'Имя'],
             ['name' => 'email', 'label' => 'Email'],
             ['name' => 'phone', 'label' => 'Телефон'],

@@ -994,7 +994,7 @@ input.subscribtion-input-field {
   margin: 0 auto;
 }
 .single-author-img {
-  width: 100%;
+  width: 134%;
 }
 .single-author-name {
   font-size: 18px;
@@ -2677,5 +2677,101 @@ input.subscribtion-input-field {
     opacity: 1;
     transition: 50ms all ease-in-out;
     -webkit-transition: 50ms all ease-in-out;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#loader-demo{
+  background: #000;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 99999;
+}
+.demo {
+  position: relative;
+  margin: 300px auto;
+  width: 150px;
+}
+.loader {
+  position: absolute;
+  opacity: .7;
+}
+.loader circle {
+  -webkit-animation: draw 4s infinite ease-in-out;
+          animation: draw 4s infinite ease-in-out;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+}
+.loader-2 circle,
+.loader-6 circle {
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+}
+.loader-7 circle {
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
+}
+.loader-4 circle,
+.loader-8 circle {
+  -webkit-animation-delay: 3s;
+          animation-delay: 3s;
+}
+.loader-3 {
+  left: -150px;
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+.loader-6,
+.loader-7,
+.loader-8 {
+  left: -150px;
+  -webkit-transform: rotateX(180deg) rotateY(180deg);
+          transform: rotateX(180deg) rotateY(180deg);
+}
+.loader-5 circle {
+  opacity: .2;
+}
+@-webkit-keyframes draw {
+  50% {
+    stroke-dashoffset: 0;
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+}
+@keyframes draw {
+  50% {
+    stroke-dashoffset: 0;
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
   }
 }

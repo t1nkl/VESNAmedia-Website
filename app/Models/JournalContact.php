@@ -35,6 +35,11 @@ class JournalContact extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function journal()
+    {
+        return $this->belongsTo('App\Models\Journal', 'journal_id');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

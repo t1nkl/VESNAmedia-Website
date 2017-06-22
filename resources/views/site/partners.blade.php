@@ -16,21 +16,24 @@
 
 <main class="mp-main row">
     <div class="col-md-12 page-grid-block partners-page">
+
+    @foreach($partners as $partner)
         <div class="col-md-3 page-grid-item content-centered">
             <div class="page-grid-illustration">
-                <a href="###" class="page-grid-item-link">
-                    <img src="/img/partner-10.png" class="page-grid-illustration-image" alt="">
+                <a href="{{ $partner->url }}" class="page-grid-item-link">
+                    <img src="{{ $partner->image }}" class="page-grid-illustration-image" alt="">
                 </a>
             </div>
-            <a href="###" class="page-grid-item-link">
-                <h3 class="page-grid-heading">Flosal</h3>
+            <a href="{{ $partner->url }}" class="page-grid-item-link">
+                <h3 class="page-grid-heading">{{ $partner->title }}</h3>
             </a>
-            <a href="###" class="page-grid-item-link">
-                <p class="page-grid-description">мультибрендовый дистрибьютор  изделий медицинского назначения для эстетической медицины и косметологии.
-                </p>
+            <a href="{{ $partner->url }}" class="page-grid-item-link">
+                <p class="page-grid-description">{{ $partner->description }}</p>
             </a>
         </div>
-        <div class="col-md-3 page-grid-item content-centered">
+    @endforeach
+
+        <!-- <div class="col-md-3 page-grid-item content-centered">
             <div class="page-grid-illustration">
                 <a href="###" class="page-grid-item-link">
                     <img src="/img/partner-2.png" class="page-grid-illustration-image" alt="">
@@ -141,7 +144,7 @@
                 <p class="page-grid-description">Идеальное место для вечеринок, банкетов и свадеб, деловых встреч
                 </p>
             </a>
-        </div>
+        </div> -->
     </div>
 </main>
 

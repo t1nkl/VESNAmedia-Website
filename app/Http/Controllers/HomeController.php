@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Jenssegers\Date\Date;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        Date::setLocale('ru');
         return view('home');
     }
 
