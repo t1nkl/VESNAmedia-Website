@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\RecommendArticle;
 
 class RecommendController extends Controller
 {
@@ -23,7 +24,8 @@ class RecommendController extends Controller
      */
     public function index()
     {
-        return view('recommend.recommend');
+        $recommend_articles = RecommendArticle::getPublishedArticle();
+        return view('recommend.recommend', compact('recommend_articles'));
     }
 
     /**
@@ -55,7 +57,8 @@ class RecommendController extends Controller
      */
     public function show($id)
     {
-        return view('recommend.single-recommend');
+        $recommend_article = RecommendArticle::where('slug', $id)->first();
+        return view('recommend.single-recommend', compact('recommend_article'));
     }
 
     /**

@@ -4,9 +4,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Vesnamedia</title>
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
+    <title>@yield('title')</title>
+    <meta name="description" content="@yield('description')" />
+    <meta name="keywords" content="@yield('keywords')" />
+
+    <!-- /*===== custom Open Graph =====*/ -->
+    @yield('open_graph')
     
     <link rel="shortcut icon" href="/img/logo.png" type="image/png">
     <meta name="author" content="" />
@@ -54,6 +57,31 @@
     <script type="text/javascript" src="{{ asset('js/classie.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/colorfinder-1.1.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/gridScrollFx.js') }}"></script>
+
+    <!-- /*===== lid form =====*/ -->
+    <script type="text/javascript">
+        $('#footer-subscribtion-form').submit(
+            function subscribeLid( event ) {
+                event.preventDefault();
+                var email = $('#subscribtion-form-email').val();
+                $.ajax({
+                    type: "POST",
+                    url: '/subscribe',
+                    data: {email: email},
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success:function(data){
+                        $('#footer-subscribtion-form').slideUp();
+                        $('#footer-subscribtion-form-response').html('Спасибо, вы успешно подписались.');
+                    },
+                    error: function(data){
+                        setTimeout(mailCallback, 2000);
+                    }
+                });
+            }
+        );
+    </script>
 
     <!-- /*===== custom javascript =====*/ -->
     @yield('custom_javascript')

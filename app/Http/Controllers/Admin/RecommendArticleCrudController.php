@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\RecommendArticle;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
@@ -36,6 +37,7 @@ class RecommendArticleCrudController extends CrudController
         // ------ CRUD COLUMNS     
         $this->crud->addColumns([
             ['name' => 'title', 'label' => 'Название'],
+            ['name' => 'status', 'label' => 'Статус'],
             ['name' => 'created_at', 'label' => 'Дата создание'],
         ]);
 
@@ -71,26 +73,26 @@ class RecommendArticleCrudController extends CrudController
                 'tab' => 'Контент'
             ],
         ]);
-        $this->crud->addFields([
-            [
-                'name' => 'event_date_range',
-                'start_name' => 'start_date',
-                'end_name' => 'end_date',
-                'label' => 'Время видимости статьи',
-                'type' => 'date_range',
-                'start_default' => '2017-01-01 00:00',
-                'end_default' => '2037-12-31 00:00',
-                'date_range_options' => [
-                    'timePicker' => true,
-                    'locale' => ['format' => 'DD-MM-YYYY HH:mm']
-                ],
-                'tab' => 'Контент',
-                'wrapperAttributes' => [
-                    'class' => 'form-group col-md-5',
-                ],
-                'hint' => 'Выберите дату и время начала и конца видимости публикации',
-            ]
-        ]);
+        // $this->crud->addFields([
+        //     [
+        //         'name' => 'event_date_range',
+        //         'start_name' => 'start_date',
+        //         'end_name' => 'end_date',
+        //         'label' => 'Время видимости статьи',
+        //         'type' => 'date_range',
+        //         'start_default' => '2017-01-01 00:00',
+        //         'end_default' => '2037-12-31 00:00',
+        //         'date_range_options' => [
+        //             'timePicker' => true,
+        //             'locale' => ['format' => 'DD-MM-YYYY HH:mm']
+        //         ],
+        //         'tab' => 'Контент',
+        //         'wrapperAttributes' => [
+        //             'class' => 'form-group col-md-5',
+        //         ],
+        //         'hint' => 'Выберите дату и время начала и конца видимости публикации',
+        //     ]
+        // ]);
         $this->crud->addFields([
             [
                 'label' => 'Главное изображение',
@@ -113,6 +115,14 @@ class RecommendArticleCrudController extends CrudController
                 'tab' => 'Контент',
             ],
             [
+                'label' => 'Описание',
+                'type' => 'textarea',
+                'name' => 'description',
+                'count_down' => 100,
+                'attributes' => ['maxlength' => 100, 'rows' => 3],
+                'tab' => 'Контент'
+            ],
+            [
                 'label' => 'Контент',
                 'type' => 'tinymce',
                 'attributes' => ['rows' => 12],
@@ -120,7 +130,6 @@ class RecommendArticleCrudController extends CrudController
                 'tab' => 'Контент'
             ],
         ]);
-        
         $this->crud->addFields([
             [
                 'name' => 'contact_separator',
@@ -196,7 +205,6 @@ class RecommendArticleCrudController extends CrudController
                 'tab' => 'Контакты заведения'
             ],
         ]);
-
         $this->crud->addFields([
             [
                 'name' => 'seo_separator',
@@ -303,6 +311,9 @@ class RecommendArticleCrudController extends CrudController
 
     public function store(StoreRequest $request)
     {
+        // if (empty ($request->get('gallery_photos'))) {
+        //     $this->crud->update(\Request::get($this->crud->model->getKeyName()), ['gallery_photos' => '[]']);
+        // }
         // your additional operations before save here
         $redirect_location = parent::storeCrud();
         // your additional operations after save here
@@ -312,9 +323,9 @@ class RecommendArticleCrudController extends CrudController
 
     public function update(UpdateRequest $request)
     {
-        if (empty ($request->get('gallery_photos'))) {
-            $this->crud->update(\Request::get($this->crud->model->getKeyName()), ['gallery_photos' => '[]']);
-        }
+        // if (empty ($request->get('gallery_photos'))) {
+        //     $this->crud->update(\Request::get($this->crud->model->getKeyName()), ['gallery_photos' => '[]']);
+        // }
         // your additional operations before save here
         $redirect_location = parent::updateCrud();
         // your additional operations after save here
@@ -325,13 +336,12 @@ class RecommendArticleCrudController extends CrudController
     public function DropzoneUpload(DropzoneRequest $request)
     {
         $disk = "uploads";
-        $destination_path = "Recommends/".\Carbon\Carbon::now()->format('d-m-Y-h-m-i');
+        $folder = null !== RecommendArticle::first() ? md5(RecommendArticle::latest()->first()->id + 1) : md5(1);
+        $destination_path = "Recommends/".$folder;
         $file = $request->file('file');
         try
         {
-            $image = \Image::make($file)->resize(null, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
+            $image = \Image::make($file);
             $filename = md5($file->getClientOriginalName().time()).'.png';
             \Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
             return response()->json(['success' => true, 'filename' => '/'.$disk.'/'.$destination_path . '/' . $filename]);

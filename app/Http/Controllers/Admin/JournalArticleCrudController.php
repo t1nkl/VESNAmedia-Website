@@ -36,7 +36,7 @@ class JournalArticleCrudController extends CrudController
         $this->crud->addColumns([
             ['name' => 'title', 'label' => 'Название'],
             ['label' => 'Категория', 'type' => 'select', 'name' => 'journal_category_id', 'entity' => 'category', 'attribute' => 'title', 'model' => "App\Models\JournalCategory"],
-            ['name' => 'status', 'label' => 'Статус']
+            ['name' => 'status', 'label' => 'Статус'],
         ]);
 
         // ------ CRUD FIELDS

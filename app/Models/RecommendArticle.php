@@ -26,8 +26,8 @@ class RecommendArticle extends Model
     // protected $hidden = [];
     // protected $dates = [];
     protected $casts = [
-        'start_date' => 'datetime',
-        'end_date' => 'datetime',
+        // 'start_date' => 'datetime',
+        // 'end_date' => 'datetime',
         'recommend_photos' => 'array',
     ];
 
@@ -51,6 +51,11 @@ class RecommendArticle extends Model
     |--------------------------------------------------------------------------
     */
 
+    public static function getPublishedArticle()
+    {
+        return self::published()->paginate(12);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
@@ -67,6 +72,11 @@ class RecommendArticle extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', 'PUBLISHED')->orderBy('rgt');
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -94,7 +104,8 @@ class RecommendArticle extends Model
     {
         $attribute_name = "image";
         $disk = "uploads";
-        $destination_path = "Recommends/".\Carbon\Carbon::now()->format('d-m-Y-h-m-i');
+        $folder = null !== self::first() ? md5(self::latest()->first()->id + 1) : md5(1);
+        $destination_path = "Recommends/".$folder;
         $image_width = 300;
 
         if ($value==null) {

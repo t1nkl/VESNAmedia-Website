@@ -28,6 +28,8 @@ class ContactCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
+        $this->crud->enableExportButtons();
+
         // ------ CRUD COLUMNS     
         $this->crud->addColumns([
             ['name' => 'name', 'label' => 'Имя'],

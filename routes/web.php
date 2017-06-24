@@ -12,30 +12,19 @@
 */
 Route::resource('/', 'HomeController');
 
-
-
 Route::resource('/journal', 'JournalController');
 Route::get('/buy-journal', 'JournalController@buyJournal');
 Route::get('/buy-journal/{slug}', 'JournalController@buyAnotherJournal');
 Route::post('/buy-journal', 'JournalController@buyJournalForm');
 
-
 Route::resource('/recommend', 'RecommendController');
-Route::get('/recommend/single', 'RecommendController@show');
-
-
 
 Route::resource('/experts', 'ExpertController');
-
-
 
 Route::resource('/gallery', 'GalleryController');
 Route::get('/gallery/single', 'GalleryController@show');
 
-
-
 Route::resource('/partners', 'PartnerController');
 
-
-
 Route::resource('/contacts', 'ContactController');
+Route::post('/subscribe', 'ContactController@subscribeLid');

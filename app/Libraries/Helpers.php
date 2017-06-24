@@ -2,6 +2,7 @@
 
 namespace App\Libraries;
 
+use App\Models\Journal;
 use App\Models\JournalCategory;
 use App\Models\RecommendCategory;
 
@@ -18,6 +19,12 @@ class Helpers
     {
         $recommend_categories = RecommendCategory::orderBy("rgt")->get();
         return $recommend_categories;
+    }
+
+    public static function getLastJournal()
+    {
+        $last_journal = Journal::latest()->first();
+        return $last_journal;
     }
 
 }

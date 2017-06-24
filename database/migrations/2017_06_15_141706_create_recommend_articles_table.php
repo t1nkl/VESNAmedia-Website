@@ -26,6 +26,7 @@ class CreateRecommendArticlesTable extends Migration
             $table->string('slug')->default('');
             $table->string('image')->nullable();
             $table->text('recommend_photos')->nullable();
+            $table->text('description')->nullable();
             $table->longText('content')->nullable();
             $table->enum('status', ['PUBLISHED', 'DRAFT'])->default('PUBLISHED');
             $table->dateTime('start_date')->nullable();

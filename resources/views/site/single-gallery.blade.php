@@ -2,6 +2,22 @@
 
 
 
+<!-- /*===== set title =====*/ -->
+@section('title')
+@endsection
+
+<!-- /*===== set description =====*/ -->
+@section('description')
+@endsection
+
+<!-- /*===== set keywords =====*/ -->
+@section('keywords')
+@endsection
+
+<!-- /*===== set Open Graph =====*/ -->
+@section('open_graph')
+@endsection
+
 <!-- /*===== set custom css =====*/ -->
 @section('custom_css')
 <style rel="stylesheet" type="text/css">

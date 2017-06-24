@@ -2,6 +2,22 @@
 
 
 
+<!-- /*===== set title =====*/ -->
+@section('title')
+@endsection
+
+<!-- /*===== set description =====*/ -->
+@section('description')
+@endsection
+
+<!-- /*===== set keywords =====*/ -->
+@section('keywords')
+@endsection
+
+<!-- /*===== set Open Graph =====*/ -->
+@section('open_graph')
+@endsection
+
 <!-- /*===== set preloader html =====*/ -->
 @section('preloader_html')
 <div class="loader-demo" id="loader-demo">
@@ -57,30 +73,16 @@
 
 <h3 class="projects-section-heading">Наши проекты</h3>
 <div class="row project-section">
-    <div class="col-md-4 project-block">
-        <a href="article.html">
-            <img src="/img/project-1.png" class="img-fluid project-block-img" alt="">
-        </a>
-        <a href="article.html">
-            <h3 class="project-block-heading">Клуб VESNA</h3>
-        </a>
-    </div>
-    <div class="col-md-4 project-block">
-        <a href="article.html">
-            <img src="/img/project-2.png" class="img-fluid project-block-img" alt="">
-        </a>
-        <a href="article.html">
-            <h3 class="project-block-heading">Институт VESNA</h3>
-        </a>
-    </div>
-    <div class="col-md-4 project-block">
-        <a href="article.html">
-            <img src="/img/project-3.png" class="img-fluid project-block-img" alt="">
-        </a>
-        <a href="article.html">
-            <h3 class="project-block-heading">VESNA Beauty Awards</h3>
-        </a>
-    </div>
+    @foreach($projects as $project)
+        <div class="col-md-4 project-block">
+            <a href="{{ $project->url }}">
+                <img src="{{ $project->image }}" class="img-fluid project-block-img" alt="">
+            </a>
+            <a href="{{ $project->url }}">
+                <h3 class="project-block-heading">{{ $project->title }}</h3>
+            </a>
+        </div>
+    @endforeach
 </div>
 <div class="subscribtion-block row">
     <div class="subscribtion-block-illustration">

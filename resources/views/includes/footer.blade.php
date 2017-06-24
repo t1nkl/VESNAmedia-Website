@@ -1,19 +1,22 @@
 <footer class="mp-footer row">
     <div class="col-md-3 footer-journal-issue">
-        <p class="footer-journal-issue-name">Выпуск №4 - май 2107</p>
-        <img src="/img/vesna-journal.png" class="img-fluid footer-journal-issue-img" alt="">
+        <p class="footer-journal-issue-name">{{ Helpers::getLastJournal()->title }}</p>
+        <img src="{{ Helpers::getLastJournal()->image }}" class="img-fluid footer-journal-issue-img" alt="">
     </div>
     <div class="col-md-9 footer-navigation row">
         <div class="col-md-5 footer-subscribtion-block col-md-5">
             <h3 class="footer-subscribtion-name">Подписка</h3>
             <p class="footer-subscribtion-text">Подпишитесь на нашу новостную рассылку, что бы первыми узнавать все новости</p>
-            <form class="footer-subscribtion-form" action="">
+            <form class="footer-subscribtion-form" id="footer-subscribtion-form" action="javascript:subscribeLid()">
                 <span class="subscribtion-form">E-mail</span>
-                <input type="email" class="footer-subscribtion-field" placeholder="">
+                <input name="subscribtion-form-email" id="subscribtion-form-email" type="email" class="footer-subscribtion-field" placeholder="">
                 <button type="submit" name="button" class="footer-subscribtion-btn">
                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                 </button>
             </form>
+            <div class="footer-subscribtion-form-message">
+                <h2 id="footer-subscribtion-form-response" class="footer-subscribtion-form-response"></h2>
+            </div>
         </div>
         <ul class="col-md-3 footer-navigation-journal">
             <li class="footer-navigation-journal-item">

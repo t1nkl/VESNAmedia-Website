@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lid;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -91,4 +92,25 @@ class ContactController extends Controller
     {
         //
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function subscribeLid(Request $request)
+    {
+        $subscribe = new Lid;
+        $subscribe->email = $request->input('email');
+
+        if ($subscribe->save()){
+            try {
+                return response()->json(200);
+            } catch (\Exception $e) {
+                return response()->json(['error' => true, 'msg' => 'test'], 400);
+            }
+        }
+    }
+
 }

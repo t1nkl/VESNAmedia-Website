@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Jenssegers\Date\Date;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,9 @@ class HomeController extends Controller
     public function index()
     {
         Date::setLocale('ru');
-        return view('home');
+
+        $projects = Project::orderBy("rgt")->get();
+        return view('home', compact('projects'));
     }
 
     /**

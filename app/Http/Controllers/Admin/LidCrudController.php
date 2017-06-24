@@ -28,6 +28,8 @@ class LidCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
+        $this->crud->enableExportButtons();
+
         // ------ CRUD COLUMNS     
         $this->crud->addColumns([
             ['name' => 'email', 'label' => 'Email'],

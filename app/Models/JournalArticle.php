@@ -53,7 +53,7 @@ class JournalArticle extends Model
 
     public static function getPublishedArticle()
     {
-        return self::published()->get();
+        return self::published()->paginate(12);
     }
 
     /*

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Jenssegers\Date\Date;
-use App\Models\JournalArticle;
 use App\Models\Journal;
-use App\Models\JournalContact;
+use Jenssegers\Date\Date;
 use Illuminate\Http\Request;
+use App\Models\JournalContact;
+use App\Models\JournalArticle;
 
 class JournalController extends Controller
 {
@@ -101,7 +101,7 @@ class JournalController extends Controller
     public function buyJournal( Request $request )
     {
         $last_journal = Journal::latest()->first();
-        $journals = Journal::orderBy('created_at', 'desc')->where('id', '!=', $last_journal->id)->take(3)->paginate(3);
+        $journals = Journal::getAnotherJournals($last_journal->id);
         if($request->ajax()) {
             return [
                 'journals' => view('journal.buy-journal-ajax')->with(compact('journals'))->render(),
@@ -121,7 +121,7 @@ class JournalController extends Controller
     {
         $last_journal = Journal::where('slug', $id)->first();
         if($last_journal) {
-            $journals = Journal::orderBy('created_at', 'desc')->where('id', '!=', $last_journal->id)->take(3)->paginate(3);
+            $journals = Journal::getAnotherJournals($last_journal->id);
             if($request->ajax()) {
                 return [
                     'journals' => view('journal.buy-journal-ajax')->with(compact('journals'))->render(),

@@ -2,6 +2,25 @@
 
 
 
+<!-- /*===== set title =====*/ -->
+@section('title')
+{{ $journal_article->seo_title ? $journal_article->seo_title : $journal_article->title }}
+@endsection
+
+<!-- /*===== set description =====*/ -->
+@section('description')
+{{ $journal_article->seo_description ? $journal_article->seo_description : $journal_article->title }}
+@endsection
+
+<!-- /*===== set keywords =====*/ -->
+@section('keywords')
+{{ $journal_article->seo_keywords ? $journal_article->seo_keywords : $journal_article->title }}
+@endsection
+
+<!-- /*===== set Open Graph =====*/ -->
+@section('open_graph')
+@endsection
+
 <!-- /*===== set custom css =====*/ -->
 @section('custom_css')
 @endsection
@@ -141,7 +160,6 @@
             </p>
             <p class="article-number">4</p>
         </div> -->
-
     </div>
     <div class="col-md-12 single-article-share-mobile">
         <h3 class="share-heading-mobile">ПОДЕЛИТЬСЯ</h3>
