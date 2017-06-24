@@ -168,6 +168,9 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Unicodeveloper\Identify\IdentifyServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+        TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
 
         /*
          * Backpack Service Providers...
@@ -242,6 +245,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Identify' => Unicodeveloper\Identify\Facades\IdentityFacade::class,
         'Helpers'   => App\Libraries\Helpers::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 
