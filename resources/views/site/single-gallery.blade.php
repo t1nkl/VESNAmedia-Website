@@ -4,10 +4,12 @@
 
 <!-- /*===== set title =====*/ -->
 @section('title')
+{{ $gallery->seo_title ? $gallery->seo_title : $gallery->title." - Vesna" }}
 @endsection
 
 <!-- /*===== set description =====*/ -->
 @section('description')
+{{ $gallery->seo_description ? $gallery->seo_description : $gallery->title." - журнал Vesna" }}
 @endsection
 
 <!-- /*===== set keywords =====*/ -->

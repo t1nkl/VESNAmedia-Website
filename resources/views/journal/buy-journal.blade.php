@@ -4,10 +4,13 @@
 
 <!-- /*===== set title =====*/ -->
 @section('title')
+{{ dd(Route::getCurrentRoute()->getActionName()) }}
+{{ $journal_article->seo_title ? $journal_article->seo_title : $journal_article->title." - Vesna" }}
 @endsection
 
 <!-- /*===== set description =====*/ -->
 @section('description')
+{{ $journal_article->seo_description ? $journal_article->seo_description : $journal_article->title." - журнал Vesna" }}
 @endsection
 
 <!-- /*===== set keywords =====*/ -->

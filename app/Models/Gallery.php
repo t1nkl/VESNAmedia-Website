@@ -85,7 +85,8 @@ class Gallery extends Model
     {
         $attribute_name = "image";
         $disk = "uploads";
-        $destination_path = "Gallery/".\Carbon\Carbon::now()->format('d-m-Y-h-m-i');
+        $folder = null !== self::first() ? md5(self::latest()->first()->id + 1) : md5(1);
+        $destination_path = "Gallery/".$folder;
         $image_height = 400;
 
         if ($value==null) {

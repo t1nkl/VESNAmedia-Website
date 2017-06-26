@@ -64,6 +64,29 @@
     $(window).load(function() {
         $(".loader-demo").delay(2000).fadeOut("slow");
     });
+
+    <!-- /*===== subscribtion =====*/ -->
+    $('#subscribtion-input-block').submit(
+        function subscribtionInput( event ) {
+            event.preventDefault();
+            var email = $('#subscribtion-input-field-email').val();
+            $.ajax({
+                type: "POST",
+                url: '/subscribe',
+                data: {email: email},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(data){
+                    $('#subscribtion-input-block').slideUp();
+                    $('#subscribtion-input-block-response').html('Спасибо, вы успешно подписались.');
+                },
+                error: function(data){
+                    setTimeout(mailCallback, 2000);
+                }
+            });
+        }
+    );
 </script>
 @endsection
 
@@ -93,10 +116,13 @@
         <div class="col-md-6 subscribtion-block-heading">
             <h3 class="subscribtion-block-heading-text">Подпишитесь на нашу новостную рассылку</h3>
         </div>
-        <form class="col-md-6 subscribtion-input-block" action="">
-            <input type="email" class="subscribtion-input-field" placeholder="e-mail">
+        <form class="col-md-6 subscribtion-input-block" id="subscribtion-input-block" action="javascript:subscribtionInput()">
+            <input type="email" class="subscribtion-input-field" id="subscribtion-input-field-email" placeholder="e-mail" required>
             <button type="submit" name="button" class="subscribtion-send-btn">Подписаться</button>
         </form>
+        <div class="subscribtion-input-block-message">
+            <h2 id="subscribtion-input-block-response" class="subscribtion-input-block-response"></h2>
+        </div>
     </div>
 </div>
 <h3 class="latest-articles-section-heading">Последние статьи</h3>

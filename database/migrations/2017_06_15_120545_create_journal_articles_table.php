@@ -29,7 +29,7 @@ class CreateJournalArticlesTable extends Migration
             $table->string('image')->nullable();
 
             $table->enum('status', ['PUBLISHED', 'DRAFT'])->default('PUBLISHED');
-            $table->date('date')->nullable();
+            $table->dateTime('date')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
 

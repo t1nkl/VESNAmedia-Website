@@ -4,17 +4,16 @@
 
 <!-- /*===== set title =====*/ -->
 @section('title')
-{{ $journal_article->seo_title ? $journal_article->seo_title : $journal_article->title }}
+{{ $journal_article->seo_title ? $journal_article->seo_title : $journal_article->title." - Vesna" }}
 @endsection
 
 <!-- /*===== set description =====*/ -->
 @section('description')
-{{ $journal_article->seo_description ? $journal_article->seo_description : $journal_article->title }}
+{{ $journal_article->seo_description ? $journal_article->seo_description : $journal_article->title." - журнал Vesna" }}
 @endsection
 
 <!-- /*===== set keywords =====*/ -->
 @section('keywords')
-{{ $journal_article->seo_keywords ? $journal_article->seo_keywords : $journal_article->title }}
 @endsection
 
 <!-- /*===== set Open Graph =====*/ -->

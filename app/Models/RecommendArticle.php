@@ -29,6 +29,7 @@ class RecommendArticle extends Model
         // 'start_date' => 'datetime',
         // 'end_date' => 'datetime',
         'recommend_photos' => 'array',
+        'datetime' => 'datetime',
     ];
 
     /**
@@ -132,6 +133,10 @@ class RecommendArticle extends Model
             // 3. Save the path to the database
             $this->attributes[$attribute_name] = '/'.$disk.'/'.$destination_path.'/'.$filename;
         }
+    }
+
+    public function setDatetimeAttribute($value) {
+        $this->attributes['datetime'] = \Date::parse($value);
     }
 
 }

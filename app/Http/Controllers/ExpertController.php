@@ -57,9 +57,9 @@ class ExpertController extends Controller
      */
     public function show($id)
     {
-        $expert_article = Expert::where('slug', $id)->first();
-        $articles = $expert_article->programs;
-        return view('site.single-experts', compact('expert_article', 'articles'));
+        $expert = Expert::where('slug', $id)->first();
+        $articles = $expert->programs()->paginate(12);
+        return view('site.single-experts', compact('expert', 'articles'));
     }
 
     /**

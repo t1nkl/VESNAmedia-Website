@@ -9,12 +9,11 @@
 
 <!-- /*===== set description =====*/ -->
 @section('description')
-{{ $recommend_article->seo_description ? $recommend_article->seo_description : $recommend_article->title }}
+{{ $recommend_article->seo_description ? $recommend_article->seo_description : "Vesna рекомендует ".$recommend_article->title }}
 @endsection
 
 <!-- /*===== set keywords =====*/ -->
 @section('keywords')
-{{ $recommend_article->seo_keywords ? $recommend_article->seo_keywords : $recommend_article->title }}
 @endsection
 
 <!-- /*===== set Open Graph =====*/ -->

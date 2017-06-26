@@ -26,9 +26,9 @@ class JournalArticle extends Model
     // protected $hidden = [];
     // protected $dates = [];
     protected $casts = [
-        'start_date' => 'datetime',
-        'end_date' => 'datetime',
-        'date' => 'date',
+        // 'start_date' => 'datetime',
+        // 'end_date' => 'datetime',
+        'datetime' => 'datetime',
     ];
 
     /**
@@ -136,6 +136,10 @@ class JournalArticle extends Model
             // 3. Save the path to the database
             $this->attributes[$attribute_name] = '/'.$disk.'/'.$destination_path.'/'.$filename;
         }
+    }
+
+    public function setDatetimeAttribute($value) {
+        $this->attributes['datetime'] = \Date::parse($value);
     }
 
 }

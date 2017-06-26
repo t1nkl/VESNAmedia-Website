@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Gallery;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
@@ -197,9 +198,9 @@ class GalleryCrudController extends CrudController
 
     public function update(UpdateRequest $request)
     {
-        if (empty ($request->get('gallery_photos'))) {
-            $this->crud->update(\Request::get($this->crud->model->getKeyName()), ['gallery_photos' => '[]']);
-        }
+        // if (empty ($request->get('gallery_photos'))) {
+        //     $this->crud->update(\Request::get($this->crud->model->getKeyName()), ['gallery_photos' => '[]']);
+        // }
         // your additional operations before save here
         $redirect_location = parent::updateCrud();
         // your additional operations after save here
@@ -210,13 +211,12 @@ class GalleryCrudController extends CrudController
     public function DropzoneUpload(DropzoneRequest $request)
     {
         $disk = "uploads";
-        $destination_path = "Gallery/".\Carbon\Carbon::now()->format('d-m-Y-h-m-i');
+        $folder = null !== Gallery::first() ? md5(Gallery::latest()->first()->id + 1) : md5(1);
+        $destination_path = "Gallery/".$folder;
         $file = $request->file('file');
         try
         {
-            $image = \Image::make($file)->resize(null, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
+            $image = \Image::make($file);
             $filename = md5($file->getClientOriginalName().time()).'.png';
             \Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
             return response()->json(['success' => true, 'filename' => '/'.$disk.'/'.$destination_path . '/' . $filename]);

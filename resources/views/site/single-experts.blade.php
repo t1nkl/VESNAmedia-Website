@@ -4,10 +4,12 @@
 
 <!-- /*===== set title =====*/ -->
 @section('title')
+{{ $expert->seo_title ? $expert->seo_title : $expert->title." - Vesna" }}
 @endsection
 
 <!-- /*===== set description =====*/ -->
 @section('description')
+{{ $expert->seo_description ? $expert->seo_description : "Советы от ".$expert->title." - Vesna" }}
 @endsection
 
 <!-- /*===== set keywords =====*/ -->
@@ -33,7 +35,7 @@
 <div class="experts-posts-header">
     <a href="/experts" class="experts-posts-back-link"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Эксперты</a>
     <div class="experts-posts-header-text">
-        <h3 class="experts-posts-author">Статьи от <span class="experts-posts-author-name">{{ $expert_article->title }}</span></h3>
+        <h3 class="experts-posts-author">Статьи от <span class="experts-posts-author-name">{{ $expert->title }}</span></h3>
     </div>
 </div>
 <ul class="col-md-12 grid swipe-down row" id="grid">
@@ -52,131 +54,9 @@
     </li>
 @endforeach
 
-    <!-- <li class="col-md-4">
-        <a href="single.html">
-            <img src="/img/img.jpg" class="grid-img" alt="">
-            <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила, и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
-            </div>
-        </a>
-    </li>
-    <li class="col-md-4">
-        <a href="single.html">
-            <img src="/img/img.jpg" class="grid-img" alt="">
-            <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила, и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
-            </div>
-        </a>
-    </li>
-    <li class="col-md-4">
-        <a href="single.html">
-            <img src="/img/img.jpg" class="grid-img" alt="">
-            <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила, и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
-            </div>
-        </a>
-    </li>
-    <li class="col-md-4">
-        <a href="single.html">
-            <img src="/img/img-1.jpg" class="grid-img" alt="">
-            <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила, и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
-            </div>
-        </a>
-    </li>
-    <li class="col-md-4">
-        <a href="single.html">
-            <img src="/img/img-3.jpg" class="grid-img" alt="">
-            <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила, и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
-            </div>
-        </a>
-    </li>
-    <li class="col-md-4">
-        <a href="single.html">
-            <img src="/img/img.jpg" class="grid-img" alt="">
-            <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила, и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
-            </div>
-        </a>
-    </li>
-    <li class="col-md-4">
-        <a href="single.html">
-            <img src="/img/img-1.jpg" class="grid-img" alt="">
-            <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила, и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
-            </div>
-        </a>
-    </li>
-    <li class="col-md-4">
-        <a href="single.html">
-            <img src="/img/img-1.jpg" class="grid-img" alt="">
-            <div class="grid-title">
-                <span class="grid-category">Косметология</span>
-                <span class="grid-date">20 May 2017</span>
-                <h3 class="grid-heading">A fantastic title</h3>
-                <p class="grid-text">«Всю жизнь мне приходилось выбирать между людьми, которых я любила, и моими амбициями», — призналась на склоне лет Хелена Рубинштейн. Увы,...
-                </p>
-            </div>
-        </a>
-    </li> -->
 </ul>
 <div class="col-md-12 pagination-block">
-    <ul class="pagination-block-list">
-        <li class="pagination-item">
-            <a href="posts.html" class="pagination-block-link">
-                <i class="fa fa-angle-left" aria-hidden="true"></i>
-            </a>
-        </li>
-        <li class="pagination-item page-active">
-            <a href="posts.html" class="pagination-block-link">1</a>
-        </li>
-        <li class="pagination-item">
-            <a href="posts.html" class="pagination-block-link">2</a>
-        </li>
-        <li class="pagination-item">
-            <a href="posts.html" class="pagination-block-link">3</a>
-        </li>
-        <li class="pagination-item">
-            <a href="posts.html" class="pagination-block-link">4</a>
-        </li>
-        <li class="pagination-item">
-            <a href="posts.html" class="pagination-block-link">5</a>
-        </li>
-        <li class="pagination-item">
-            <a href="posts.html" class="pagination-block-link">
-                <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-        </li>
-    </ul>
+    {{ $articles->render() }}
 </div>
 <div class="col-md-12 advertisement-block">
     <img src="/img/flat-img.jpg" class="img-fluid advertisement-illustration" alt="">

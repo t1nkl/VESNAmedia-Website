@@ -2,6 +2,7 @@
 
 namespace App\Libraries;
 
+use App\Models\Seo;
 use App\Models\Journal;
 use App\Models\JournalCategory;
 use App\Models\RecommendCategory;
@@ -25,6 +26,12 @@ class Helpers
     {
         $last_journal = Journal::latest()->first();
         return $last_journal;
+    }
+
+    public static function getSeo( $id )
+    {
+        $seo = Seo::where('id', '=', $id)->first();
+        return $seo;
     }
 
 }

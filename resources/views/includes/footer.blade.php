@@ -9,7 +9,7 @@
             <p class="footer-subscribtion-text">Подпишитесь на нашу новостную рассылку, что бы первыми узнавать все новости</p>
             <form class="footer-subscribtion-form" id="footer-subscribtion-form" action="javascript:subscribeLid()">
                 <span class="subscribtion-form">E-mail</span>
-                <input name="subscribtion-form-email" id="subscribtion-form-email" type="email" class="footer-subscribtion-field" placeholder="">
+                <input name="subscribtion-form-email" id="subscribtion-form-email" type="email" class="footer-subscribtion-field" placeholder="" required>
                 <button type="submit" name="button" class="footer-subscribtion-btn">
                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                 </button>

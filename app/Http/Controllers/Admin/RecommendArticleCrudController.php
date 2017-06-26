@@ -73,6 +73,21 @@ class RecommendArticleCrudController extends CrudController
                 'tab' => 'Контент'
             ],
         ]);
+        $this->crud->addFields([
+            [
+                'name' => 'date',
+                'label' => 'Event start',
+                'type' => 'datetime_picker',
+                'datetime_picker_options' => [
+                    'format' => 'DD-MM-YYYY HH:mm',
+                    'language' => 'fr'
+                ],
+                'wrapperAttributes' => [
+                    'class' => 'form-group col-md-5',
+                ],
+                'tab' => 'Контент'
+            ]
+        ]);
         // $this->crud->addFields([
         //     [
         //         'name' => 'event_date_range',

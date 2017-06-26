@@ -36,6 +36,7 @@ class JournalArticleCrudController extends CrudController
         $this->crud->addColumns([
             ['name' => 'title', 'label' => 'Название'],
             ['label' => 'Категория', 'type' => 'select', 'name' => 'journal_category_id', 'entity' => 'category', 'attribute' => 'title', 'model' => "App\Models\JournalCategory"],
+            ['label' => 'Автор', 'type' => 'select', 'name' => 'author_id', 'entity' => 'author', 'attribute' => 'title', 'model' => "App\Models\Expert"],
             ['name' => 'status', 'label' => 'Статус'],
         ]);
 
@@ -102,26 +103,18 @@ class JournalArticleCrudController extends CrudController
         $this->crud->addFields([
             [
                 'name' => 'date',
-                'label' => 'Дата',
-                'type' => 'date',
-                'value' => \Carbon\Carbon::now()->format('Y-m-d'),
+                'label' => 'Event start',
+                'type' => 'datetime_picker',
+                'datetime_picker_options' => [
+                    'format' => 'DD-MM-YYYY HH:mm',
+                    'language' => 'fr'
+                ],
                 'wrapperAttributes' => [
                     'class' => 'form-group col-md-6',
                 ],
                 'tab' => 'Контент'
             ]
-        ], 'create');
-        $this->crud->addFields([
-            [
-                'name' => 'date',
-                'label' => 'Дата',
-                'type' => 'date',
-                'wrapperAttributes' => [
-                    'class' => 'form-group col-md-6',
-                ],
-                'tab' => 'Контент'
-            ]
-        ], 'update');
+        ]);
         // $this->crud->addFields([
         //     [
         //         'name' => 'event_date_range',
