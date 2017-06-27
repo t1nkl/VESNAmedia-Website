@@ -103,7 +103,7 @@ class JournalArticleCrudController extends CrudController
         $this->crud->addFields([
             [
                 'name' => 'date',
-                'label' => 'Event start',
+                'label' => 'Дата',
                 'type' => 'datetime_picker',
                 'datetime_picker_options' => [
                     'format' => 'DD-MM-YYYY HH:mm',

@@ -4,10 +4,12 @@
 
 <!-- /*===== set title =====*/ -->
 @section('title')
+{{ Helpers::getSeo(3)->seo_title }}
 @endsection
 
 <!-- /*===== set description =====*/ -->
 @section('description')
+{{ Helpers::getSeo(3)->seo_description }}
 @endsection
 
 <!-- /*===== set keywords =====*/ -->

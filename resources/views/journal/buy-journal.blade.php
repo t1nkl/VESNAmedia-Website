@@ -4,13 +4,28 @@
 
 <!-- /*===== set title =====*/ -->
 @section('title')
-{{ dd(Route::getCurrentRoute()->getActionName()) }}
-{{ $journal_article->seo_title ? $journal_article->seo_title : $journal_article->title." - Vesna" }}
+@if(Route::getCurrentRoute()->getActionName() == "App\Http\Controllers\JournalController@buyJournal")
+    @if(Helpers::getSeo(8)->seo_title)
+    {{ Helpers::getSeo(8)->seo_title }}
+    @else
+    "Купить журнал "Vesna""
+    @endif
+@else
+Купить журнал "Vesna" - "{{ $last_journal->title }}"
+@endif
 @endsection
 
 <!-- /*===== set description =====*/ -->
 @section('description')
-{{ $journal_article->seo_description ? $journal_article->seo_description : $journal_article->title." - журнал Vesna" }}
+@if(Route::getCurrentRoute()->getActionName() == "App\Http\Controllers\JournalController@buyJournal")
+    @if(Helpers::getSeo(8)->seo_description)
+    {{ Helpers::getSeo(8)->seo_description }}
+    @else
+    Полезный журнал для косметологов и женщин. Новый номер, новые форматы
+    @endif
+@else
+Полезный журнал для косметологов и женщин. Vesna "{{ $last_journal->title }}"
+@endif
 @endsection
 
 <!-- /*===== set keywords =====*/ -->

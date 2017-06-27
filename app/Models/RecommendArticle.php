@@ -57,6 +57,11 @@ class RecommendArticle extends Model
         return self::published()->paginate(12);
     }
 
+    public static function getAllPublishedArticle()
+    {
+        return self::where('status', 'PUBLISHED')->get();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

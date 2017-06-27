@@ -23,13 +23,26 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( Request $request )
     {
         Date::setLocale('ru');
 
         $projects = Project::orderBy("rgt")->get();
-        
-        return view('home', compact('projects'));
+
+        $journal_articles = JournalArticle::getAllPublishedArticle();
+        $recommend_articles = RecommendArticle::getAllPublishedArticle();
+        $all_articles = $journal_articles->merge($recommend_articles);
+        $page = request()->has('page') ? request()->page : 1;
+        $all_articles = $all_articles->sortByDesc('date')->forPage($page, 12)->all();
+
+        if($request->ajax()) {
+            return [
+                'all_articles' => view('home_all_articles_ajax')->with(compact('all_articles'))->render(),
+                'next_page' => $page+1
+            ];
+        }
+
+        return view('home', compact('projects', 'all_articles'));
     }
 
     /**

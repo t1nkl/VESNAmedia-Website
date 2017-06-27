@@ -38,7 +38,7 @@ class RecommendArticleCrudController extends CrudController
         $this->crud->addColumns([
             ['name' => 'title', 'label' => 'Название'],
             ['name' => 'status', 'label' => 'Статус'],
-            ['name' => 'created_at', 'label' => 'Дата создание'],
+            ['name' => 'date', 'label' => 'Дата'],
         ]);
 
         // ------ CRUD FIELDS
@@ -76,7 +76,7 @@ class RecommendArticleCrudController extends CrudController
         $this->crud->addFields([
             [
                 'name' => 'date',
-                'label' => 'Event start',
+                'label' => 'Дата',
                 'type' => 'datetime_picker',
                 'datetime_picker_options' => [
                     'format' => 'DD-MM-YYYY HH:mm',
