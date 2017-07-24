@@ -21,7 +21,7 @@ class CreateRecommendCategoriesTable extends Migration
             $table->integer('rgt')->unsigned()->nullable();
             $table->integer('depth')->unsigned()->nullable();
             
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->string('slug')->default('');
 
             $table->text('seo_title')->nullable();
