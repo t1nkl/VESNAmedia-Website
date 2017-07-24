@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Backpack\CRUD\CrudTrait;
-use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
+use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Date\Date;
 
 class Advertising extends Model
 {
@@ -144,6 +145,17 @@ class Advertising extends Model
             // 3. Save the path to the database
             $this->attributes[$attribute_name] = '/'.$disk.'/'.$destination_path.'/'.$filename;
         }
+    }
+
+    public static function getFor($val)
+    {
+        $list = ['main' => 1, 'journal' => 2, 'recomends' => 3, 'gallery' => 4, 'main_sub' => 5];
+        $advert = self::find($list[$val]);
+        if(($advert->status == 'TIMED' and ($advert->start_date > Date::now() or $advert->end_date < Date::now())) || $advert->status == 'NONE')
+        {
+            $advert = null;       
+        }
+        return $advert;
     }
 
 }

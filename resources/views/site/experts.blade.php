@@ -31,6 +31,7 @@
 
 
 @section('content')
+    @include('includes.breadcrumbs', ['crumbs' => ['Эксперты']])
 
 <main class="mp-experts">
 @foreach($experts as $expert)
@@ -50,7 +51,7 @@
             <ul class="chess-grid-socmedia">
             @if($expert->youtube)
                 <li class="chess-grid-socmedia-item">
-                    <a href="{{ $expert->youtube }}" class="chess-grid-socmedia-link">
+                    <a href="{{ $expert->youtube }}" target="_blank" class="chess-grid-socmedia-link">
                         <i class="fa fa-youtube" aria-hidden="true"></i>
                     </a>
                 </li>
@@ -58,7 +59,7 @@
             @endif
             @if($expert->facebook)
                 <li class="chess-grid-socmedia-item">
-                    <a href="{{ $expert->facebook }}" class="chess-grid-socmedia-link">
+                    <a href="{{ $expert->facebook }}" target="_blank" class="chess-grid-socmedia-link">
                         <i class="fa fa-facebook" aria-hidden="true"></i>
                     </a>
                 </li>
@@ -66,7 +67,7 @@
             @endif
             @if($expert->instagram)
                 <li class="chess-grid-socmedia-item">
-                    <a href="{{ $expert->instagram }}" class="chess-grid-socmedia-link">
+                    <a href="{{ $expert->instagram }}" target="_blank" class="chess-grid-socmedia-link">
                         <i class="fa fa-instagram" aria-hidden="true"></i>
                     </a>
                 </li>
@@ -74,7 +75,7 @@
             @endif
             @if($expert->twitter)
                 <li class="chess-grid-socmedia-item">
-                    <a href="{{ $expert->twitter }}" class="chess-grid-socmedia-link">
+                    <a href="{{ $expert->twitter }}" target="_blank" class="chess-grid-socmedia-link">
                         <i class="fa fa-twitter" aria-hidden="true"></i>
                     </a>
                 </li>
@@ -82,7 +83,7 @@
             @endif
             @if($expert->url)
                 <li class="chess-grid-socmedia-item">
-                    <a href="{{ $expert->url }}" class="chess-grid-socmedia-link">
+                    <a href="{{ $expert->url }}" target="_blank" class="chess-grid-socmedia-link">
                         <i class="fa fa-globe" aria-hidden="true"></i>
                     </a>
                 </li>

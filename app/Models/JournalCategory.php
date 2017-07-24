@@ -51,6 +51,10 @@ class JournalCategory extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+   public function articles()
+   {
+       return $this->hasMany(JournalArticle::class, 'journal_category_id');
+   }
 
     /*
     |--------------------------------------------------------------------------

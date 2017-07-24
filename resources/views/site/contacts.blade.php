@@ -26,57 +26,108 @@
 
 <!-- /*===== set custom javascript =====*/ -->
 @section('custom_javascript')
+<script type="text/javascript">
+     $('.contact-page-form').submit(
+        function buyJournal( event ) {
+            event.preventDefault();
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var content = $('#content').val();
+            $.ajax({
+                type: "POST",
+                url: '/contacts',
+                data: {name: name, email: email, content: content},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(data){
+                    $('.contact-page-form').slideUp();
+                    $('.nesto-response').html('Спасибо за Ваше письмо.');
+                },
+                error: function(data){
+                    // setTimeout(mailCallback, 2000);
+                }
+            });
+        }
+    );
+</script>
 @endsection
 
 
 
 @section('content')
+    @include('includes.breadcrumbs', ['crumbs' => ['Контакты']])
 
 <main class="mp-contact row">
     <div class="col-md-12 contact-page-describtion">
-        <h3 class="contact-page-describtion">О Нас</h3>
-        <p class="contact-page-text">Каждая леди не понаслышке знает, что значит аромат для женщины. Выбрать парфюм, который вам идеально подходит и будет сопровождать вас на авансцене, покоряя сердца окружающих, — задача не из легких! Именно об этом мы пообщались в кулуарах с Дмитрием Милютиным — коллекционером селективной парфюмерии и владельцем парфюм-галереи Moluar. Говорили о тенденциях на рынке парфюмерии, о выборе ароматов и узнали, чем нужно руководствоваться современной женщине в мире парфюмерии.
-        </p>
+        <h3 class="contact-page-describtion">{{$about->title}}</h3>
+
+        <div class="contact-page-text">{!!$about->content!!}</div>
     </div>
     <div class="col-md-12 contact-page-map">
-        <iframe width="100%" height="300" frameborder="0" style="border:0"
-        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBgrXsG8X_Dgelnf_Zsal_i9OshVvoU7Bc&q=Space+Needle,Seattle+WA" allowfullscreen></iframe>
+        @if($about->map) {!!$about->map!!} @endif
     </div>
     <div class="col-md-8 contact-page-form-block">
+        <div class="nesto-message">
+            <h2 class="nesto-response"></h2>
+        </div>
         <h3 class="contact-page-form-heading">Напишите нам</h3>
         <form action="" class="contact-page-form">
-            <input type="text" class="contact-page-form-item" placeholder="Имя">
-            <input type="email" class="contact-page-form-item" placeholder="E-mail">
-            <textarea class="contact-page-form-item" placeholder="Сообщение"></textarea>
+            <input type="text" class="contact-page-form-item" id="name" placeholder="Имя" required>
+            <input type="email" class="contact-page-form-item" id="email" placeholder="E-mail" required>
+            <textarea class="contact-page-form-item" id="content" placeholder="Сообщение" required></textarea>
             <button type="submit" name="button" class="contact-page-form-submit">Отправить</button>
         </form>
     </div>
-    <div class="col-md-4 contact-page-info">
-        <h3 class="contact-page-info-heading">Телефон</h3>
-        <a href="tel:+380906879685" class="contact-page-info-phone">+38 090 687 96 85</a>
-        <a href="tel:+380906879685" class="contact-page-info-phone">+38 090 687 96 85</a>
-        <h3 class="contact-page-info-heading">Адрес</h3>
-        <p class="contact-page-info-adress">Украина, Киев</p>
-        <p class="contact-page-info-adress">ул. Драгомирова 2, офис 4</p>
-        <h3 class="contact-page-info-heading">E-mail</h3>
-        <a href="mailto:konkursvba@gmail.com" class="contact-page-info-mail">konkursvba@gmail.com</a>
+    <div itemscope itemtype="http://schema.org/Organization" class="col-md-4 contact-page-info">
+        @if(isset($settings->phone))
+            <h3 class="contact-page-info-heading">Телефон</h3>
+            @foreach(json_decode($settings->phone) as $phone)
+                @if(isset($phone->name))<span itemprop="telephone"><a href="tel:{{ str_replace(' ' ,'',$phone->name) }}" class="contact-page-info-phone">{{ $phone->name }}</a></span>@endif
+            @endforeach
+        @endif
+        @if(isset($settings->contact_address))
+            <h3 class="contact-page-info-heading">Адрес</h3>
+            <div itemprop="address">
+                @foreach(json_decode($settings->address) as $address)
+                    @if(isset($address->name))<p class="recommended-map-info-adress">{{$address->name}}</p>@endif
+                @endforeach
+            </div>
+        @endif
+        @if($settings->email)
+            <h3 class="contact-page-info-heading">E-mail</h3>
+            <span itemprop="email"><a href="mailto:{{$settings->email}}" class="contact-page-info-mail">{{$settings->email}}</a></span>
+        @endif
         <h3 class="contact-page-info-heading">Мы в соцсетях</h3>
         <ul class="contact-page-info-socmedia">
-            <li class="contact-page-socmedia-item">
-                <a href="#" class="contact-page-socmedia-link">
-                    <i class="fa fa-youtube" aria-hidden="true"></i>
-                </a>
-            </li>
-            <li class="contact-page-socmedia-item">
-                <a href="#" class="contact-page-socmedia-link">
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                </a>
-            </li>
-            <li class="contact-page-socmedia-item">
-                <a href="#" class="contact-page-socmedia-link">
-                    <i class="fa fa-instagram" aria-hidden="true"></i>
-                </a>
-            </li>
+            @if($settings->youtube)
+                <li class="contact-page-socmedia-item">
+                    <a href="{{$settings->youtube}}" target="_blank" class="contact-page-socmedia-link">
+                        <i class="fa fa-youtube" aria-hidden="true"></i>
+                    </a>
+                </li>
+            @endif
+            @if($settings->facebook)
+                <li class="contact-page-socmedia-item">
+                    <a href="{{$settings->facebook}}" target="_blank" class="contact-page-socmedia-link">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                    </a>
+                </li>
+            @endif
+            @if($settings->instagram)
+                <li class="contact-page-socmedia-item">
+                    <a href="{{$settings->instagram}}" target="_blank" class="contact-page-socmedia-link">
+                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                    </a>
+                </li>
+            @endif
+            @if($settings->twitter)
+                <li class="contact-page-socmedia-item">
+                    <a href="{{$settings->twitter}}" target="_blank" class="contact-page-socmedia-link">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+                </li>
+            @endif
         </ul>
     </div>
 </main>

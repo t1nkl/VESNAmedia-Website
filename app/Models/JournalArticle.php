@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\CrudTrait;
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\CustomCrudTrait;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class JournalArticle extends Model
 {
-    use CrudTrait;
+    use CustomCrudTrait;
     use Sluggable, SluggableScopeHelpers;
+    use Searchable;
 
      /*
     |--------------------------------------------------------------------------
@@ -26,8 +28,6 @@ class JournalArticle extends Model
     // protected $hidden = [];
     // protected $dates = [];
     protected $casts = [
-        // 'start_date' => 'datetime',
-        // 'end_date' => 'datetime',
         'datetime' => 'datetime',
     ];
 
@@ -43,6 +43,16 @@ class JournalArticle extends Model
                 'source' => 'slug_or_title',
             ],
         ];
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return $this->makeHidden('image')->makeHidden('journal_photos')->toArray();
     }
 
     /*
@@ -85,7 +95,7 @@ class JournalArticle extends Model
 
     public function scopePublished($query)
     {
-        return $query->where('status', 'PUBLISHED')->orderBy('rgt');
+        return $query->where('status', 'PUBLISHED')->orderBy('date', 'desc');
     }
 
     /*
@@ -104,6 +114,11 @@ class JournalArticle extends Model
         return str_slug($this->title);
     }
 
+    public function getLinkAttribute()
+    {
+        return '/journal/'.$this->slug;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
@@ -114,8 +129,18 @@ class JournalArticle extends Model
     {
         $attribute_name = "image";
         $disk = "uploads";
-        $destination_path = "working_files/journal_articles/".$this->getSlugOrTitleAttribute();
-        $image_width = 400;
+        $destination_path = "Articles/".$this->getSlugOrTitleAttribute();
+        $image_width = 410;
+
+        $this->uploadImageToDisk($value, $attribute_name, $disk, $destination_path, $image_width);
+    }
+
+    public function setMinimageAttribute($value)
+    {
+        $attribute_name = "minimage";
+        $disk = "uploads";
+        $destination_path = "Articles/min/".$this->getSlugOrTitleAttribute();
+        $image_width = 410;
 
         if ($value==null) {
             // delete the image from disk

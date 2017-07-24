@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\CrudTrait;
+use App\Traits\CustomCrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
+use Laravel\Scout\Searchable;
 
 class Gallery extends Model
 {
-    use CrudTrait;
+    use CustomCrudTrait;
     use Sluggable, SluggableScopeHelpers;
+    use Searchable;
 
      /*
     |--------------------------------------------------------------------------
@@ -39,6 +41,25 @@ class Gallery extends Model
                 'source' => 'slug_or_title',
             ],
         ];
+    }
+
+    /**
+     * Get the route key name for Laravel.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }       
+     /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return $this->makeHidden('image')->makeHidden('gallery_photos')->toArray();
     }
 
     /*
@@ -74,6 +95,10 @@ class Gallery extends Model
 
         return str_slug($this->title);
     }
+    public function getLinkAttribute()
+    {
+        return '/gallery/'.$this->slug;
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -89,30 +114,8 @@ class Gallery extends Model
         $destination_path = "Gallery/".$folder;
         $image_height = 400;
 
-        if ($value==null) {
-            // delete the image from disk
-            \Storage::disk($disk)->delete($this->image);
-
-            // set null in the database column
-            $this->attributes[$attribute_name] = null;
-        }
-
-        // if a base64 was sent, store it in the db
-        if (starts_with($value, 'data:image'))
-        {
-            // 0. Make the image
-            $image = \Image::make($value)->resize(NULL, $image_height, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            // 1. Generate a filename.
-            $filename = md5($value.time()).'.png';
-
-            // 2. Store the image on disk.
-            \Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
-
-            // 3. Save the path to the database
-            $this->attributes[$attribute_name] = '/'.$disk.'/'.$destination_path.'/'.$filename;
-        }
+        $this->uploadImageToDisk($value, $attribute_name, $disk, $destination_path, null, $image_height);      
+        
     }
 
 }

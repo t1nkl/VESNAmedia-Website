@@ -4,8 +4,9 @@
 	<h3 class="magazine-more-issues-item-heading">{{ $journal->title }}</h3>
 </a>
 @endforeach
-
-<div class="load-more">
-	<button onclick="loadMore()" type="submit" name="button" class="magazine-page-form-submit-online">Загрузить еще</button>
-</div>
-<div class="load"></div>
+@if(count($journals) > 2)
+	<div class="load-more">
+		<button onclick="loadMore()" type="submit" name="button" class="magazine-page-form-submit-online">Загрузить еще</button>
+	</div>
+	<div class="load"></div>
+@endif

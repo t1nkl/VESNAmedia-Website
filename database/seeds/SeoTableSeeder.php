@@ -21,7 +21,7 @@ class SeoTableSeeder extends Seeder
         ]);
         DB::table('seos')->insert([
             'title' => 'Журнал',
-            'seo_title' => 'Журнал Vesna - первый в Украине журнал о современной косметологии и не толко',
+            'seo_title' => 'Журнал Vesna - первый в Украине журнал о современной косметологии и не только',
             'seo_description' => 'Новости косметологии, психологии и советы экспертов в журнале Vesna',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),

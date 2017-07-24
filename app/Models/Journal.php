@@ -48,7 +48,7 @@ class Journal extends Model
 
     public static function getAnotherJournals( $id )
     {
-        return self::orderBy('created_at', 'desc')->where('id', '!=', $id)->take(3)->paginate(3);
+        return self::orderBy('rgt')->where('id', '!=', $id)->take(3)->paginate(3);
     }
 
     /*

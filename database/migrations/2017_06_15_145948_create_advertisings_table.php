@@ -21,7 +21,7 @@ class CreateAdvertisingsTable extends Migration
             $table->string('desktopimage')->nullable();
             $table->string('mobileimage')->nullable();
             $table->string('url')->nullable();
-            $table->enum('status', ['PUBLISHED', 'DRAFT'])->default('PUBLISHED');
+            $table->enum('status', ['PUBLISHED', 'DRAFT', 'NONE'])->default('PUBLISHED');
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->timestamps();

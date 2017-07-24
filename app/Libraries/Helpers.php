@@ -2,36 +2,29 @@
 
 namespace App\Libraries;
 
-use App\Models\Seo;
-use App\Models\Journal;
-use App\Models\JournalCategory;
-use App\Models\RecommendCategory;
+use App\Models\{Seo, Journal, JournalCategory, RecommendCategory};
 
 class Helpers
 {
 
     public static function getJournalCategories()
     {
-        $journal_categories = JournalCategory::orderBy("rgt")->get();
-        return $journal_categories;
+        return JournalCategory::orderBy("rgt")->get();
     }
 
     public static function getRecommendCategories()
     {
-        $recommend_categories = RecommendCategory::orderBy("rgt")->get();
-        return $recommend_categories;
+        return RecommendCategory::orderBy("rgt")->get();
     }
 
     public static function getLastJournal()
     {
-        $last_journal = Journal::latest()->first();
-        return $last_journal;
+        return Journal::orderBy("rgt")->first();
     }
 
     public static function getSeo( $id )
     {
-        $seo = Seo::where('id', '=', $id)->first();
-        return $seo;
+        return Seo::where('id', '=', $id)->first();
     }
 
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Lid;
+use App\Models\{About, Contact, Lid, Setting};
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -24,7 +24,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('site.contacts');
+        $about = About::first();
+        return view('site.contacts', compact('about'));
     }
 
     /**
@@ -45,7 +46,17 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->name = trim(stripslashes(htmlspecialchars($request->name)));
+        if ($contact = Contact::create($request->all())){
+            try {
+                $settings = Setting::first();
+
+                \Mail::to($settings->subemail)->send(new \App\Mail\ContactForm($contact));
+                return response()->json(200);
+            } catch (\Exception $e) {
+                return response()->json(['error' => true, 'msg' => $e->getMessage()], 400);
+            }
+        }
     }
 
     /**

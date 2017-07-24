@@ -51,6 +51,10 @@ class RecommendCategory extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function articles()
+   {
+       return $this->hasMany(RecommendArticle::class, 'recommend_category_id');
+   }
 
     /*
     |--------------------------------------------------------------------------

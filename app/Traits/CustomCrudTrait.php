@@ -12,7 +12,6 @@ trait CustomCrudTrait
     public function uploadImageToDisk($value, $attribute_name, $disk, $destination_path, $image_width = NULL, $image_height = NULL)
     {
         $request = \Request::instance();
-
         // if a new file is uploaded, delete the file from the disk
         if ($request->hasFile($attribute_name) &&
             $this->{$attribute_name} &&
@@ -34,17 +33,21 @@ trait CustomCrudTrait
             if (!is_null($image_width) || !is_null($image_height)) {
 
                 $new_file_name = md5($file->getClientOriginalName().time()).'.'.'png';
+                $dir = $disk.'/'. $destination_path;
+                 if (!file_exists($dir)) {
+                    mkdir($dir, 0777, true);
+                }
+                $file_path = $dir .'/'. $new_file_name;
 
                 // 2. Resize and save photo
                 Image::make($file)->resize($image_width, $image_height, function ($constraint) {
                     $constraint->aspectRatio();
-                });
-
+                })->save($file_path, 90);
                 // 3. Move the new file to the correct path
-                $file_path = $file->storeAs($destination_path, $new_file_name, $disk);
-
+                // $file_path = $file->storeAs($destination_path, $new_file_name, $disk);
+                // dd($file_path, $disk)
                 // 4. Save the complete path to the database
-                $this->attributes[$attribute_name] = '/'.$disk.'/'.$file_path;
+                $this->attributes[$attribute_name] = '/'.$file_path;
             } else {
                 $new_file_name = md5($file->getClientOriginalName().time()).'.'.$file->getClientOriginalExtension();
 

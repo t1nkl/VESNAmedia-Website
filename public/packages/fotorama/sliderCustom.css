@@ -1,0 +1,73 @@
+.sliderSection {
+  display: flex;
+  justify-content: center;
+  padding: 60px;
+}
+/* .mainSlider {
+  width: 1320px;
+  height: 600px;
+  background: url('/assets/img/slider/rectangle.png') no-repeat 0px 0px; */
+/* } */
+.sliderStub {
+  position: absolute;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.slider-wrap {
+    width: 1320px;
+    position: relative;
+  }
+.slider {
+  display: flex;
+}
+
+.slide-1{ /* Оболочка слайдера и кнопок */
+    width: 1320px; 
+    overflow: hidden;
+    }
+.slide-1 .slider{ /* Оболочка слайдера */
+    width:10000px;
+    height:600px;
+    /* border:#eee solid 10px; */
+    position:relative;}
+.slide-1 .slide{ /* Слайд */
+    width:auto;
+    height:600px;
+    }
+
+/* Второй слайдер */
+.slide-2{
+    width:500px;
+    font:normal 12px/15px Georgia, "Times New Roman", Times, serif; 
+    }
+.slide-2 .slider{
+    height:250px;
+    overflow: hidden;
+    border:#888 solid 10px;
+    position:relative;
+    background:#CCCCCC;}
+.slide-2 .slide{
+    padding:10px 40px;
+    }
+/* Второй слайдер - конец */
+.bullets{
+  position:absolute;
+  bottom:23px;
+  left:calc(50% - 22px);
+  height:11px;
+  padding:0;
+  margin:0;
+  list-style:none;
+}
+.bullets li{
+  width:11px;
+  height:11px;
+  margin:0 3px 0 0;
+  padding:0;
+  float:left;
+  background:url(../img/icons/slider_controls.png) no-repeat 0 -30px;
+}
+.bullets li.active{
+  background-position:0 -42px;
+}

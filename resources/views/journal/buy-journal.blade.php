@@ -11,7 +11,7 @@
     "Купить журнал "Vesna""
     @endif
 @else
-Купить журнал "Vesna" - "{{ $last_journal->title }}"
+Купить журнал "Vesna" - "{{ $last_journal ? $last_journal->title : '' }}"
 @endif
 @endsection
 
@@ -24,7 +24,7 @@
     Полезный журнал для косметологов и женщин. Новый номер, новые форматы
     @endif
 @else
-Полезный журнал для косметологов и женщин. Vesna "{{ $last_journal->title }}"
+Полезный журнал для косметологов и женщин. Vesna "{{ $last_journal ? $last_journal->title : '' }}"
 @endif
 @endsection
 
@@ -40,7 +40,7 @@
 @section('custom_css')
 <style type="text/css">
     .loading{
-        background-image : url('/img/loading.gif');  
+        background-image : url('/img/loading.gif');
         background-repeat:no-repeat;
     }
     .loading:after {
@@ -68,11 +68,16 @@
                 $('.load').removeClass('loading');
             });
         }
+        else{
+            $('.load-more').hide();
+            $('.load').removeClass('loading');
+
+        }
     }
     $('.magazine-page-form').submit(
         function buyJournal( event ) {
             event.preventDefault();
-            var journal_id = {{$last_journal->id}}
+            var journal_id = {{$last_journal? $last_journal->id : 0}}
             var name = $('#name').val();
             var email = $('#email').val();
             var phone = $('#phone').val();
@@ -85,10 +90,10 @@
                 },
                 success:function(data){
                     $('.magazine-page-form').slideUp();
-                    $('.nesto-response').html('Спасибо, ваша заявка успешно оставленна.');
+                    $('.nesto-response').html('Вы подписались на журнал VESNA!');
                 },
                 error: function(data){
-                    setTimeout(mailCallback, 2000);
+                    // setTimeout(mailCallback, 2000);
                 }
             });
         }
@@ -99,16 +104,25 @@
 
 
 @section('content')
+    @include('includes.breadcrumbs', ['crumbs' => [['Купить журнал', '/buy-journal'], $last_journal->title]])
 
 <div class="magazine-section row">
+@if($last_journal)
     <div class="col-md-5 magazine-preview-block">
         <h3 class="magazine-order-heading-mobile">{{ $last_journal->title }}</h3>
         <div class="magazine-preview-illustration">
             <img src="{{ $last_journal->image }}" class="magazine-cover-img" alt="">
-            <a href="{{ $last_journal->pdf }}" target="_blank" class="magazine-preview-link">
-                <img src="/img/white-eye.png" class="mazagine-preview-image" alt="">
-                <h4 class="magazine-preview-text">Смотреть превью</h4>
-            </a>
+            @if(isset($last_journal->link_to_isuu))
+                <a href="{{ $last_journal->link_to_isuu }}" target="_blank" class="magazine-preview-link">
+                    <img src="/img/white-eye.png" class="mazagine-preview-image" alt="">
+                    <h4 class="magazine-preview-text">Смотреть превью</h4>
+                </a>
+            @elseif(isset($last_journal->pdf))
+                <a href="{{ $last_journal->pdf }}" target="_blank" class="magazine-preview-link">
+                    <img src="/img/white-eye.png" class="mazagine-preview-image" alt="">
+                    <h4 class="magazine-preview-text">Смотреть превью</h4>
+                </a>
+            @endif
         </div>
     </div>
     <div class="col-md-7 magazine-order-block">
@@ -117,15 +131,17 @@
         <form action="javascript:buyJournal()" class="magazine-page-form">
             <input name="name" id="name" type="text" class="magazine-page-form-item" placeholder="Имя">
             <input name="email" id="email" type="email" class="magazine-page-form-item" placeholder="E-mail">
-            <input name="phone" id="phone" type="phone" class="magazine-page-form-item" placeholder="Телефон">
-            <button type="submit" name="button" class="magazine-page-form-submit">Отправить</button>
-            <span class="magazine-page-divider">или</span>
+            <input name="phone" id="phone" type="fone" class="magazine-page-form-item" required placeholder="Телефон">
+            <button type="submit" name="button" class="magazine-page-form-submit">Подписаться</button>
+            <!-- <span class="magazine-page-divider">или</span> -->
         </form>
         <div class="nesto-message">
             <h2 class="nesto-response"></h2>
         </div>
-        <a href="{{ $last_journal->url }}" target="_blank" name="button" class="magazine-page-form-submit-online">Купить online</a>
+        <!-- <a href="{{ $last_journal->url }}" target="_blank" name="button" class="magazine-page-form-submit-online-b">Купить online</a> -->
     </div>
+    @endif
+    @if($journals)
     <div class="col-md-12 magazine-more-issues row endless-pagination journals" data-next-page="{{ $journals->nextPageUrl() }}">
         <h3 class="magazine-more-issues-heading">Другие выпуски</h3>
         @foreach($journals as $journal)
@@ -137,11 +153,14 @@
 
         {{--{!! $journals->render() !!}--}}
 
-        <div class="load-more">
-            <button onclick="loadMore()" type="submit" name="button" class="magazine-page-form-submit-online">Загрузить еще</button>
-        </div>
-        <div class="load"></div>
+        @if(count($journals) > 2)
+            <div class="load-more">
+                <button onclick="loadMore()" type="submit" name="button" class="magazine-page-form-submit-online">Загрузить еще</button>
+            </div>
+            <div class="load"></div>
+        @endif
     </div>
+    @endif
 </div>
 
 @endsection

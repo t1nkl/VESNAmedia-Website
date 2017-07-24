@@ -23,26 +23,35 @@
 <!-- /*===== set custom css =====*/ -->
 @section('custom_css')
 <link rel="stylesheet" type="text/css" href="{{ asset('packages/fotorama/fotorama.css') }}" />
-@endsection
+@endsection 
 
 <!-- /*===== set custom javascript =====*/ -->
 @section('custom_javascript')
 <script type="text/javascript" src="{{ asset('packages/fotorama/fotorama.js') }}"></script>
-@endsection
+@endsection 
+
+
+<!-- @section('custom_javascript')
+<script type="text/javascript" src="js/sliderCustom.js"></script>
+@endsection -->
 
 
 
 @section('content')
+    @include('includes.breadcrumbs', ['crumbs' => [['Рекомендуем', '/recommend'], $recommend_article->title]])
 
 <main class="recommended-single-page">
     <h3 class="recommended-single-page-heading">{{ $recommend_article->title }}</h3>
     <div class="col-md-12 recommended-item-slider">
         <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true" data-autoplay="true" data-fit="contain">
-        @foreach($recommend_article->recommend_photos as $key => $value)
-            <img src="{{ $value }}">
-        @endforeach
+        @if($recommend_article->recommend_photos)
+            @foreach($recommend_article->recommend_photos as $key => $value)
+                <a href="{{ $value }}"><img src="{{ $value }}" width="67" height="60"></a>
+            @endforeach
+        @endif
         </div>
     </div>
+    
     {!! $recommend_article->content !!}
     <!-- <h4 class="recommended-single-page-heading-secondary">О ресторане</h4>
     <p class="recommended-single-text">Café L’étage и Bel étage составляют единый развлекательный комплекс.
@@ -60,21 +69,33 @@
         этаж можно смело назвать VIP-зоной с посадочными местами и индивидуальным обслуживанием
         официантами ресторана.
     </p> -->
+@if($recommend_article->contact_map)
     <h4 class="recommended-single-page-heading-secondary">Контакты</h4>
     <div class="col-md-12 recommended-page-map">
+    <div style="width: 100%; overflow: hidden; height: 320px;">
         {!! $recommend_article->contact_map !!}
+    </div>
         <div class="recommended-map-info">
-            <h3 class="recommended-map-info-heading">Адрес</h3>
-            <p class="recommended-map-info-adress">Украина, Киев</p>
-            <p class="recommended-map-info-adress">ул. Драгомирова 2, офис 4</p>
-            <h3 class="recommended-map-info-heading">Телефон</h3>
-            <a href="tel:+380906879685" class="recommended-map-info-phone">{{ $recommend_article->contact_phone }}</a>
-            <h3 class="recommended-map-info-heading">Работает</h3>
-            <p class="recommended-map-info-timing">с <span class="timing-bold">8:00</span> до <span class="timing-bold">23:00</span></p>
+            @if($recommend_article->contact_address)
+                <h3 class="recommended-map-info-heading">Адрес</h3>
+                @foreach(json_decode($recommend_article->contact_address) as $address)
+                    @if(isset($address->name))<p class="recommended-map-info-adress">{{$address->name}}</p>@endif
+                @endforeach
+            @endif
+            @if($recommend_article->contact_address)
+                <h3 class="recommended-map-info-heading">Телефон</h3>
+                @foreach(json_decode($recommend_article->contact_phone) as $contact_phone)
+                    @if(isset($contact_phone->name))<a href="tel:{{ $contact_phone->name }}" class="recommended-map-info-phone">{{ $contact_phone->name }}</a>@endif
+                @endforeach
+            @endif
+            @if($recommend_article->contact_timetable)
+                <h3 class="recommended-map-info-heading">Работает</h3>
+                <p class="recommended-map-info-timing">с <span class="timing-bold">{{ $recommend_article->contact_timetable }}</span></p>
+            @endif
             <ul class="recommended-map-info-socmedia">
             @if($recommend_article->contact_youtube)
                 <li class="recommended-map-socmedia-item">
-                    <a href="{{ $recommend_article->contact_youtube }}" class="recommended-map-socmedia-link">
+                    <a href="{{ $recommend_article->contact_youtube }}" target="_blank" class="recommended-map-socmedia-link">
                         <i class="fa fa-youtube" aria-hidden="true"></i>
                     </a>
                 </li>
@@ -82,7 +103,7 @@
             @endif
             @if($recommend_article->contact_facebook)
                 <li class="recommended-map-socmedia-item">
-                    <a href="{{ $recommend_article->contact_facebook }}" class="recommended-map-socmedia-link">
+                    <a href="{{ $recommend_article->contact_facebook }}" target="_blank" class="recommended-map-socmedia-link">
                         <i class="fa fa-facebook" aria-hidden="true"></i>
                     </a>
                 </li>
@@ -90,7 +111,7 @@
             @endif
             @if($recommend_article->contact_instagram)
                 <li class="recommended-map-socmedia-item">
-                    <a href="{{ $recommend_article->contact_instagram }}" class="recommended-map-socmedia-link">
+                    <a href="{{ $recommend_article->contact_instagram }}" target="_blank" class="recommended-map-socmedia-link">
                         <i class="fa fa-instagram" aria-hidden="true"></i>
                     </a>
                 </li>
@@ -98,7 +119,7 @@
             @endif
             @if($recommend_article->contact_url)
                 <li class="recommended-map-socmedia-item">
-                    <a href="{{ $recommend_article->contact_url }}" class="recommended-map-socmedia-link">
+                    <a href="{{ $recommend_article->contact_url }}" target="_blank" class="recommended-map-socmedia-link">
                         <i class="fa fa-globe" aria-hidden="true"></i>
                     </a>
                 </li>
@@ -107,9 +128,10 @@
             </ul>
         </div>
     </div>
+    @endif
     @if($recommend_article->contact_url)
     <div class="col-md-12 recommended-page-goto-link">
-        <a href="{{ $recommend_article->contact_url }}" class="recommended-page-link-to-website">Перейти на сайт</a>
+        <a href="{{ $recommend_article->contact_url }}" target="_blank" class="recommended-page-link-to-website">Перейти на сайт</a>
     </div>
     @else
     @endif

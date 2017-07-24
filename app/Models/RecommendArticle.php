@@ -3,15 +3,16 @@
 namespace App\Models;
 
 use Backpack\CRUD\CrudTrait;
-use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class RecommendArticle extends Model
 {
     use CrudTrait;
     use Sluggable, SluggableScopeHelpers;
-
+    use Searchable;
      /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
@@ -26,8 +27,6 @@ class RecommendArticle extends Model
     // protected $hidden = [];
     // protected $dates = [];
     protected $casts = [
-        // 'start_date' => 'datetime',
-        // 'end_date' => 'datetime',
         'recommend_photos' => 'array',
         'datetime' => 'datetime',
     ];
@@ -44,6 +43,15 @@ class RecommendArticle extends Model
                 'source' => 'slug_or_title',
             ],
         ];
+    }
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return $this->makeHidden('image')->makeHidden('recommend_photos')->toArray();
     }
 
     /*
@@ -100,6 +108,11 @@ class RecommendArticle extends Model
         return str_slug($this->title);
     }
 
+    public function getLinkAttribute()
+    {
+        return '/recommend/'.$this->slug;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
@@ -142,6 +155,13 @@ class RecommendArticle extends Model
 
     public function setDatetimeAttribute($value) {
         $this->attributes['datetime'] = \Date::parse($value);
+    }
+    public function setContactmapAttribute($value) {
+        preg_match("/.*width=\"([0-9]*)\"/", $value, $vals);
+        $value = str_replace('width="'.$vals[1].'"', 'width="705"', $value);
+        preg_match("/.*height=\"([0-9]*)\"/", $value, $vals);
+        $value = str_replace('height="'.$vals[1].'"', 'height="620" style="border:0; margin-top: -150px;"', $value);
+        $this->attributes['contact_map'] = $value;
     }
 
 }

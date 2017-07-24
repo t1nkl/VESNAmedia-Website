@@ -31,14 +31,15 @@
 
 
 @section('content')
+    @include('includes.breadcrumbs', ['crumbs' => [['Эксперты', '/experts'], 'Статьи от '. $expert->title]])
 
 <div class="experts-posts-header">
     <a href="/experts" class="experts-posts-back-link"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Эксперты</a>
-    <div class="experts-posts-header-text">
+    <!-- <div class="experts-posts-header-text"> -->
         <h3 class="experts-posts-author">Статьи от <span class="experts-posts-author-name">{{ $expert->title }}</span></h3>
-    </div>
+    <!-- </div> -->
 </div>
-<ul class="col-md-12 grid swipe-down row" id="grid">
+<ul class="col-md-12 grids effect-1 row" id="grid">
 
 @foreach($articles as $article)
     <li class="col-md-4">
@@ -48,7 +49,7 @@
                 <span class="grid-category">{{ $article->category->title }}</span>
                 <span class="grid-date">{{ Date::parse($article->date)->format('j F, Y') }}</span>
                 <h3 class="grid-heading">{{ $article->title }}</h3>
-                {!! str_limit($article->content, $limit = 210, $end = '...') !!}
+                <p class="grid-text">{!! str_limit($article->mini, $limit = 210, $end = '...') !!}</p>
             </div>
         </a>
     </li>
@@ -58,8 +59,6 @@
 <div class="col-md-12 pagination-block">
     {{ $articles->render() }}
 </div>
-<div class="col-md-12 advertisement-block">
-    <img src="/img/flat-img.jpg" class="img-fluid advertisement-illustration" alt="">
-</div>
+
 
 @endsection

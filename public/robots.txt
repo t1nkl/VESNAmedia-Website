@@ -1,2 +1,7 @@
 User-agent: *
-Disallow:
+Disallow: *?page=*
+Disallow: /admin/*
+Disallow: /search?s=
+
+Host: https://www.vesnamedia.com/
+Sitemap: https://www.vesnamedia.com/sitemap.xml

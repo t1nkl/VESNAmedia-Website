@@ -25,7 +25,8 @@ class JournalArticleRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'title' => 'required|min:5|max:191',
+            'mini' => 'required|min:5|max:191',
         ];
     }
 

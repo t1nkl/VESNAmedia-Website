@@ -26,7 +26,9 @@ class CreateJournalArticlesTable extends Migration
             $table->string('title');
             $table->string('slug')->default('');
             $table->longText('content')->nullable();
+            $table->varchar('mini')->nullable();
             $table->string('image')->nullable();
+            $table->string('minimage')->nullable();
 
             $table->enum('status', ['PUBLISHED', 'DRAFT'])->default('PUBLISHED');
             $table->dateTime('date')->nullable();

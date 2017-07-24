@@ -9,7 +9,7 @@
 			</li>
 			@foreach(Helpers::getJournalCategories() as $journal_categories)
 			<li class="header-navigation-journal-item">
-				<a href="/journal#{{ $journal_categories->slug }}" class="header-navigation-journal-link">{{ $journal_categories->title }}</a>
+				<a href="/journal?cat={{ $journal_categories->slug }}" class="header-navigation-journal-link">{{ $journal_categories->title }}</a>
 			</li>
 			@endforeach
 			<!-- <li class="header-navigation-journal-item">
@@ -27,7 +27,7 @@
 		</ul>
 		<ul class="header-navigation-site">
 			<li class="header-navigation-site-item">
-				<a href="#" class="header-navigation-site-link">САЙТ</a>
+				<a href="/" class="header-navigation-site-link">САЙТ</a>
 			</li>
 			<li class="header-navigation-site-item">
 				<a href="/experts" class="header-navigation-site-link">Эксперты</a>
@@ -48,7 +48,7 @@
 			</li>
 			@foreach(Helpers::getRecommendCategories() as $recommend_categories)
 			<li class="header-navigation-recommended-item">
-				<a href="/recommend#{{ $recommend_categories->slug }}" class="header-navigation-recommended-link">{{ $recommend_categories->title }}</a>
+				<a href="/recommend?cat={{ $recommend_categories->slug }}" class="header-navigation-recommended-link">{{ $recommend_categories->title }}</a>
 			</li>
 			@endforeach
 			<!-- <li class="header-navigation-recommended-item">
@@ -65,26 +65,39 @@
 			</li> -->
 		</ul>
 		<ul class="header-navigation-socmedia">
+			@if($settings->instagram)
 			<li class="header-navigation-socmedia-item">
-				<a href="#" class="header-navigation-socmedia-link">
+				<a href="{{$settings->youtube}}" target="_blank" class="header-navigation-socmedia-link">
 					<i class="fa fa-youtube" aria-hidden="true"></i>
 				</a>
 			</li>
+			@endif
+			@if($settings->instagram)
 			<li class="header-navigation-socmedia-item">
-				<a href="#" class="header-navigation-socmedia-link">
+				<a href="{{$settings->facebook}}" target="_blank" class="header-navigation-socmedia-link">
 					<i class="fa fa-facebook" aria-hidden="true"></i>
 				</a>
 			</li>
+			@endif
+			@if($settings->instagram)
 			<li class="header-navigation-socmedia-item">
-				<a href="#" class="header-navigation-socmedia-link">
+				<a href="{{$settings->instagram}}" target="_blank" class="header-navigation-socmedia-link">
 					<i class="fa fa-instagram" aria-hidden="true"></i>
 				</a>
 			</li>
+			@endif
+			@if($settings->twitter)
+			<li class="header-navigation-socmedia-item">
+				<a href="{{$settings->twitter}}" target="_blank" class="header-navigation-socmedia-link">
+					<i class="fa fa-twitter" aria-hidden="true"></i>
+				</a>
+			</li>
+			@endif
 		</ul>
 	</div>
 	<div class="col-md-12 header-search-block">
-		<form action="" class="col-md-12 header-search-form">
-			<input id="header-search-item-id" class="form-control header-search-item" type="search" value="" placeholder="" id="header-search-input">
+		<form action="/search" method="get" class="col-md-12 header-search-form">
+			<input id="header-search-item-id" class="form-control header-search-item" type="text" name="s" value="" placeholder="" id="header-search-input">
 			<input class="header-search-reset" type="reset" value="">
 		</form>
 	</div>
@@ -92,8 +105,8 @@
 	<nav class="mobile-navigation-block">
 		<div class="shops" >
 			<div class="col-md-12 header-search-block-mob">
-				<form action="" class="col-md-12 header-search-form-mob">
-					<input id="header-search-item-id-mob" class="form-control-mob header-search-item-mob" type="search" placeholder="Поиск" value="" id="header-search-input-mob">
+				<form action="/search" method="get" class="mobile-search-form">
+					<input id="header-search-item-id-mob" class="form-control-mob header-search-item-mob" type="text" name="s" placeholder="Поиск" value="" id="header-search-input-mob">
 					<input class="header-search-reset-mob" type="reset" value=" ">
 				</form>
 			</div>
@@ -121,21 +134,34 @@
 				</li>
 			</ul>
 			<ul class="col-md-12 header-mob-socmedia-block">
+			  @if($settings->youtube)
 				<li class="header-mob-socmedia-item">
-					<a href="#" class="header-mob-socmedia-link">
+					<a href="{{$settings->youtube}}" target="_blank" class="header-mob-socmedia-link">
 						<i class="fa fa-youtube" aria-hidden="true"></i>
 					</a>
 				</li>
+			  @endif
+			  @if($settings->facebook)
 				<li class="header-mob-socmedia-item">
-					<a href="#" class="header-mob-socmedia-link">
+					<a href="{{$settings->facebook}}" target="_blank" class="header-mob-socmedia-link">
 						<i class="fa fa-facebook" aria-hidden="true"></i>
 					</a>
 				</li>
+			   @endif
+			   @if($settings->instagram)
 				<li class="header-mob-socmedia-item">
-					<a href="#" class="header-mob-socmedia-link">
+					<a href="{{$settings->instagram}}" target="_blank" class="header-mob-socmedia-link">
 						<i class="fa fa-instagram" aria-hidden="true"></i>
 					</a>
 				</li>
+			  @endif
+			  @if($settings->twitter)
+				<li class="header-mob-socmedia-item">
+					<a href="{{$settings->twitter}}" target="_blank" class="header-mob-socmedia-link">
+						<i class="fa fa-twitter" aria-hidden="true"></i>
+					</a>
+				</li>
+			  @endif
 			</ul>
 		</div>
 		<button class="toggle-menu-mob"></button>

@@ -1,15 +1,13 @@
 @extends('layouts.app')
 
-
-
 <!-- /*===== set title =====*/ -->
 @section('title')
-{{ $journal_article->seo_title ? $journal_article->seo_title : $journal_article->title." - Vesna" }}
+{{ $title = $journal_article->seo_title ? $journal_article->seo_title : $journal_article->title." - Vesna" }}
 @endsection
 
 <!-- /*===== set description =====*/ -->
 @section('description')
-{{ $journal_article->seo_description ? $journal_article->seo_description : $journal_article->title." - журнал Vesna" }}
+{{ $descr = $journal_article->seo_description ? $journal_article->seo_description : $journal_article->title." - журнал Vesna" }}
 @endsection
 
 <!-- /*===== set keywords =====*/ -->
@@ -18,6 +16,16 @@
 
 <!-- /*===== set Open Graph =====*/ -->
 @section('open_graph')
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{$title}}">
+    <meta name="twitter:description" content="{{ $journal_article->mini }}">
+    <meta name="twitter:image" content="{{env('APP_URL')}}img/og/2.png">
+
+    <meta property="og:title" content="{{$title}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{url()->current()}}" />
+    <meta property="og:image" content="{{ $journal_article->minimage }}" />
+    <meta property="og:description" content="{{ $journal_article->mini }}" />
 @endsection
 
 <!-- /*===== set custom css =====*/ -->
@@ -26,36 +34,32 @@
 
 <!-- /*===== set custom javascript =====*/ -->
 @section('custom_javascript')
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 @endsection
 
 
 
 @section('content')
-
+    @include('includes.breadcrumbs', ['crumbs' => [['Журнал', '/journal'], $journal_article->title]])
 <main class="single-page row">
     <div class="col-md-3 single-author-info">
         <div class="single-author-illustration-block">
-            <img src="{{ $journal_article->author->image }}" class="single-author-img" alt="">
+            <a href="/experts/{{$journal_article->author->slug}}"><img src="{{ $journal_article->author->image }}" class="single-author-img" alt="">
         </div>
         <h3 class="single-author-name">{{ $journal_article->author->title }}</h3>
         <div class="social-media-share-block">
             <span class="single-author-share-text">ПОДЕЛИТЬСЯ</span>
             <ul class="single-author-socmedia">
-                <li class="single-author-socmedia-item">
-                    <a href="#" class="single-author-socmedia-item-link">
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                    </a>
-                </li>
-                <li class="single-author-socmedia-item">
-                    <a href="#" class="single-author-socmedia-item-link">
-                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                    </a>
-                </li>
-                <li class="single-author-socmedia-item">
-                    <a href="#" class="single-author-socmedia-item-link">
-                        <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                    </a>
-                </li>
+              <li class="single-author-socmedia-item">
+                <a href="https://twitter.com/share" class="single-author-socmedia-item-link" data-url="{{url()->current()}}" target="_blank">
+                    <img src="/img/twitter.svg" alt="">
+                </a>
+              </li>
+              <li class="single-author-socmedia-item">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{request()->url()}}" target="_blank" class="single-author-socmedia-item-link">
+                  <img src="/img/facebook.svg" alt="">
+                </a>
+              </li>
             </ul>
         </div>
     </div>
@@ -64,139 +68,33 @@
         <span class="single-article-category">{{ $journal_article->category->title }}</span>
         <span class="single-article-publishdate">{{ Date::parse($journal_article->date)->format('j F, Y') }}</span>
         {!! $journal_article->content !!}
-        <!-- <p class="single-article-text">Каждая леди не понаслышке знает, что значит аромат для женщины.
-            Выбрать парфюм, который вам идеально подходит и будет сопровождать вас на авансцене, покоряя
-            сердца окружающих, — задача не из легких! Именно об этом мы пообщались в кулуарах с Дмитрием
-            Милютиным — коллекционером селективной парфюмерии и владельцем парфюм-галереи Moluar.
-            Говорили о тенденциях на рынке парфюмерии, о выборе ароматов и узнали, чем нужно руководствоваться
-            современной женщине в мире парфюмерии.
-        </p> -->
-        <!-- <img src="/img/img-3.jpg" class="img-fluid single-article-content-illustration" alt="">
-        <p class="single-article-text">
-            <span class="single-article-text-bold">Каждая леди не понаслышке знает, что значит аромат для женщины.</span>
-            Каждая леди не понаслышке знает, что значит аромат для женщины.
-            Выбрать парфюм, который вам идеально подходит и будет сопровождать вас на авансцене, покоряя
-            сердца окружающих, — задача не из легких! Именно об этом мы пообщались в кулуарах с Дмитрием
-            Милютиным — коллекционером селективной парфюмерии и владельцем парфюм-галереи Moluar.
-            Говорили о тенденциях на рынке парфюмерии, о выборе ароматов и узнали, чем нужно руководствоваться
-            современной женщине в мире парфюмерии.
-        </p> -->
-        <!-- <p class="single-article-text">
-            <span class="single-article-text-bold">Каждая леди не понаслышке знает, что значит аромат для женщины.</span>
-            Каждая леди не понаслышке знает, что значит аромат для женщины.
-            Выбрать парфюм, который вам идеально подходит и будет сопровождать вас на авансцене, покоряя
-            сердца окружающих, — задача не из легких! Именно об этом мы пообщались в кулуарах с Дмитрием
-            Милютиным — коллекционером селективной парфюмерии и владельцем парфюм-галереи Moluar.
-            Говорили о тенденциях на рынке парфюмерии, о выборе ароматов и узнали, чем нужно руководствоваться
-            современной женщине в мире парфюмерии.
-        </p> -->
-        <!-- <div class="general-irrelevant-illustration">
-            <img src="/img/flat-img.jpg" class="img-fluid general-illustration" alt="">
-        </div> -->
-        <!-- <p class="single-article-text">
-            <span class="single-article-text-bold">Каждая леди не понаслышке знает, что значит аромат для женщины.</span>
-            Выбрать парфюм, который вам идеально подходит и будет сопровождать вас на авансцене, покоряя
-            сердца окружающих, — задача не из легких! Именно об этом мы пообщались в кулуарах с Дмитрием
-            Милютиным — коллекционером селективной парфюмерии и владельцем парфюм-галереи Moluar.
-            Говорили о тенденциях на рынке парфюмерии, о выборе ароматов и узнали, чем нужно руководствоваться
-            современной женщине в мире парфюмерии.
-        </p>
-        <img src="/img/img-3.jpg" class="img-fluid single-article-content-illustration" alt="">
-        <p class="single-article-text">
-            <span class="single-article-text-bold">Каждая леди не понаслышке знает, что значит аромат для женщины.</span>
-            Выбрать парфюм, который вам идеально подходит и будет сопровождать вас на авансцене, покоряя
-            сердца окружающих, — задача не из легких! 
-        </p>
-        <blockquote class="article-quote">
-            <p class="quote-text">Я не курил, не знаю. Но я не парфюмер. Мне курение не помеха.
-            </p>
-        </blockquote>
-        <p class="single-article-text">
-            <span class="single-article-text-bold">Каждая леди не понаслышке знает, что значит аромат для женщины.</span>
-            Выбрать парфюм, который вам идеально подходит и будет сопровождать вас на авансцене, покоряя
-            сердца окружающих, — задача не из легких! Именно об этом мы пообщались в кулуарах с Дмитрием
-            Милютиным — коллекционером селективной парфюмерии и владельцем парфюм-галереи Moluar.
-            Говорили о тенденциях на рынке парфюмерии, о выборе ароматов и узнали, чем нужно руководствоваться
-            современной женщине в мире парфюмерии.
-        </p>
-        <p class="single-article-text">
-            <span class="single-article-text-bold">Каждая леди не понаслышке знает, что значит аромат для женщины.</span>
-            Выбрать парфюм, который вам идеально подходит и будет сопровождать вас на авансцене, покоряя
-            сердца окружающих, — задача не из легких! Именно об этом мы пообщались в кулуарах с Дмитрием
-            Милютиным — коллекционером селективной парфюмерии и владельцем парфюм-галереи Moluar.
-            Говорили о тенденциях на рынке парфюмерии, о выборе ароматов и узнали, чем нужно руководствоваться
-            современной женщине в мире парфюмерии.
-        </p>
-        <div class="single-article-numbers">
-            <p class="article-number">1</p>
-            <p class="single-article-text">Выбрать парфюм, который вам идеально подходит и будет сопровождать вас на авансцене, покоряя
-                сердца окружающих, — задача не из легких! Именно об этом мы пообщались в кулуарах с Дмитрием
-                Милютиным — коллекционером селективной парфюмерии и владельцем парфюм-галереи Moluar.
-                Говорили о тенденциях на рынке парфюмерии, о выборе ароматов и узнали, чем нужно руководствоваться
-                современной женщине в мире парфюмерии.
-            </p>
-        </div>
-        <div class="single-article-numbers">
-            <p class="single-article-text">Выбрать парфюм, который вам идеально подходит и будет сопровождать вас на авансцене, покоряя
-                сердца окружающих, — задача не из легких! Именно об этом мы пообщались в кулуарах с Дмитрием
-                Милютиным — коллекционером селективной парфюмерии и владельцем парфюм-галереи Moluar.
-                Говорили о тенденциях на рынке парфюмерии, о выборе ароматов и узнали, чем нужно руководствоваться
-                современной женщине в мире парфюмерии.
-            </p>
-            <p class="article-number">2</p>
-        </div>
-        <div class="single-article-numbers">
-            <p class="article-number">3</p>
-            <p class="single-article-text">Именно об этом мы пообщались в кулуарах с Дмитрием
-                Милютиным — коллекционером селективной парфюмерии и владельцем парфюм-галереи Moluar.
-                Говорили о тенденциях на рынке парфюмерии, о выборе ароматов и узнали, чем нужно руководствоваться
-                современной женщине в мире парфюмерии.
-            </p>
-        </div>
-        <div class="single-article-numbers">
-            <p class="single-article-text">Выбрать парфюм, который вам идеально подходит и будет сопровождать вас на авансцене, покоряя
-                сердца окружающих, — задача не из легких! 
-            </p>
-            <p class="article-number">4</p>
-        </div> -->
     </div>
     <div class="col-md-12 single-article-share-mobile">
         <h3 class="share-heading-mobile">ПОДЕЛИТЬСЯ</h3>
         <ul class="single-socmedia">
             <li class="single-socmedia-item">
-                <a href="#" class="single-socmedia-item-link">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                </a>
+            <a href="https://twitter.com/share" class="single-socmedia-item-link" data-url="{{url()->current()}}" target="_blank">
+                <img src="/img/twitter.svg" alt="">
+            </a>
             </li>
             <li class="single-socmedia-item">
-                <a href="#" class="single-socmedia-item-link">
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                </a>
-            </li>
-            <li class="single-socmedia-item">
-                <a href="#" class="single-socmedia-item-link">
-                    <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                <a class="single-socmedia-item-link" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{request()->url()}}&amp;src=sdkpreparse" >
+                    <img src="/img/facebook.svg" alt="">
                 </a>
             </li>
         </ul>
     </div>
     <div class="col-md-12 single-recommended-articles row">
         <h3 class="single-recommended-heading">Похожие статьи</h3>
-        <div class="col-md-4 grid-recommended-item">
-            <img src="/img/project-2.png" class="img-fluid grid-recommended-img" alt="">
-            <span class="grid-recommended-date">10 мая 2017</span>
-            <h3 class="grid-recommended-heading">Дмитрий Милютин: «слушайте духи сердцем!»</h3>
-        </div>
-        <div class="col-md-4 grid-recommended-item">
-            <img src="/img/project-2.png" class="img-fluid grid-recommended-img" alt="">
-            <span class="grid-recommended-date">10 мая 2017</span>
-            <h3 class="grid-recommended-heading">Дмитрий Милютин: «слушайте духи сердцем!»</h3>
-        </div>
-        <div class="col-md-4 grid-recommended-item">
-            <img src="/img/project-2.png" class="img-fluid grid-recommended-img" alt="">
-            <span class="grid-recommended-date">10 мая 2017</span>
-            <h3 class="grid-recommended-heading">Дмитрий Милютин: «слушайте духи сердцем!»</h3>
-        </div>
+        @foreach($suggested as $article)
+            <div class="grid-recommended-item">
+                <a href="{{ $article->link }}">
+                    <img src="{{ $article->minimage }}" class="img-fluid grid-recommended-img" alt="">
+                    <span class="grid-recommended-date">{{ Date::parse($article->date)->format('j F, Y') }}</span>
+                    <h3 class="grid-recommended-heading">{{ $article->title }}</h3>
+                </a>
+            </div>
+        @endforeach
     </div>
 </main>
 

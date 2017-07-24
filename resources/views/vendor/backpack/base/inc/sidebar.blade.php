@@ -19,49 +19,49 @@
       <!-- ================================================ -->
       <!-- ==== Recommended place for admin menu items ==== -->
       <!-- ================================================ -->
-      <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
+      <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/dashboard') }}"><i class="fa fa-home"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
 
       <li class="treeview">
         <a href="#"><i class="fa fa-newspaper-o"></i> <span>Журнал</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/journal/article') }}"><i class="fa fa-newspaper-o"></i> <span>Статьи</span></a></li>
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/journal/category') }}"><i class="fa fa-list"></i> <span>Категории</span></a></li>
-          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/journals') }}"><i class="fa fa-tag"></i> <span>Журналы</span></a></li>
-          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/journal/contact') }}"><i class="fa fa-tag"></i> <span>Заявки</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/journals') }}"><i class="fa fa-file-pdf-o"></i> <span>Журналы</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/journal/contact') }}"><i class="fa fa-envelope-open-o"></i> <span>Заявки</span></a></li>
         </ul>
       </li>
 
       <li class="treeview">
-        <a href="#"><i class="fa fa-newspaper-o"></i> <span>Сайт</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <a href="#"><i class="fa fa-globe"></i> <span>Сайт</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
-          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/experts') }}"><i class="fa fa-newspaper-o"></i> <span>Эксперты</span></a></li>
-          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/gallery') }}"><i class="fa fa-tag"></i> <span>Галерея</span></a></li>
-          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/partners') }}"><i class="fa fa-list"></i> <span>Партнеры</span></a></li>
-          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/about') }}"><i class="fa fa-list"></i> <span>О нас</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/experts') }}"><i class="fa fa-id-card-o"></i> <span>Эксперты</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/gallery') }}"><i class="fa fa-object-group"></i> <span>Галерея</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/partners') }}"><i class="fa fa-users"></i> <span>Партнеры</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/about') }}"><i class="fa fa-child"></i> <span>О нас</span></a></li>
         </ul>
       </li>
 
       <li class="treeview">
-        <a href="#"><i class="fa fa-newspaper-o"></i> <span>Рекомендуем</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <a href="#"><i class="fa fa-heart"></i> <span>Рекомендуем</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
-          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/recommend/article') }}"><i class="fa fa-tag"></i> <span>Статьи</span></a></li>
-          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/recommend/category') }}"><i class="fa fa-newspaper-o"></i> <span>Категории</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/recommend/article') }}"><i class="fa fa-sticky-note-o"></i> <span>Статьи</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/recommend/category') }}"><i class="fa fa-bars"></i> <span>Категории</span></a></li>
         </ul>
       </li>
 
-      <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/advertising') }}"><i class="fa fa-cog"></i> <span>Реклама</span></a></li>
+      <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/advertising') }}"><i class="fa fa-television"></i> <span>Реклама</span></a></li>
 
-      <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/lids') }}"><i class="fa fa-cog"></i> <span>Лиды</span></a></li>
+      <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/lids') }}"><i class="fa fa-rss"></i> <span>Лиды</span></a></li>
 
-      <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/contact') }}"><i class="fa fa-cog"></i> <span>Форма связи</span></a></li>
+      <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/contact') }}"><i class="fa fa-phone"></i> <span>Форма связи</span></a></li>
 
       <li class="treeview">
-        <a href="#"><i class="fa fa-newspaper-o"></i> <span>Настройки</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <a href="#"><i class="fa fa-cog"></i> <span>Настройки</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
-          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/slider') }}"><i class="fa fa-tag"></i> <span>Слайдер</span></a></li>
-          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/projects') }}"><i class="fa fa-newspaper-o"></i> <span>Проекты</span></a></li>
-          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/settings') }}"><i class="fa fa-newspaper-o"></i> <span>Настройки сайта</span></a></li>
-          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/seo') }}"><i class="fa fa-newspaper-o"></i> <span>SEO</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/slider') }}"><i class="fa fa-puzzle-piece"></i> <span>Слайдер</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/projects') }}"><i class="fa fa-shopping-basket"></i> <span>Проекты</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/settings') }}"><i class="fa fa-wrench"></i> <span>Настройки сайта</span></a></li>
+          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/seo') }}"><i class="fa fa-trash"></i> <span>SEO</span></a></li>
         </ul>
       </li>
 
@@ -78,7 +78,7 @@
       </li> -->
 
       <li class="treeview">
-        <a href="#"><i class="fa fa-cog"></i> <span>Утилиты</span><i class="fa fa-angle-left pull-right"></i></a>
+        <a href="#"><i class="fa fa-cogs"></i> <span>Утилиты</span><i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/elfinder') }}"><i class="fa fa-files-o"></i> <span>Файловый менеджер</span></a></li>
          <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/backup') }}"><i class="fa fa-hdd-o"></i> <span>Бекапы</span></a></li>

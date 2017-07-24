@@ -28,6 +28,7 @@ class CreateSettingsTable extends Migration
             $table->string('twitter')->nullable();
 
             $table->string('email')->nullable();
+            $table->string('subemail')->nullable();
             $table->text('address')->nullable();
             $table->string('phone')->nullable();
 

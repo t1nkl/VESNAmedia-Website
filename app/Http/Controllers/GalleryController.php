@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\{Advertising, Gallery};
 use Illuminate\Http\Request;
+use Jenssegers\Date\Date;
 
 class GalleryController extends Controller
 {
@@ -23,7 +25,9 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        return view('site.gallery');
+        $gallerys = Gallery::orderBy('rgt')->paginate(12);
+        $advert = Advertising::getFor('gallery');
+        return view('site.gallery', compact('gallerys', 'advert'));
     }
 
     /**
@@ -53,9 +57,9 @@ class GalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Gallery $gallery)
     {
-        return view('site.single-gallery');
+        return view('site.single-gallery', compact('gallery'));
     }
 
     /**

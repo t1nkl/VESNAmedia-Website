@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Journal;
-use Jenssegers\Date\Date;
+use App\Models\{Advertising, Expert, Journal, JournalArticle, JournalCategory, JournalContact, Setting};
 use Illuminate\Http\Request;
-use App\Models\JournalContact;
-use App\Models\JournalArticle;
+use Jenssegers\Date\Date;
 
 class JournalController extends Controller
 {
@@ -27,8 +25,12 @@ class JournalController extends Controller
      */
     public function index()
     {
-        $journal_articles = JournalArticle::getPublishedArticle();
-        return view('journal.journal', compact('journal_articles'));
+        $category = request()->has('cat') ? JournalCategory::where('slug', request()->cat)->first() : false;
+        $art = $category ? $category->articles() : new JournalArticle;
+        $journal_articles = $art->published()->paginate(12);
+        $advert = Advertising::getFor('journal');
+
+        return view('journal.journal', compact('journal_articles', 'category', 'advert'));
     }
 
     /**
@@ -61,7 +63,12 @@ class JournalController extends Controller
     public function show($id)
     {
         $journal_article = JournalArticle::where('slug', $id)->first();
-        return view('journal.single-journal', compact('journal_article'));
+        $suggested = JournalArticle::where('journal_category_id', $journal_article->journal_category_id)->where('id', '<>', $journal_article->id)->get();
+        if($suggested->count() >= 3)
+        {
+            $suggested = $suggested->random(3);
+        }
+        return view('journal.single-journal', compact('journal_article', 'suggested'));
     }
 
     /**
@@ -100,9 +107,9 @@ class JournalController extends Controller
 
     public function buyJournal( Request $request )
     {
-        $last_journal = Journal::latest()->first();
-        $journals = Journal::getAnotherJournals($last_journal->id);
-        if($request->ajax()) {
+        $last_journal = Journal::orderBy('rgt')->first();
+        $journals = $last_journal ? Journal::getAnotherJournals($last_journal->id) : false;
+        if($request->ajax()) { 
             return [
                 'journals' => view('journal.buy-journal-ajax')->with(compact('journals'))->render(),
                 'next_page' => $journals->nextPageUrl()
@@ -142,17 +149,16 @@ class JournalController extends Controller
      */
     public function buyJournalForm( Request $request )
     {
-        $contact = new JournalContact;
-        $contact->name = trim(stripslashes(htmlspecialchars($request->input('name'))));
-        $contact->email = $request->input('email');
-        $contact->phone = $request->input('phone');
-        $contact->journal_id = $request->input('journal_id');
-
-        if ($contact->save()){
+        $request->name = trim(stripslashes(htmlspecialchars($request->input('name'))));
+        
+        if ($contact = JournalContact::create($request->all())){
             try {
+                 $settings = Setting::first();
+
+                \Mail::to($settings->subemail)->send(new \App\Mail\JournalForm($contact));
                 return response()->json(200);
             } catch (\Exception $e) {
-                return response()->json(['error' => true, 'msg' => 'test'], 400);
+                return response()->json(['error' => true, 'msg' => $e->getMessage()], 400);
             }
         }
     }

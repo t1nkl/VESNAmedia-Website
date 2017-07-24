@@ -25,7 +25,7 @@ class JournalCategoryRequest extends \Backpack\CRUD\app\Http\Requests\CrudReques
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255',
+            'title' => 'required|min:3|max:191',
             'slug' => 'unique:journal_categories,slug,'.\Request::get('id'),
         ];
     }
@@ -50,7 +50,7 @@ class JournalCategoryRequest extends \Backpack\CRUD\app\Http\Requests\CrudReques
     public function messages()
     {
         return [
-            //
+            'title.required' => 'Поле название требуется.',
         ];
     }
 }

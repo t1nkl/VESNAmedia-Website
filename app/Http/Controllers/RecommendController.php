@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\{Advertising, RecommendArticle, RecommendCategory};
 use Illuminate\Http\Request;
-use App\Models\RecommendArticle;
 
 class RecommendController extends Controller
 {
@@ -23,9 +23,13 @@ class RecommendController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $recommend_articles = RecommendArticle::getPublishedArticle();
-        return view('recommend.recommend', compact('recommend_articles'));
+    { 
+        $category = request()->has('cat') ? RecommendCategory::where('slug', request()->cat)->first() : false;
+        $art = $category ? $category->articles() : new RecommendArticle;
+        $recommend_articles = $art->published()->paginate(12);    
+        $advert = Advertising::getFor('recomends');
+                 
+        return view('recommend.recommend', compact('recommend_articles', 'category', 'advert'));
     }
 
     /**

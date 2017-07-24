@@ -28,6 +28,22 @@ class Seo extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+   public function getArticleListDescription($category = false)
+   {
+        if($category && (get_class($category) == 'App\Models\JournalCategory' or get_class($category) == 'App\Models\RecommendCategory'))
+        {
+            return $this->seo_description.' | '.$category->title;
+        }
+        return $this->seo_description;
+   }
+      public function getArticleListTitle($category = false)
+   {
+        if($category && (get_class($category) == 'App\Models\JournalCategory' or get_class($category) == 'App\Models\RecommendCategory'))
+        {
+            return $this->seo_title.' | '.$category->title;
+        }
+        return $this->seo_title;
+   }
 
     /*
     |--------------------------------------------------------------------------

@@ -28,3 +28,5 @@ Route::resource('/partners', 'PartnerController');
 
 Route::resource('/contacts', 'ContactController');
 Route::post('/subscribe', 'ContactController@subscribeLid');
+
+Route::get('search', 'HomeController@search');
