@@ -2,7 +2,10 @@
 
 namespace App\Libraries;
 
-use App\Models\{Seo, Journal, JournalCategory, RecommendCategory};
+use App\Models\Seo;
+use App\Models\Journal;
+use App\Models\JournalCategory;
+use App\Models\RecommendCategory;
 
 class Helpers
 {

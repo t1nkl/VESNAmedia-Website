@@ -15,7 +15,7 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title')->nullable();
+            $table->string('title');
 
             $table->text('seo_title')->nullable();
             $table->text('seo_description')->nullable();
@@ -31,6 +31,7 @@ class CreateSettingsTable extends Migration
             $table->string('subemail')->nullable();
             $table->text('address')->nullable();
             $table->string('phone')->nullable();
+            $table->string('partners')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

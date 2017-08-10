@@ -1,15 +1,14 @@
 @extends('layouts.app')
 
 
-
 <!-- /*===== set title =====*/ -->
 @section('title')
-{{ $recommend_article->seo_title ? $recommend_article->seo_title : $recommend_article->title }}
+{{ $title = $recommend_article->seo_title ? $recommend_article->seo_title : $recommend_article->title }}
 @endsection
 
 <!-- /*===== set description =====*/ -->
 @section('description')
-{{ $recommend_article->seo_description ? $recommend_article->seo_description : "Vesna рекомендует ".$recommend_article->title }}
+{{ $descr =  $recommend_article->seo_description ? $recommend_article->seo_description : "Vesna рекомендует ".$recommend_article->title }}
 @endsection
 
 <!-- /*===== set keywords =====*/ -->
@@ -18,6 +17,12 @@
 
 <!-- /*===== set Open Graph =====*/ -->
 @section('open_graph')
+    <meta property="og:title" content="{{$title}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{url()->current()}}" />
+    @if(isset($image))
+    <meta property="og:image" content="{{env('APP_URL'). $image }}" />
+    @endif
 @endsection
 
 <!-- /*===== set custom css =====*/ -->
@@ -28,6 +33,13 @@
 <!-- /*===== set custom javascript =====*/ -->
 @section('custom_javascript')
 <script type="text/javascript" src="{{ asset('packages/fotorama/fotorama.js') }}"></script>
+<script type="text/javascript">
+$('#share').click(function() {
+    var img = $('.fotorama__active img').attr('src').split('/').pop().replace('.png', '');
+    var url = 'https://www.facebook.com/sharer/sharer.php?u={{env("APP_URL")}}/recommend/{{$recommend_article->slug}}/' + img;
+    window.open(url);
+});
+</script>
 @endsection 
 
 
@@ -50,6 +62,7 @@
             @endforeach
         @endif
         </div>
+    <button id="share" class="buttonShareFb"></button>
     </div>
     
     {!! $recommend_article->content !!}
@@ -71,7 +84,7 @@
     </p> -->
 @if($recommend_article->contact_map)
     <h4 class="recommended-single-page-heading-secondary">Контакты</h4>
-    <div class="col-md-12 recommended-page-map">
+    <div style="bottom:6px;" class="col-md-12 recommended-page-map">
     <div style="width: 100%; overflow: hidden; height: 320px;">
         {!! $recommend_article->contact_map !!}
     </div>

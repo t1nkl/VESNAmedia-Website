@@ -44,6 +44,17 @@
 
 <!-- /*===== set custom css =====*/ -->
 @section('custom_css')
+<style type="text/css">
+    .loading{
+        background-image : url('/img/loading.gif');  
+        background-repeat:no-repeat;
+    }
+    .loading:after {
+        content: "Загрузка...";
+        text-align : right;
+        padding-left : 25px;
+    }
+</style>
 @endsection
 
 <!-- /*===== set custom javascript =====*/ -->
@@ -69,7 +80,7 @@
                 success:function(data){
                     $('#subscribtion-input-block').slideUp();
                     $('#sub_title_email').slideUp();
-                    $('#subscribtion-input-block-response').html('Спасибо. Вы упешно подписались на новостную рассылку!');
+                    $('#subscribtion-input-block-response').html('Поздравляем. Вы успешно подписались на рассылку журнала VESNA');
                 },
                 error: function(data){
                 // setTimeout(mailCallback, 2000);
@@ -81,6 +92,7 @@
     <!-- /*===== endless pagination =====*/ -->
     function fetchPosts() {
         var page = $('.endless-pagination').data('next-page');
+        $('.load').addClass('loading');        
         $.ajax({
             type: "GET",
             url: '/',
@@ -92,6 +104,7 @@
                 if(data.less_then){$('.load-more').hide();}
                 $('.endless-pagination').data('next-page', data.next_page);
                 $('.all_articles').append(data.all_articles);
+                $('.load').removeClass('loading');                
             }
         });
     };
@@ -111,6 +124,9 @@
                     <div class="slider-bg-img">
                         <img class="slide-illustration" src="{{$slide->image}}" />
                     </div>
+                    <div style="display: none;" class="slider-bg-img">
+                        <img class="slide-illustration" src="{{$slide->image_mobile}}" />
+                    </div>
                 </a>
             </div>
             <div class="slide-count-wrap">
@@ -118,14 +134,14 @@
                 <span class="total"></span>
             </div>
             <div class="slider-describtion">
-                <h3>{{$slide->title}}</h3>
-                  <a href="{{$slide->url}}" class="slider-link"><p>{{$slide->description}}</p></a>
+                <a href="{{$slide->url}}" style="color:#3A3A3A;font-size:32px;font-weight:bold;font-family: "Playfair Display", serif; text-decoration: underline;"><h3>{{$slide->title}}</h3></a>
+                <a href="{{$slide->url}}" class="slider-link"><p>{{$slide->description}}</p></a>
             </div>
         </div>
         @endforeach
     </div>
     @endif
-    <h3 class="projects-section-heading">Наши проекты</h3>
+    <h3 class="projects-section-heading">{{$settings->partners}}</h3>
     <div class="row project-section">
         @foreach($projects as $project)
         <div class="col-md-4 project-block">

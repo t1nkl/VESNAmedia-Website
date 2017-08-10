@@ -98,7 +98,7 @@
                     },
                     success:function(data){
                         $('.footer-subscribtion-form').slideUp();
-                        $('.footer-subscribtion-form-response').html('Спасибо. Вы упешно подписались на новостную рассылку!');
+                        $('.footer-subscribtion-form-response').html('Поздравляем. Вы успешно подписались на рассылку журнала VESNA');
                     },
                     error: function(data){
                         setTimeout(mailCallback, 2000);

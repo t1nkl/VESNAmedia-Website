@@ -25,6 +25,7 @@ class CreateSlidersTable extends Migration
             $table->string('slug')->default('');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
+            $table->string('image_mobile')->nullable();
             $table->string('url')->nullable();
             $table->enum('status', ['PUBLISHED', 'DRAFT'])->default('PUBLISHED');
             

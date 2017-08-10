@@ -28,6 +28,8 @@ class JournalArticle extends Model
     // protected $hidden = [];
     // protected $dates = [];
     protected $casts = [
+        // 'start_date' => 'datetime',
+        // 'end_date' => 'datetime',
         'datetime' => 'datetime',
     ];
 

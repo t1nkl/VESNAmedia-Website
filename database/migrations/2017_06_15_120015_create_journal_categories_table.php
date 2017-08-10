@@ -21,7 +21,7 @@ class CreateJournalCategoriesTable extends Migration
             $table->integer('rgt')->unsigned()->nullable();
             $table->integer('depth')->unsigned()->nullable();
             
-            $table->string('title')->nullable();
+            $table->string('title');
             $table->string('slug')->default('');
             $table->timestamps();
             $table->softDeletes();

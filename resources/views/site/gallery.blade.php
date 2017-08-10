@@ -32,7 +32,7 @@
 
 @section('content')
 
-@include('includes.breadcrumbs', ['crumbs' => ['Галлерея']])
+@include('includes.breadcrumbs', ['crumbs' => ['Галерея']])
 <ul class="endless-pagination all_articles  col-md-12 grids effect-1" id="grid">
     @foreach($gallerys as $gallery)
         <li class="col-xs-12">

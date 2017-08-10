@@ -63,6 +63,5 @@ class DatabaseSeeder extends Seeder
             'updated_at' => \Carbon\Carbon::now(),
         ]);
         $this->call(SeoTableSeeder::class);
-        $this->call(DemoTableSeeder::class);
     }
 }

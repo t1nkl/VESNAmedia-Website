@@ -1,15 +1,12 @@
 @extends('layouts.app')
 
-
-
-<!-- /*===== set title =====*/ -->
 @section('title')
-{{ $gallery->seo_title ? $gallery->seo_title : $gallery->title." - Vesna" }}
+{{ $title = $gallery->seo_title ? $gallery->seo_title : $gallery->title." - Vesna" }}
 @endsection
 
 <!-- /*===== set description =====*/ -->
 @section('description')
-{{ $gallery->seo_description ? $gallery->seo_description : $gallery->title." - журнал Vesna" }}
+{{ $descr = $gallery->seo_description ? $gallery->seo_description : $gallery->title." - журнал Vesna" }}
 @endsection
 
 <!-- /*===== set keywords =====*/ -->
@@ -18,6 +15,12 @@
 
 <!-- /*===== set Open Graph =====*/ -->
 @section('open_graph')
+    <meta property="og:title" content="{{$title}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{url()->current()}}" />
+    @if(isset($image))
+        <meta property="og:image" content="{{env('APP_URL'). $image }}" />
+    @endif
 @endsection
 
 <!-- /*===== set custom css =====*/ -->
@@ -28,6 +31,13 @@
 <!-- /*===== set custom javascript =====*/ -->
 @section('custom_javascript')
 <script type="text/javascript" src="{{ asset('packages/fotorama/fotorama.js') }}"></script>
+<script type="text/javascript">
+$('#share').click(function() {
+    var img = $('.fotorama__active img').attr('src').split('/').pop().replace('.png', '');
+    var url = 'https://www.facebook.com/sharer/sharer.php?u={{env("APP_URL")}}/gallery/{{$gallery->slug}}/' + img;
+    window.open(url);
+});
+</script>
 @endsection
 
 
@@ -53,5 +63,5 @@
         </div>
     </div>
 </div>
-
+<button id="share" class="buttonShareFb"></button>
 @endsection

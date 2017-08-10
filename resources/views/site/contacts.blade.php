@@ -79,7 +79,7 @@
             <button type="submit" name="button" class="contact-page-form-submit">Отправить</button>
         </form>
     </div>
-    <div itemscope itemtype="http://schema.org/Organization" class="col-md-4 contact-page-info">
+    <div itemscope itemtype="http://schema.org/Organization" class="col-md-4 contact-page-info" style="margin: 40px 0;">
         @if(isset($settings->phone))
             <h3 class="contact-page-info-heading">Телефон</h3>
             @foreach(json_decode($settings->phone) as $phone)

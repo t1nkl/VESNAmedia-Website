@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
+// VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\AdvertisingRequest as StoreRequest;
 use App\Http\Requests\AdvertisingRequest as UpdateRequest;
 
@@ -36,6 +37,18 @@ class AdvertisingCrudController extends CrudController
 
         // ------ CRUD FIELDS
         $this->crud->addFields([
+            // [
+            //     'name' => 'main_separator',
+            //     'type' => 'custom_html',
+            //     'value' => '<h3>Реклама</h3><h4>для главной страницы сайта, формат изображений наоборот</h4><hr>',
+            //     'tab' => 'Контент'
+            // ],
+            // [
+            //     'label' => 'Название для администратора',
+            //     'type' => 'text',
+            //     'name' => 'admin_title',
+            //     'tab' => 'Контент'
+            // ],
             [
                 'label' => 'Название',
                 'type' => 'text',
@@ -120,7 +133,6 @@ class AdvertisingCrudController extends CrudController
         $this->crud->allowAccess(['list', 'update']);
         $this->crud->removeButton('delete');
         $this->crud->removeButton('create');
-        
     }
 
     public function store(StoreRequest $request)

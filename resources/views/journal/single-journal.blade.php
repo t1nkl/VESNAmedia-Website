@@ -19,12 +19,15 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{$title}}">
     <meta name="twitter:description" content="{{ $journal_article->mini }}">
-    <meta name="twitter:image" content="{{env('APP_URL')}}img/og/2.png">
+    <meta name="twitter:image" content="{{env('APP_URL'). $journal_article->minimage }}">
 
     <meta property="og:title" content="{{$title}}" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{url()->current()}}" />
-    <meta property="og:image" content="{{ $journal_article->minimage }}" />
+    <meta property="og:image" content="{{$image }}" />
+    @if(isset($journal_article->author->facebook))
+        <meta property="article:author" content="{{ $journal_article->author->facebook }}" />  
+    @endif  
     <meta property="og:description" content="{{ $journal_article->mini }}" />
 @endsection
 
@@ -34,7 +37,12 @@
 
 <!-- /*===== set custom javascript =====*/ -->
 @section('custom_javascript')
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+$('#article').find('p img').each(function(){
+    var image = $(this).attr('src').split('/').pop();
+        $(this).after('<a href="https://www.facebook.com/sharer/sharer.php?u={{env("APP_URL")}}{{$journal_article->link}}/'+ image +'"> поделиться в facebook </a>');    
+})
+</script>
 @endsection
 
 
@@ -67,7 +75,7 @@
         <h3 class="single-article-heading">{{ $journal_article->title }}</h3>
         <span class="single-article-category">{{ $journal_article->category->title }}</span>
         <span class="single-article-publishdate">{{ Date::parse($journal_article->date)->format('j F, Y') }}</span>
-        {!! $journal_article->content !!}
+        <div id="article">{!! $journal_article->content !!}</div>
     </div>
     <div class="col-md-12 single-article-share-mobile">
         <h3 class="share-heading-mobile">ПОДЕЛИТЬСЯ</h3>

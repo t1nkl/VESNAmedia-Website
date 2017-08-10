@@ -390,7 +390,7 @@ input[type="email"].subscribtion-input-field::-webkit-input-placeholder{color:#f
   .chess-grid-link,
   .single-author-socmedia,
   .single-author-share-text,
-  .contact-page-map,
+  /*.contact-page-map,*/
   .magazine-order-heading,
   .recommended-page-map > iframe,
   .recommended-map-info-socmedia,
@@ -515,7 +515,7 @@ input[type="email"].subscribtion-input-field::-webkit-input-placeholder{color:#f
   .toggle-menu-mob:focus{outline:none;}
   .sheev{display:flex;flex-wrap:wrap;justify-content:flex-end;}
   .sheev + .toggle-menu-mob{position:fixed;top:30px;width:25px;height:25px;background-image:url(../img/cross-white.svg);background-position:center;background-size:100%;}
-  .contact-page-map,
+  /*.contact-page-map,*/
   .footer-navigation,
   .back-to-top-block,
   .header-navigation,
@@ -654,4 +654,14 @@ input[type="email"].subscribtion-input-field::-webkit-input-placeholder{color:#f
 @-webkit-keyframes draw{50%{stroke-dashoffset:0;-webkit-transform:scale(0.5);transform:scale(0.5);}
 }
 @keyframes draw{50%{stroke-dashoffset:0;-webkit-transform:scale(0.5);transform:scale(0.5);}
+}
+.buttonShareFb {
+	background: url(../img/facebook.svg);
+	background-size: cover;
+	cursor: pointer;
+	width: 20px;
+	height: 40px; 
+	border: none;
+	margin-left: auto;
+	margin-bottom: 20px;
 }

@@ -138,7 +138,10 @@
         <div class="nesto-message">
             <h2 class="nesto-response"></h2>
         </div>
-        <!-- <a href="{{ $last_journal->url }}" target="_blank" name="button" class="magazine-page-form-submit-online-b">Купить online</a> -->
+        @if(isset($last_journal->url))
+	        <span class="magazine-page-divider">или</span>
+	        <a href="{{ $last_journal->url }}" target="_blank" name="button" class="magazine-page-form-submit-online-b">Купить online</a>
+        @endif
     </div>
     @endif
     @if($journals)

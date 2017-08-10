@@ -25,8 +25,8 @@ class CreateJournalArticlesTable extends Migration
             $table->integer('author_id')->unsigned()->default(0);
             $table->string('title');
             $table->string('slug')->default('');
-            $table->longText('content')->nullable();
             $table->string('mini')->nullable();
+            $table->longText('content')->nullable();
             $table->string('image')->nullable();
             $table->string('minimage')->nullable();
 

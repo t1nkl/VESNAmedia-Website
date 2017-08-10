@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Advertising, Gallery};
+use App\Models\Advertising;
+use App\Models\Gallery;
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
 
@@ -60,6 +61,18 @@ class GalleryController extends Controller
     public function show(Gallery $gallery)
     {
         return view('site.single-gallery', compact('gallery'));
+    }
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function faceLook(Gallery $gallery, $image)
+    {
+        preg_match("/.*\/(.*)\/.*.png/", $gallery->gallery_photos[0], $output_array);
+        $image = '/uploads/Gallery/'.$output_array[1].'/'. $image . '.png';
+        return view('site.single-gallery', compact('gallery', 'image'));
     }
 
     /**

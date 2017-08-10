@@ -45,7 +45,9 @@
                     @endif
                     <h3 class="grid-heading">{{ $item->title }}</h3>
                     @if(isset($item->mini))<p class="grid-text">{!! str_limit($item->mini, $limit = 210, $end = '...') !!}</p>
-                    @elseif(isset($item->content))<p class="grid-text">{!! str_limit($item->content, $limit = 210, $end = '...') !!}</p>@endif
+                    @elseif(isset($item->description))<p class="grid-text">{!! $item->description !!}</p>
+                    @elseif(isset($item->content))<p class="grid-text">{!! str_limit($item->content, $limit = 210, $end = '...') !!}</p>
+                    @endif
                 </div>
             </a>
         </li>

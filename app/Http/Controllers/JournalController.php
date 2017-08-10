@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Advertising, Expert, Journal, JournalArticle, JournalCategory, JournalContact, Setting};
+use App\Models\Advertising;
+use App\Models\Expert;
+use App\Models\Journal;
+use App\Models\JournalArticle;
+use App\Models\JournalCategory;
+use App\Models\JournalContact;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
 
@@ -26,8 +32,11 @@ class JournalController extends Controller
     public function index()
     {
         $category = request()->has('cat') ? JournalCategory::where('slug', request()->cat)->first() : false;
+
         $art = $category ? $category->articles() : new JournalArticle;
+
         $journal_articles = $art->published()->paginate(12);
+
         $advert = Advertising::getFor('journal');
 
         return view('journal.journal', compact('journal_articles', 'category', 'advert'));
@@ -68,7 +77,26 @@ class JournalController extends Controller
         {
             $suggested = $suggested->random(3);
         }
-        return view('journal.single-journal', compact('journal_article', 'suggested'));
+        $image = env('APP_URL'). $journal_article->minimage;
+        return view('journal.single-journal', compact('journal_article', 'suggested', 'image'));
+    }
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function faceLook($id, $image)
+    {
+        $journal_article = JournalArticle::where('slug', $id)->first();
+        $suggested = JournalArticle::where('journal_category_id', $journal_article->journal_category_id)->where('id', '<>', $journal_article->id)->get();
+        if($suggested->count() >= 3)
+        {
+            $suggested = $suggested->random(3);
+        }
+        $image = env('APP_URL')."/uploads/Articles/{$journal_article->slug}/{$image}";
+        return view('journal.single-journal', compact('journal_article', 'suggested', 'image'));
     }
 
     /**

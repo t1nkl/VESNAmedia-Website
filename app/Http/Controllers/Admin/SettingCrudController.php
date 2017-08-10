@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
+// VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\SettingRequest as StoreRequest;
 use App\Http\Requests\SettingRequest as UpdateRequest;
 
@@ -27,9 +28,16 @@ class SettingCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
+        // $this->crud->setFromDb();
         $this->crud->allowAccess(['list', 'update']);
         $this->crud->removeButton('delete');
         $this->crud->removeButton('create');
+        // ------ CRUD COLUMNS     
+        // $this->crud->addColumns([
+        //     ['name' => 'title', 'label' => 'Название'],
+        //     ['name' => 'status', 'label' => 'Статус'],
+        //     ['name' => 'date', 'label' => 'Дата'],
+        // ]);
 
         // ------ CRUD FIELDS
         $this->crud->addFields([
@@ -125,7 +133,48 @@ class SettingCrudController extends CrudController
                                 ],
                 // 'tab' => 'Контакты заведения'
             ],
+            [
+                'label' => 'Текст партнеров на главной',
+                'type' => 'text',
+                'name' => 'partners',
+                'wrapperAttributes' => [
+                                    'class' => 'form-group col-md-6',
+                                ],
+                // 'tab' => 'Контакты заведения'
+            ],
         ]);
+        // $this->crud->addFields([
+        //     [
+        //         'name' => 'seo_separator',
+        //         'type' => 'custom_html',
+        //         'value' => '<h3>SEO</h3><h4>если нету, будет использоватся автогенирация</h4><hr>',
+        //         'tab' => 'Seo'
+        //     ],
+        //     [
+        //         'label' => 'Название (title)',
+        //         'type' => 'text',
+        //         'name' => 'seo_title',
+        //         'count_down' => 80,
+        //         'attributes' => ['maxlength' => 80],
+        //         'tab' => 'Seo'
+        //     ],
+        //     [
+        //         'label' => 'Описание (description)',
+        //         'type' => 'textarea',
+        //         'name' => 'seo_description',
+        //         'count_down' => 155,
+        //         'attributes' => ['maxlength' => 155, 'rows' => 3],
+        //         'tab' => 'Seo'
+        //     ],
+        //     [
+        //         'label' => 'Ключевые слова (keywords)',
+        //         'type' => 'textarea',
+        //         'name' => 'seo_keywords',
+        //         'count_down' => 180,
+        //         'attributes' => ['maxlength' => 180, 'rows' => 3],
+        //         'tab' => 'Seo'
+        //     ],
+        // ]);
 
         $this->crud->enableAjaxTable();
     }

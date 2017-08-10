@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Project, JournalArticle, RecommendArticle, Gallery, Slider, Advertising};
+use App\Models\Advertising;
+use App\Models\{Project, JournalArticle, RecommendArticle, Gallery, Slider};
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
@@ -29,10 +30,13 @@ class HomeController extends Controller
         Date::setLocale('ru');
 
         $projects = Project::orderBy("rgt")->get();
-        $journal_articles = JournalArticle::getAllPublishedArticle();
-        $page = request()->has('page') ? request()->page : 1;
 
+        $journal_articles = JournalArticle::getAllPublishedArticle();
+        // $recommend_articles = RecommendArticle::getAllPublishedArticle();
+        // $all_articles = $journal_articles->merge($recommend_articles);
+        $page = request()->has('page') ? request()->page : 1;
         $all_articles = $journal_articles->sortByDesc('date')->forPage($page, 12)->all();
+
         if($request->ajax()) {
             return [
                 'all_articles' => view('home_all_articles_ajax')->with(compact('all_articles'))->render(),
@@ -42,6 +46,7 @@ class HomeController extends Controller
         }
 
         $slides = Slider::where('status', 'PUBLISHED')->orderBy('rgt')->get();
+
         $advert = Advertising::getFor('main');
         $advert_sub = Advertising::getFor('main_sub');
 

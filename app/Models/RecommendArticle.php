@@ -27,6 +27,8 @@ class RecommendArticle extends Model
     // protected $hidden = [];
     // protected $dates = [];
     protected $casts = [
+        // 'start_date' => 'datetime',
+        // 'end_date' => 'datetime',
         'recommend_photos' => 'array',
         'datetime' => 'datetime',
     ];
@@ -44,6 +46,15 @@ class RecommendArticle extends Model
             ],
         ];
     }
+    /**
+     * Get the route key name for Laravel.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }   
     /**
      * Get the indexable data array for the model.
      *
@@ -157,11 +168,13 @@ class RecommendArticle extends Model
         $this->attributes['datetime'] = \Date::parse($value);
     }
     public function setContactmapAttribute($value) {
-        preg_match("/.*width=\"([0-9]*)\"/", $value, $vals);
-        $value = str_replace('width="'.$vals[1].'"', 'width="705"', $value);
-        preg_match("/.*height=\"([0-9]*)\"/", $value, $vals);
-        $value = str_replace('height="'.$vals[1].'"', 'height="620" style="border:0; margin-top: -150px;"', $value);
-        $this->attributes['contact_map'] = $value;
+        if($value){
+            preg_match("/.*width=\"([0-9]*)\"/", $value, $vals);
+            $value = str_replace('width="'.$vals[1].'"', 'width="100%"', $value);
+            preg_match("/.*height=\"([0-9]*)\"/", $value, $vals);
+            $value = str_replace('height="'.$vals[1].'"', 'height="620" style="border:0; margin-top: -150px;"', $value);
+            $this->attributes['contact_map'] = $value;
+        }
     }
 
 }

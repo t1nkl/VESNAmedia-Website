@@ -12,6 +12,18 @@
 				<a href="/journal?cat={{ $journal_categories->slug }}" class="header-navigation-journal-link">{{ $journal_categories->title }}</a>
 			</li>
 			@endforeach
+			<!-- <li class="header-navigation-journal-item">
+				<a href="/journal" class="header-navigation-journal-link">Косметология</a>
+			</li>
+			<li class="header-navigation-journal-item">
+				<a href="/journal" class="header-navigation-journal-link">Психология</a>
+			</li>
+			<li class="header-navigation-journal-item">
+				<a href="/journal" class="header-navigation-journal-link">Стиль жизни</a>
+			</li>
+			<li class="header-navigation-journal-item">
+				<a href="/journal" class="header-navigation-journal-link">События</a>
+			</li> -->
 		</ul>
 		<ul class="header-navigation-site">
 			<li class="header-navigation-site-item">
@@ -39,16 +51,28 @@
 				<a href="/recommend?cat={{ $recommend_categories->slug }}" class="header-navigation-recommended-link">{{ $recommend_categories->title }}</a>
 			</li>
 			@endforeach
+			<!-- <li class="header-navigation-recommended-item">
+				<a href="/recommend" class="header-navigation-recommended-link">Рестораны</a>
+			</li>
+			<li class="header-navigation-recommended-item">
+				<a href="/recommend" class="header-navigation-recommended-link">Салоны красоты</a>
+			</li>
+			<li class="header-navigation-recommended-item">
+				<a href="/recommend" class="header-navigation-recommended-link">Клиники</a>
+			</li>
+			<li class="header-navigation-recommended-item">
+				<a href="/recommend" class="header-navigation-recommended-link">Барбершопы</a>
+			</li> -->
 		</ul>
 		<ul class="header-navigation-socmedia">
-			@if($settings->youtube)
+			@if($settings->instagram)
 			<li class="header-navigation-socmedia-item">
 				<a href="{{$settings->youtube}}" target="_blank" class="header-navigation-socmedia-link">
 					<i class="fa fa-youtube" aria-hidden="true"></i>
 				</a>
 			</li>
 			@endif
-			@if($settings->facebook)
+			@if($settings->instagram)
 			<li class="header-navigation-socmedia-item">
 				<a href="{{$settings->facebook}}" target="_blank" class="header-navigation-socmedia-link">
 					<i class="fa fa-facebook" aria-hidden="true"></i>

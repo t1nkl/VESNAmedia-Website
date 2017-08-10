@@ -21,7 +21,8 @@ class Article extends Model
     protected $table = 'articles';
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $guarded = ['id'];
+    // protected $guarded = ['id'];
+    protected $fillable = ['slug', 'title', 'content', 'image', 'status', 'category_id', 'featured', 'date'];
     // protected $hidden = [];
     // protected $dates = [];
     protected $casts = [

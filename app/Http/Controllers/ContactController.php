@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{About, Contact, Lid, Setting};
+use App\Models\About;
+use App\Models\Contact;
+use App\Models\Lid;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller

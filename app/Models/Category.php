@@ -20,8 +20,9 @@ class Category extends Model
 
     protected $table = 'categories';
     protected $primaryKey = 'id';
-    public $timestamps = true;
-    protected $guarded = ['id'];
+    // public $timestamps = false;
+    // protected $guarded = ['id'];
+    protected $fillable = ['name', 'slug', 'parent_id'];
     // protected $hidden = [];
     // protected $dates = [];
 
