@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Advertising;
-use App\Models\Gallery;
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
+use App\Models\{Gallery, Advertising};
 
 class GalleryController extends Controller
 {
@@ -28,6 +27,7 @@ class GalleryController extends Controller
     {
         $gallerys = Gallery::orderBy('rgt')->paginate(12);
         $advert = Advertising::getFor('gallery');
+        
         return view('site.gallery', compact('gallerys', 'advert'));
     }
 
@@ -72,6 +72,7 @@ class GalleryController extends Controller
     {
         preg_match("/.*\/(.*)\/.*.png/", $gallery->gallery_photos[0], $output_array);
         $image = '/uploads/Gallery/'.$output_array[1].'/'. $image . '.png';
+
         return view('site.single-gallery', compact('gallery', 'image'));
     }
 

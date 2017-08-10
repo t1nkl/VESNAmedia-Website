@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Advertising;
-use App\Models\Expert;
-use App\Models\Journal;
-use App\Models\JournalArticle;
-use App\Models\JournalCategory;
-use App\Models\JournalContact;
-use App\Models\Setting;
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
+use App\Models\{Advertising, Expert, Journal, JournalArticle, JournalCategory, JournalContact, Setting};
 
 class JournalController extends Controller
 {
@@ -32,11 +26,8 @@ class JournalController extends Controller
     public function index()
     {
         $category = request()->has('cat') ? JournalCategory::where('slug', request()->cat)->first() : false;
-
         $art = $category ? $category->articles() : new JournalArticle;
-
         $journal_articles = $art->published()->paginate(12);
-
         $advert = Advertising::getFor('journal');
 
         return view('journal.journal', compact('journal_articles', 'category', 'advert'));
@@ -78,6 +69,7 @@ class JournalController extends Controller
             $suggested = $suggested->random(3);
         }
         $image = env('APP_URL'). $journal_article->minimage;
+
         return view('journal.single-journal', compact('journal_article', 'suggested', 'image'));
     }
 
@@ -96,6 +88,7 @@ class JournalController extends Controller
             $suggested = $suggested->random(3);
         }
         $image = env('APP_URL')."/uploads/Articles/{$journal_article->slug}/{$image}";
+
         return view('journal.single-journal', compact('journal_article', 'suggested', 'image'));
     }
 
@@ -143,6 +136,7 @@ class JournalController extends Controller
                 'next_page' => $journals->nextPageUrl()
             ];
         }
+
         return view('journal.buy-journal', compact('journals', 'last_journal'));
     }
 
@@ -181,8 +175,7 @@ class JournalController extends Controller
         
         if ($contact = JournalContact::create($request->all())){
             try {
-                 $settings = Setting::first();
-
+                $settings = Setting::first();
                 \Mail::to($settings->subemail)->send(new \App\Mail\JournalForm($contact));
                 return response()->json(200);
             } catch (\Exception $e) {

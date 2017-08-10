@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Expert;
 use Illuminate\Http\Request;
+use App\Models\Expert;
 
 class ExpertController extends Controller
 {
@@ -25,6 +25,7 @@ class ExpertController extends Controller
     public function index()
     {
         $experts = Expert::getExperts();
+
         return view('site.experts', compact('experts'));
     }
 
@@ -59,6 +60,7 @@ class ExpertController extends Controller
     {
         $expert = Expert::where('slug', $id)->first();
         $articles = $expert->programs()->paginate(12);
+
         return view('site.single-experts', compact('expert', 'articles'));
     }
 

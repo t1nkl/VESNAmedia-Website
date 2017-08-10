@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Advertising;
-use App\Models\RecommendArticle;
-use App\Models\RecommendCategory;
 use Illuminate\Http\Request;
+use App\Models\{Advertising, RecommendArticle, RecommendCategory};
 
 class RecommendController extends Controller
 {
@@ -27,11 +25,10 @@ class RecommendController extends Controller
     public function index()
     { 
         $category = request()->has('cat') ? RecommendCategory::where('slug', request()->cat)->first() : false;
-
         $art = $category ? $category->articles() : new RecommendArticle;
-        
-        $recommend_articles = $art->published()->paginate(12);    
-        $advert = Advertising::getFor('recomends');            
+        $recommend_articles = $art->published()->paginate(12);
+        $advert = Advertising::getFor('recomends');
+
         return view('recommend.recommend', compact('recommend_articles', 'category', 'advert'));
     }
 
@@ -65,6 +62,7 @@ class RecommendController extends Controller
     public function show($id)
     {
         $recommend_article = RecommendArticle::where('slug', $id)->first();
+
         return view('recommend.single-recommend', compact('recommend_article'));
     }
 
@@ -79,6 +77,7 @@ class RecommendController extends Controller
         $recommend_article = RecommendArticle::where('slug', $id)->first();
         preg_match("/.*\/(.*)\/.*.png/", $recommend_article->recommend_photos[0], $output_array);
         $image = '/uploads/Recommends/'.$output_array[1].'/'. $image . '.png';
+        
         return view('recommend.single-recommend', compact('recommend_article', 'image'));
     }
 

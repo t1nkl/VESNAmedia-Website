@@ -20,9 +20,8 @@ class Category extends Model
 
     protected $table = 'categories';
     protected $primaryKey = 'id';
-    // public $timestamps = false;
-    // protected $guarded = ['id'];
-    protected $fillable = ['name', 'slug', 'parent_id'];
+    public $timestamps = true;
+    protected $guarded = ['id'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -93,7 +92,7 @@ class Category extends Model
             return $this->slug;
         }
 
-        return $this->name;
+        return str_slug($this->name);
     }
 
     /*

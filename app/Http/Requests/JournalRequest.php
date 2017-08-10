@@ -26,7 +26,6 @@ class JournalRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     {
         return [
             'title' => 'required|min:5|max:191',
-            'image' => 'required',
             'pdf' => 'required',
         ];
     }

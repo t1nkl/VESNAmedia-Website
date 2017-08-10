@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\About;
-use App\Models\Contact;
-use App\Models\Lid;
-use App\Models\Setting;
 use Illuminate\Http\Request;
+use App\Models\{Setting, Lid, Contact, About};
 
 class ContactController extends Controller
 {
@@ -53,7 +50,6 @@ class ContactController extends Controller
         if ($contact = Contact::create($request->all())){
             try {
                 $settings = Setting::first();
-
                 \Mail::to($settings->subemail)->send(new \App\Mail\ContactForm($contact));
                 return response()->json(200);
             } catch (\Exception $e) {
@@ -117,7 +113,6 @@ class ContactController extends Controller
     {
         $subscribe = new Lid;
         $subscribe->email = $request->input('email');
-
         if ($subscribe->save()){
             try {
                 return response()->json(200);
